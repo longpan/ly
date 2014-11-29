@@ -1,4 +1,4 @@
-package org.xhome.yl.common;
+package org.xhome.ly.common;
 
 /**
  * @author [FeN]July  E-mail: newfenjuly@gmail.com

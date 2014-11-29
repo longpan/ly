@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.xhome.ly.mapper.FollowUpMapper" >
+  <resultMap id="BaseResultMap" type="org.xhome.ly.bean.FollowUp" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="interrogation_record_id" property="interrogationRecordId" jdbcType="INTEGER" />
+    <result column="follow_up_time" property="followUpTime" jdbcType="TIMESTAMP" />
+    <result column="follow_up_method" property="followUpMethod" jdbcType="VARCHAR" />
+    <result column="onset_evidence" property="onsetEvidence" jdbcType="VARCHAR" />
+    <result column="evidence_source" property="evidenceSource" jdbcType="VARCHAR" />
+    <result column="postoperative_anticoagulation" property="postoperativeAnticoagulation" jdbcType="VARCHAR" />
+    <result column="postoperative_complications" property="postoperativeComplications" jdbcType="VARCHAR" />
+    <result column="postoperative_arrhythmias" property="postoperativeArrhythmias" jdbcType="VARCHAR" />
+    <result column="postoperatie_adds" property="postoperatieAdds" jdbcType="VARCHAR" />
+    <result column="postoperatie_medication" property="postoperatieMedication" jdbcType="VARCHAR" />
+    <result column="echocardiographic_time" property="echocardiographicTime" jdbcType="VARCHAR" />
+    <result column="postoperatie_la" property="postoperatieLa" jdbcType="VARCHAR" />
+    <result column="postoperatie_lv" property="postoperatieLv" jdbcType="VARCHAR" />
+    <result column="postoperatie_lvef" property="postoperatieLvef" jdbcType="VARCHAR" />
+    <result column="left_thrombosis" property="leftThrombosis" jdbcType="VARCHAR" />
+    <result column="check_method" property="checkMethod" jdbcType="VARCHAR" />
+    <result column="keyword1" property="keyword1" jdbcType="VARCHAR" />
+    <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
+    <result column="keyword3" property="keyword3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, interrogation_record_id, follow_up_time, follow_up_method, onset_evidence, evidence_source, 
+    postoperative_anticoagulation, postoperative_complications, postoperative_arrhythmias, 
+    postoperatie_adds, postoperatie_medication, echocardiographic_time, postoperatie_la, 
+    postoperatie_lv, postoperatie_lvef, left_thrombosis, check_method, keyword1, keyword2, 
+    keyword3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from follow_up
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from follow_up
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.xhome.ly.bean.FollowUp" >
+    insert into follow_up (id, interrogation_record_id, follow_up_time, 
+      follow_up_method, onset_evidence, evidence_source, 
+      postoperative_anticoagulation, postoperative_complications, 
+      postoperative_arrhythmias, postoperatie_adds, 
+      postoperatie_medication, echocardiographic_time, 
+      postoperatie_la, postoperatie_lv, postoperatie_lvef, 
+      left_thrombosis, check_method, keyword1, 
+      keyword2, keyword3)
+    values (#{id,jdbcType=INTEGER}, #{interrogationRecordId,jdbcType=INTEGER}, #{followUpTime,jdbcType=TIMESTAMP}, 
+      #{followUpMethod,jdbcType=VARCHAR}, #{onsetEvidence,jdbcType=VARCHAR}, #{evidenceSource,jdbcType=VARCHAR}, 
+      #{postoperativeAnticoagulation,jdbcType=VARCHAR}, #{postoperativeComplications,jdbcType=VARCHAR}, 
+      #{postoperativeArrhythmias,jdbcType=VARCHAR}, #{postoperatieAdds,jdbcType=VARCHAR}, 
+      #{postoperatieMedication,jdbcType=VARCHAR}, #{echocardiographicTime,jdbcType=VARCHAR}, 
+      #{postoperatieLa,jdbcType=VARCHAR}, #{postoperatieLv,jdbcType=VARCHAR}, #{postoperatieLvef,jdbcType=VARCHAR}, 
+      #{leftThrombosis,jdbcType=VARCHAR}, #{checkMethod,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR}, 
+      #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.xhome.ly.bean.FollowUp" >
+    insert into follow_up
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="interrogationRecordId != null" >
+        interrogation_record_id,
+      </if>
+      <if test="followUpTime != null" >
+        follow_up_time,
+      </if>
+      <if test="followUpMethod != null" >
+        follow_up_method,
+      </if>
+      <if test="onsetEvidence != null" >
+        onset_evidence,
+      </if>
+      <if test="evidenceSource != null" >
+        evidence_source,
+      </if>
+      <if test="postoperativeAnticoagulation != null" >
+        postoperative_anticoagulation,
+      </if>
+      <if test="postoperativeComplications != null" >
+        postoperative_complications,
+      </if>
+      <if test="postoperativeArrhythmias != null" >
+        postoperative_arrhythmias,
+      </if>
+      <if test="postoperatieAdds != null" >
+        postoperatie_adds,
+      </if>
+      <if test="postoperatieMedication != null" >
+        postoperatie_medication,
+      </if>
+      <if test="echocardiographicTime != null" >
+        echocardiographic_time,
+      </if>
+      <if test="postoperatieLa != null" >
+        postoperatie_la,
+      </if>
+      <if test="postoperatieLv != null" >
+        postoperatie_lv,
+      </if>
+      <if test="postoperatieLvef != null" >
+        postoperatie_lvef,
+      </if>
+      <if test="leftThrombosis != null" >
+        left_thrombosis,
+      </if>
+      <if test="checkMethod != null" >
+        check_method,
+      </if>
+      <if test="keyword1 != null" >
+        keyword1,
+      </if>
+      <if test="keyword2 != null" >
+        keyword2,
+      </if>
+      <if test="keyword3 != null" >
+        keyword3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="interrogationRecordId != null" >
+        #{interrogationRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="followUpTime != null" >
+        #{followUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="followUpMethod != null" >
+        #{followUpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="onsetEvidence != null" >
+        #{onsetEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="evidenceSource != null" >
+        #{evidenceSource,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperativeAnticoagulation != null" >
+        #{postoperativeAnticoagulation,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperativeComplications != null" >
+        #{postoperativeComplications,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperativeArrhythmias != null" >
+        #{postoperativeArrhythmias,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieAdds != null" >
+        #{postoperatieAdds,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieMedication != null" >
+        #{postoperatieMedication,jdbcType=VARCHAR},
+      </if>
+      <if test="echocardiographicTime != null" >
+        #{echocardiographicTime,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieLa != null" >
+        #{postoperatieLa,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieLv != null" >
+        #{postoperatieLv,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieLvef != null" >
+        #{postoperatieLvef,jdbcType=VARCHAR},
+      </if>
+      <if test="leftThrombosis != null" >
+        #{leftThrombosis,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMethod != null" >
+        #{checkMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword1 != null" >
+        #{keyword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword2 != null" >
+        #{keyword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword3 != null" >
+        #{keyword3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.xhome.ly.bean.FollowUp" >
+    update follow_up
+    <set >
+      <if test="interrogationRecordId != null" >
+        interrogation_record_id = #{interrogationRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="followUpTime != null" >
+        follow_up_time = #{followUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="followUpMethod != null" >
+        follow_up_method = #{followUpMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="onsetEvidence != null" >
+        onset_evidence = #{onsetEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="evidenceSource != null" >
+        evidence_source = #{evidenceSource,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperativeAnticoagulation != null" >
+        postoperative_anticoagulation = #{postoperativeAnticoagulation,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperativeComplications != null" >
+        postoperative_complications = #{postoperativeComplications,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperativeArrhythmias != null" >
+        postoperative_arrhythmias = #{postoperativeArrhythmias,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieAdds != null" >
+        postoperatie_adds = #{postoperatieAdds,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieMedication != null" >
+        postoperatie_medication = #{postoperatieMedication,jdbcType=VARCHAR},
+      </if>
+      <if test="echocardiographicTime != null" >
+        echocardiographic_time = #{echocardiographicTime,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieLa != null" >
+        postoperatie_la = #{postoperatieLa,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieLv != null" >
+        postoperatie_lv = #{postoperatieLv,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperatieLvef != null" >
+        postoperatie_lvef = #{postoperatieLvef,jdbcType=VARCHAR},
+      </if>
+      <if test="leftThrombosis != null" >
+        left_thrombosis = #{leftThrombosis,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMethod != null" >
+        check_method = #{checkMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword1 != null" >
+        keyword1 = #{keyword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword2 != null" >
+        keyword2 = #{keyword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword3 != null" >
+        keyword3 = #{keyword3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.xhome.ly.bean.FollowUp" >
+    update follow_up
+    set interrogation_record_id = #{interrogationRecordId,jdbcType=INTEGER},
+      follow_up_time = #{followUpTime,jdbcType=TIMESTAMP},
+      follow_up_method = #{followUpMethod,jdbcType=VARCHAR},
+      onset_evidence = #{onsetEvidence,jdbcType=VARCHAR},
+      evidence_source = #{evidenceSource,jdbcType=VARCHAR},
+      postoperative_anticoagulation = #{postoperativeAnticoagulation,jdbcType=VARCHAR},
+      postoperative_complications = #{postoperativeComplications,jdbcType=VARCHAR},
+      postoperative_arrhythmias = #{postoperativeArrhythmias,jdbcType=VARCHAR},
+      postoperatie_adds = #{postoperatieAdds,jdbcType=VARCHAR},
+      postoperatie_medication = #{postoperatieMedication,jdbcType=VARCHAR},
+      echocardiographic_time = #{echocardiographicTime,jdbcType=VARCHAR},
+      postoperatie_la = #{postoperatieLa,jdbcType=VARCHAR},
+      postoperatie_lv = #{postoperatieLv,jdbcType=VARCHAR},
+      postoperatie_lvef = #{postoperatieLvef,jdbcType=VARCHAR},
+      left_thrombosis = #{leftThrombosis,jdbcType=VARCHAR},
+      check_method = #{checkMethod,jdbcType=VARCHAR},
+      keyword1 = #{keyword1,jdbcType=VARCHAR},
+      keyword2 = #{keyword2,jdbcType=VARCHAR},
+      keyword3 = #{keyword3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

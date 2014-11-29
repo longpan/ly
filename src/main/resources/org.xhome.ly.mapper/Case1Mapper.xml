@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.xhome.ly.mapper.Case1Mapper" >
+  <resultMap id="BaseResultMap" type="org.xhome.ly.bean.Case1" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="interrogation_record_id" property="interrogationRecordId" jdbcType="INTEGER" />
+    <result column="operation_data" property="operationData" jdbcType="TIMESTAMP" />
+    <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+    <result column="operator_detail" property="operatorDetail" jdbcType="VARCHAR" />
+    <result column="vt_type" property="vtType" jdbcType="VARCHAR" />
+    <result column="vt_course_disease" property="vtCourseDisease" jdbcType="VARCHAR" />
+    <result column="arrhythmia_diagnose" property="arrhythmiaDiagnose" jdbcType="VARCHAR" />
+    <result column="electrophysiology_diagnose" property="electrophysiologyDiagnose" jdbcType="VARCHAR" />
+    <result column="postoperation_diagnose" property="postoperationDiagnose" jdbcType="VARCHAR" />
+    <result column="mechanism" property="mechanism" jdbcType="VARCHAR" />
+    <result column="part" property="part" jdbcType="VARCHAR" />
+    <result column="la_bore" property="laBore" jdbcType="VARCHAR" />
+    <result column="lv_bore" property="lvBore" jdbcType="VARCHAR" />
+    <result column="lvef_bore" property="lvefBore" jdbcType="VARCHAR" />
+    <result column="ra_bore" property="raBore" jdbcType="VARCHAR" />
+    <result column="rv_bore" property="rvBore" jdbcType="VARCHAR" />
+    <result column="ucg_remarks" property="ucgRemarks" jdbcType="VARCHAR" />
+    <result column="ecg_type" property="ecgType" jdbcType="VARCHAR" />
+    <result column="electrical_offset" property="electricalOffset" jdbcType="VARCHAR" />
+    <result column="preopreative_examination" property="preopreativeExamination" jdbcType="VARCHAR" />
+    <result column="anti_arrhythmia_drugs" property="antiArrhythmiaDrugs" jdbcType="VARCHAR" />
+    <result column="invali_danti_arrhythmia_drugs" property="invaliDantiArrhythmiaDrugs" jdbcType="VARCHAR" />
+    <result column="merger_arrhythmia" property="mergerArrhythmia" jdbcType="VARCHAR" />
+    <result column="imaging_inside_heart" property="imagingInsideHeart" jdbcType="VARCHAR" />
+    <result column="induced_way" property="inducedWay" jdbcType="VARCHAR" />
+    <result column="check_medication" property="checkMedication" jdbcType="VARCHAR" />
+    <result column="tachycardia_regulation" property="tachycardiaRegulation" jdbcType="VARCHAR" />
+    <result column="ccl" property="ccl" jdbcType="VARCHAR" />
+    <result column="inspection_method" property="inspectionMethod" jdbcType="VARCHAR" />
+    <result column="diastolic_potential" property="diastolicPotential" jdbcType="VARCHAR" />
+    <result column="p_potential_examination" property="pPotentialExamination" jdbcType="VARCHAR" />
+    <result column="ablation_procedure" property="ablationProcedure" jdbcType="VARCHAR" />
+    <result column="ablation_lines" property="ablationLines" jdbcType="VARCHAR" />
+    <result column="target_position" property="targetPosition" jdbcType="VARCHAR" />
+    <result column="ablation_energy" property="ablationEnergy" jdbcType="VARCHAR" />
+    <result column="ablation_judgement" property="ablationJudgement" jdbcType="VARCHAR" />
+    <result column="ablation_end_point" property="ablationEndPoint" jdbcType="VARCHAR" />
+    <result column="effective_target_site" property="effectiveTargetSite" jdbcType="VARCHAR" />
+    <result column="discharge_time" property="dischargeTime" jdbcType="VARCHAR" />
+    <result column="xray_exposure_time" property="xrayExposureTime" jdbcType="VARCHAR" />
+    <result column="ablation_times" property="ablationTimes" jdbcType="INTEGER" />
+    <result column="intraoperative_cable_rate" property="intraoperativeCableRate" jdbcType="VARCHAR" />
+    <result column="before_heart_rate" property="beforeHeartRate" jdbcType="VARCHAR" />
+    <result column="before_vt" property="beforeVt" jdbcType="VARCHAR" />
+    <result column="before_ront" property="beforeRont" jdbcType="VARCHAR" />
+    <result column="before_remarks" property="beforeRemarks" jdbcType="VARCHAR" />
+    <result column="in_heart_rate" property="inHeartRate" jdbcType="VARCHAR" />
+    <result column="in_vt" property="inVt" jdbcType="VARCHAR" />
+    <result column="in_ront" property="inRont" jdbcType="VARCHAR" />
+    <result column="in_remarks" property="inRemarks" jdbcType="VARCHAR" />
+    <result column="complication_heart_rate" property="complicationHeartRate" jdbcType="VARCHAR" />
+    <result column="complication_vt" property="complicationVt" jdbcType="VARCHAR" />
+    <result column="complication_ront" property="complicationRont" jdbcType="VARCHAR" />
+    <result column="complication_remarks" property="complicationRemarks" jdbcType="VARCHAR" />
+    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+    <result column="global_remarks" property="globalRemarks" jdbcType="VARCHAR" />
+    <result column="keyword1" property="keyword1" jdbcType="VARCHAR" />
+    <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
+    <result column="keyword3" property="keyword3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, interrogation_record_id, operation_data, operator_name, operator_detail, 
+    vt_type, vt_course_disease, arrhythmia_diagnose, electrophysiology_diagnose, postoperation_diagnose, 
+    mechanism, part, la_bore, lv_bore, lvef_bore, ra_bore, rv_bore, ucg_remarks, ecg_type, 
+    electrical_offset, preopreative_examination, anti_arrhythmia_drugs, invali_danti_arrhythmia_drugs, 
+    merger_arrhythmia, imaging_inside_heart, induced_way, check_medication, tachycardia_regulation, 
+    ccl, inspection_method, diastolic_potential, p_potential_examination, ablation_procedure, 
+    ablation_lines, target_position, ablation_energy, ablation_judgement, ablation_end_point, 
+    effective_target_site, discharge_time, xray_exposure_time, ablation_times, intraoperative_cable_rate, 
+    before_heart_rate, before_vt, before_ront, before_remarks, in_heart_rate, in_vt, 
+    in_ront, in_remarks, complication_heart_rate, complication_vt, complication_ront, 
+    complication_remarks, picture_url, global_remarks, keyword1, keyword2, keyword3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from case1
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from case1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.xhome.ly.bean.Case1" >
+    insert into case1 (id, name, interrogation_record_id, 
+      operation_data, operator_name, operator_detail, 
+      vt_type, vt_course_disease, arrhythmia_diagnose, 
+      electrophysiology_diagnose, postoperation_diagnose, 
+      mechanism, part, la_bore, 
+      lv_bore, lvef_bore, ra_bore, 
+      rv_bore, ucg_remarks, ecg_type, 
+      electrical_offset, preopreative_examination, 
+      anti_arrhythmia_drugs, invali_danti_arrhythmia_drugs, 
+      merger_arrhythmia, imaging_inside_heart, induced_way, 
+      check_medication, tachycardia_regulation, 
+      ccl, inspection_method, diastolic_potential, 
+      p_potential_examination, ablation_procedure, 
+      ablation_lines, target_position, ablation_energy, 
+      ablation_judgement, ablation_end_point, effective_target_site, 
+      discharge_time, xray_exposure_time, ablation_times, 
+      intraoperative_cable_rate, before_heart_rate, 
+      before_vt, before_ront, before_remarks, 
+      in_heart_rate, in_vt, in_ront, 
+      in_remarks, complication_heart_rate, complication_vt, 
+      complication_ront, complication_remarks, 
+      picture_url, global_remarks, keyword1, 
+      keyword2, keyword3)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{interrogationRecordId,jdbcType=INTEGER}, 
+      #{operationData,jdbcType=TIMESTAMP}, #{operatorName,jdbcType=VARCHAR}, #{operatorDetail,jdbcType=VARCHAR}, 
+      #{vtType,jdbcType=VARCHAR}, #{vtCourseDisease,jdbcType=VARCHAR}, #{arrhythmiaDiagnose,jdbcType=VARCHAR}, 
+      #{electrophysiologyDiagnose,jdbcType=VARCHAR}, #{postoperationDiagnose,jdbcType=VARCHAR}, 
+      #{mechanism,jdbcType=VARCHAR}, #{part,jdbcType=VARCHAR}, #{laBore,jdbcType=VARCHAR}, 
+      #{lvBore,jdbcType=VARCHAR}, #{lvefBore,jdbcType=VARCHAR}, #{raBore,jdbcType=VARCHAR}, 
+      #{rvBore,jdbcType=VARCHAR}, #{ucgRemarks,jdbcType=VARCHAR}, #{ecgType,jdbcType=VARCHAR}, 
+      #{electricalOffset,jdbcType=VARCHAR}, #{preopreativeExamination,jdbcType=VARCHAR}, 
+      #{antiArrhythmiaDrugs,jdbcType=VARCHAR}, #{invaliDantiArrhythmiaDrugs,jdbcType=VARCHAR}, 
+      #{mergerArrhythmia,jdbcType=VARCHAR}, #{imagingInsideHeart,jdbcType=VARCHAR}, #{inducedWay,jdbcType=VARCHAR}, 
+      #{checkMedication,jdbcType=VARCHAR}, #{tachycardiaRegulation,jdbcType=VARCHAR}, 
+      #{ccl,jdbcType=VARCHAR}, #{inspectionMethod,jdbcType=VARCHAR}, #{diastolicPotential,jdbcType=VARCHAR}, 
+      #{pPotentialExamination,jdbcType=VARCHAR}, #{ablationProcedure,jdbcType=VARCHAR}, 
+      #{ablationLines,jdbcType=VARCHAR}, #{targetPosition,jdbcType=VARCHAR}, #{ablationEnergy,jdbcType=VARCHAR}, 
+      #{ablationJudgement,jdbcType=VARCHAR}, #{ablationEndPoint,jdbcType=VARCHAR}, #{effectiveTargetSite,jdbcType=VARCHAR}, 
+      #{dischargeTime,jdbcType=VARCHAR}, #{xrayExposureTime,jdbcType=VARCHAR}, #{ablationTimes,jdbcType=INTEGER}, 
+      #{intraoperativeCableRate,jdbcType=VARCHAR}, #{beforeHeartRate,jdbcType=VARCHAR}, 
+      #{beforeVt,jdbcType=VARCHAR}, #{beforeRont,jdbcType=VARCHAR}, #{beforeRemarks,jdbcType=VARCHAR}, 
+      #{inHeartRate,jdbcType=VARCHAR}, #{inVt,jdbcType=VARCHAR}, #{inRont,jdbcType=VARCHAR}, 
+      #{inRemarks,jdbcType=VARCHAR}, #{complicationHeartRate,jdbcType=VARCHAR}, #{complicationVt,jdbcType=VARCHAR}, 
+      #{complicationRont,jdbcType=VARCHAR}, #{complicationRemarks,jdbcType=VARCHAR}, 
+      #{pictureUrl,jdbcType=VARCHAR}, #{globalRemarks,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR}, 
+      #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.xhome.ly.bean.Case1" >
+    insert into case1
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="interrogationRecordId != null" >
+        interrogation_record_id,
+      </if>
+      <if test="operationData != null" >
+        operation_data,
+      </if>
+      <if test="operatorName != null" >
+        operator_name,
+      </if>
+      <if test="operatorDetail != null" >
+        operator_detail,
+      </if>
+      <if test="vtType != null" >
+        vt_type,
+      </if>
+      <if test="vtCourseDisease != null" >
+        vt_course_disease,
+      </if>
+      <if test="arrhythmiaDiagnose != null" >
+        arrhythmia_diagnose,
+      </if>
+      <if test="electrophysiologyDiagnose != null" >
+        electrophysiology_diagnose,
+      </if>
+      <if test="postoperationDiagnose != null" >
+        postoperation_diagnose,
+      </if>
+      <if test="mechanism != null" >
+        mechanism,
+      </if>
+      <if test="part != null" >
+        part,
+      </if>
+      <if test="laBore != null" >
+        la_bore,
+      </if>
+      <if test="lvBore != null" >
+        lv_bore,
+      </if>
+      <if test="lvefBore != null" >
+        lvef_bore,
+      </if>
+      <if test="raBore != null" >
+        ra_bore,
+      </if>
+      <if test="rvBore != null" >
+        rv_bore,
+      </if>
+      <if test="ucgRemarks != null" >
+        ucg_remarks,
+      </if>
+      <if test="ecgType != null" >
+        ecg_type,
+      </if>
+      <if test="electricalOffset != null" >
+        electrical_offset,
+      </if>
+      <if test="preopreativeExamination != null" >
+        preopreative_examination,
+      </if>
+      <if test="antiArrhythmiaDrugs != null" >
+        anti_arrhythmia_drugs,
+      </if>
+      <if test="invaliDantiArrhythmiaDrugs != null" >
+        invali_danti_arrhythmia_drugs,
+      </if>
+      <if test="mergerArrhythmia != null" >
+        merger_arrhythmia,
+      </if>
+      <if test="imagingInsideHeart != null" >
+        imaging_inside_heart,
+      </if>
+      <if test="inducedWay != null" >
+        induced_way,
+      </if>
+      <if test="checkMedication != null" >
+        check_medication,
+      </if>
+      <if test="tachycardiaRegulation != null" >
+        tachycardia_regulation,
+      </if>
+      <if test="ccl != null" >
+        ccl,
+      </if>
+      <if test="inspectionMethod != null" >
+        inspection_method,
+      </if>
+      <if test="diastolicPotential != null" >
+        diastolic_potential,
+      </if>
+      <if test="pPotentialExamination != null" >
+        p_potential_examination,
+      </if>
+      <if test="ablationProcedure != null" >
+        ablation_procedure,
+      </if>
+      <if test="ablationLines != null" >
+        ablation_lines,
+      </if>
+      <if test="targetPosition != null" >
+        target_position,
+      </if>
+      <if test="ablationEnergy != null" >
+        ablation_energy,
+      </if>
+      <if test="ablationJudgement != null" >
+        ablation_judgement,
+      </if>
+      <if test="ablationEndPoint != null" >
+        ablation_end_point,
+      </if>
+      <if test="effectiveTargetSite != null" >
+        effective_target_site,
+      </if>
+      <if test="dischargeTime != null" >
+        discharge_time,
+      </if>
+      <if test="xrayExposureTime != null" >
+        xray_exposure_time,
+      </if>
+      <if test="ablationTimes != null" >
+        ablation_times,
+      </if>
+      <if test="intraoperativeCableRate != null" >
+        intraoperative_cable_rate,
+      </if>
+      <if test="beforeHeartRate != null" >
+        before_heart_rate,
+      </if>
+      <if test="beforeVt != null" >
+        before_vt,
+      </if>
+      <if test="beforeRont != null" >
+        before_ront,
+      </if>
+      <if test="beforeRemarks != null" >
+        before_remarks,
+      </if>
+      <if test="inHeartRate != null" >
+        in_heart_rate,
+      </if>
+      <if test="inVt != null" >
+        in_vt,
+      </if>
+      <if test="inRont != null" >
+        in_ront,
+      </if>
+      <if test="inRemarks != null" >
+        in_remarks,
+      </if>
+      <if test="complicationHeartRate != null" >
+        complication_heart_rate,
+      </if>
+      <if test="complicationVt != null" >
+        complication_vt,
+      </if>
+      <if test="complicationRont != null" >
+        complication_ront,
+      </if>
+      <if test="complicationRemarks != null" >
+        complication_remarks,
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url,
+      </if>
+      <if test="globalRemarks != null" >
+        global_remarks,
+      </if>
+      <if test="keyword1 != null" >
+        keyword1,
+      </if>
+      <if test="keyword2 != null" >
+        keyword2,
+      </if>
+      <if test="keyword3 != null" >
+        keyword3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="interrogationRecordId != null" >
+        #{interrogationRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="operationData != null" >
+        #{operationData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorName != null" >
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDetail != null" >
+        #{operatorDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="vtType != null" >
+        #{vtType,jdbcType=VARCHAR},
+      </if>
+      <if test="vtCourseDisease != null" >
+        #{vtCourseDisease,jdbcType=VARCHAR},
+      </if>
+      <if test="arrhythmiaDiagnose != null" >
+        #{arrhythmiaDiagnose,jdbcType=VARCHAR},
+      </if>
+      <if test="electrophysiologyDiagnose != null" >
+        #{electrophysiologyDiagnose,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperationDiagnose != null" >
+        #{postoperationDiagnose,jdbcType=VARCHAR},
+      </if>
+      <if test="mechanism != null" >
+        #{mechanism,jdbcType=VARCHAR},
+      </if>
+      <if test="part != null" >
+        #{part,jdbcType=VARCHAR},
+      </if>
+      <if test="laBore != null" >
+        #{laBore,jdbcType=VARCHAR},
+      </if>
+      <if test="lvBore != null" >
+        #{lvBore,jdbcType=VARCHAR},
+      </if>
+      <if test="lvefBore != null" >
+        #{lvefBore,jdbcType=VARCHAR},
+      </if>
+      <if test="raBore != null" >
+        #{raBore,jdbcType=VARCHAR},
+      </if>
+      <if test="rvBore != null" >
+        #{rvBore,jdbcType=VARCHAR},
+      </if>
+      <if test="ucgRemarks != null" >
+        #{ucgRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="ecgType != null" >
+        #{ecgType,jdbcType=VARCHAR},
+      </if>
+      <if test="electricalOffset != null" >
+        #{electricalOffset,jdbcType=VARCHAR},
+      </if>
+      <if test="preopreativeExamination != null" >
+        #{preopreativeExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="antiArrhythmiaDrugs != null" >
+        #{antiArrhythmiaDrugs,jdbcType=VARCHAR},
+      </if>
+      <if test="invaliDantiArrhythmiaDrugs != null" >
+        #{invaliDantiArrhythmiaDrugs,jdbcType=VARCHAR},
+      </if>
+      <if test="mergerArrhythmia != null" >
+        #{mergerArrhythmia,jdbcType=VARCHAR},
+      </if>
+      <if test="imagingInsideHeart != null" >
+        #{imagingInsideHeart,jdbcType=VARCHAR},
+      </if>
+      <if test="inducedWay != null" >
+        #{inducedWay,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMedication != null" >
+        #{checkMedication,jdbcType=VARCHAR},
+      </if>
+      <if test="tachycardiaRegulation != null" >
+        #{tachycardiaRegulation,jdbcType=VARCHAR},
+      </if>
+      <if test="ccl != null" >
+        #{ccl,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionMethod != null" >
+        #{inspectionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="diastolicPotential != null" >
+        #{diastolicPotential,jdbcType=VARCHAR},
+      </if>
+      <if test="pPotentialExamination != null" >
+        #{pPotentialExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationProcedure != null" >
+        #{ablationProcedure,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationLines != null" >
+        #{ablationLines,jdbcType=VARCHAR},
+      </if>
+      <if test="targetPosition != null" >
+        #{targetPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationEnergy != null" >
+        #{ablationEnergy,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationJudgement != null" >
+        #{ablationJudgement,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationEndPoint != null" >
+        #{ablationEndPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveTargetSite != null" >
+        #{effectiveTargetSite,jdbcType=VARCHAR},
+      </if>
+      <if test="dischargeTime != null" >
+        #{dischargeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="xrayExposureTime != null" >
+        #{xrayExposureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationTimes != null" >
+        #{ablationTimes,jdbcType=INTEGER},
+      </if>
+      <if test="intraoperativeCableRate != null" >
+        #{intraoperativeCableRate,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeHeartRate != null" >
+        #{beforeHeartRate,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeVt != null" >
+        #{beforeVt,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeRont != null" >
+        #{beforeRont,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeRemarks != null" >
+        #{beforeRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="inHeartRate != null" >
+        #{inHeartRate,jdbcType=VARCHAR},
+      </if>
+      <if test="inVt != null" >
+        #{inVt,jdbcType=VARCHAR},
+      </if>
+      <if test="inRont != null" >
+        #{inRont,jdbcType=VARCHAR},
+      </if>
+      <if test="inRemarks != null" >
+        #{inRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationHeartRate != null" >
+        #{complicationHeartRate,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationVt != null" >
+        #{complicationVt,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationRont != null" >
+        #{complicationRont,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationRemarks != null" >
+        #{complicationRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="globalRemarks != null" >
+        #{globalRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword1 != null" >
+        #{keyword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword2 != null" >
+        #{keyword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword3 != null" >
+        #{keyword3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.xhome.ly.bean.Case1" >
+    update case1
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="interrogationRecordId != null" >
+        interrogation_record_id = #{interrogationRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="operationData != null" >
+        operation_data = #{operationData,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorName != null" >
+        operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorDetail != null" >
+        operator_detail = #{operatorDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="vtType != null" >
+        vt_type = #{vtType,jdbcType=VARCHAR},
+      </if>
+      <if test="vtCourseDisease != null" >
+        vt_course_disease = #{vtCourseDisease,jdbcType=VARCHAR},
+      </if>
+      <if test="arrhythmiaDiagnose != null" >
+        arrhythmia_diagnose = #{arrhythmiaDiagnose,jdbcType=VARCHAR},
+      </if>
+      <if test="electrophysiologyDiagnose != null" >
+        electrophysiology_diagnose = #{electrophysiologyDiagnose,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperationDiagnose != null" >
+        postoperation_diagnose = #{postoperationDiagnose,jdbcType=VARCHAR},
+      </if>
+      <if test="mechanism != null" >
+        mechanism = #{mechanism,jdbcType=VARCHAR},
+      </if>
+      <if test="part != null" >
+        part = #{part,jdbcType=VARCHAR},
+      </if>
+      <if test="laBore != null" >
+        la_bore = #{laBore,jdbcType=VARCHAR},
+      </if>
+      <if test="lvBore != null" >
+        lv_bore = #{lvBore,jdbcType=VARCHAR},
+      </if>
+      <if test="lvefBore != null" >
+        lvef_bore = #{lvefBore,jdbcType=VARCHAR},
+      </if>
+      <if test="raBore != null" >
+        ra_bore = #{raBore,jdbcType=VARCHAR},
+      </if>
+      <if test="rvBore != null" >
+        rv_bore = #{rvBore,jdbcType=VARCHAR},
+      </if>
+      <if test="ucgRemarks != null" >
+        ucg_remarks = #{ucgRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="ecgType != null" >
+        ecg_type = #{ecgType,jdbcType=VARCHAR},
+      </if>
+      <if test="electricalOffset != null" >
+        electrical_offset = #{electricalOffset,jdbcType=VARCHAR},
+      </if>
+      <if test="preopreativeExamination != null" >
+        preopreative_examination = #{preopreativeExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="antiArrhythmiaDrugs != null" >
+        anti_arrhythmia_drugs = #{antiArrhythmiaDrugs,jdbcType=VARCHAR},
+      </if>
+      <if test="invaliDantiArrhythmiaDrugs != null" >
+        invali_danti_arrhythmia_drugs = #{invaliDantiArrhythmiaDrugs,jdbcType=VARCHAR},
+      </if>
+      <if test="mergerArrhythmia != null" >
+        merger_arrhythmia = #{mergerArrhythmia,jdbcType=VARCHAR},
+      </if>
+      <if test="imagingInsideHeart != null" >
+        imaging_inside_heart = #{imagingInsideHeart,jdbcType=VARCHAR},
+      </if>
+      <if test="inducedWay != null" >
+        induced_way = #{inducedWay,jdbcType=VARCHAR},
+      </if>
+      <if test="checkMedication != null" >
+        check_medication = #{checkMedication,jdbcType=VARCHAR},
+      </if>
+      <if test="tachycardiaRegulation != null" >
+        tachycardia_regulation = #{tachycardiaRegulation,jdbcType=VARCHAR},
+      </if>
+      <if test="ccl != null" >
+        ccl = #{ccl,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionMethod != null" >
+        inspection_method = #{inspectionMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="diastolicPotential != null" >
+        diastolic_potential = #{diastolicPotential,jdbcType=VARCHAR},
+      </if>
+      <if test="pPotentialExamination != null" >
+        p_potential_examination = #{pPotentialExamination,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationProcedure != null" >
+        ablation_procedure = #{ablationProcedure,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationLines != null" >
+        ablation_lines = #{ablationLines,jdbcType=VARCHAR},
+      </if>
+      <if test="targetPosition != null" >
+        target_position = #{targetPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationEnergy != null" >
+        ablation_energy = #{ablationEnergy,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationJudgement != null" >
+        ablation_judgement = #{ablationJudgement,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationEndPoint != null" >
+        ablation_end_point = #{ablationEndPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="effectiveTargetSite != null" >
+        effective_target_site = #{effectiveTargetSite,jdbcType=VARCHAR},
+      </if>
+      <if test="dischargeTime != null" >
+        discharge_time = #{dischargeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="xrayExposureTime != null" >
+        xray_exposure_time = #{xrayExposureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="ablationTimes != null" >
+        ablation_times = #{ablationTimes,jdbcType=INTEGER},
+      </if>
+      <if test="intraoperativeCableRate != null" >
+        intraoperative_cable_rate = #{intraoperativeCableRate,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeHeartRate != null" >
+        before_heart_rate = #{beforeHeartRate,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeVt != null" >
+        before_vt = #{beforeVt,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeRont != null" >
+        before_ront = #{beforeRont,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeRemarks != null" >
+        before_remarks = #{beforeRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="inHeartRate != null" >
+        in_heart_rate = #{inHeartRate,jdbcType=VARCHAR},
+      </if>
+      <if test="inVt != null" >
+        in_vt = #{inVt,jdbcType=VARCHAR},
+      </if>
+      <if test="inRont != null" >
+        in_ront = #{inRont,jdbcType=VARCHAR},
+      </if>
+      <if test="inRemarks != null" >
+        in_remarks = #{inRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationHeartRate != null" >
+        complication_heart_rate = #{complicationHeartRate,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationVt != null" >
+        complication_vt = #{complicationVt,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationRont != null" >
+        complication_ront = #{complicationRont,jdbcType=VARCHAR},
+      </if>
+      <if test="complicationRemarks != null" >
+        complication_remarks = #{complicationRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null" >
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="globalRemarks != null" >
+        global_remarks = #{globalRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword1 != null" >
+        keyword1 = #{keyword1,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword2 != null" >
+        keyword2 = #{keyword2,jdbcType=VARCHAR},
+      </if>
+      <if test="keyword3 != null" >
+        keyword3 = #{keyword3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.xhome.ly.bean.Case1" >
+    update case1
+    set name = #{name,jdbcType=VARCHAR},
+      interrogation_record_id = #{interrogationRecordId,jdbcType=INTEGER},
+      operation_data = #{operationData,jdbcType=TIMESTAMP},
+      operator_name = #{operatorName,jdbcType=VARCHAR},
+      operator_detail = #{operatorDetail,jdbcType=VARCHAR},
+      vt_type = #{vtType,jdbcType=VARCHAR},
+      vt_course_disease = #{vtCourseDisease,jdbcType=VARCHAR},
+      arrhythmia_diagnose = #{arrhythmiaDiagnose,jdbcType=VARCHAR},
+      electrophysiology_diagnose = #{electrophysiologyDiagnose,jdbcType=VARCHAR},
+      postoperation_diagnose = #{postoperationDiagnose,jdbcType=VARCHAR},
+      mechanism = #{mechanism,jdbcType=VARCHAR},
+      part = #{part,jdbcType=VARCHAR},
+      la_bore = #{laBore,jdbcType=VARCHAR},
+      lv_bore = #{lvBore,jdbcType=VARCHAR},
+      lvef_bore = #{lvefBore,jdbcType=VARCHAR},
+      ra_bore = #{raBore,jdbcType=VARCHAR},
+      rv_bore = #{rvBore,jdbcType=VARCHAR},
+      ucg_remarks = #{ucgRemarks,jdbcType=VARCHAR},
+      ecg_type = #{ecgType,jdbcType=VARCHAR},
+      electrical_offset = #{electricalOffset,jdbcType=VARCHAR},
+      preopreative_examination = #{preopreativeExamination,jdbcType=VARCHAR},
+      anti_arrhythmia_drugs = #{antiArrhythmiaDrugs,jdbcType=VARCHAR},
+      invali_danti_arrhythmia_drugs = #{invaliDantiArrhythmiaDrugs,jdbcType=VARCHAR},
+      merger_arrhythmia = #{mergerArrhythmia,jdbcType=VARCHAR},
+      imaging_inside_heart = #{imagingInsideHeart,jdbcType=VARCHAR},
+      induced_way = #{inducedWay,jdbcType=VARCHAR},
+      check_medication = #{checkMedication,jdbcType=VARCHAR},
+      tachycardia_regulation = #{tachycardiaRegulation,jdbcType=VARCHAR},
+      ccl = #{ccl,jdbcType=VARCHAR},
+      inspection_method = #{inspectionMethod,jdbcType=VARCHAR},
+      diastolic_potential = #{diastolicPotential,jdbcType=VARCHAR},
+      p_potential_examination = #{pPotentialExamination,jdbcType=VARCHAR},
+      ablation_procedure = #{ablationProcedure,jdbcType=VARCHAR},
+      ablation_lines = #{ablationLines,jdbcType=VARCHAR},
+      target_position = #{targetPosition,jdbcType=VARCHAR},
+      ablation_energy = #{ablationEnergy,jdbcType=VARCHAR},
+      ablation_judgement = #{ablationJudgement,jdbcType=VARCHAR},
+      ablation_end_point = #{ablationEndPoint,jdbcType=VARCHAR},
+      effective_target_site = #{effectiveTargetSite,jdbcType=VARCHAR},
+      discharge_time = #{dischargeTime,jdbcType=VARCHAR},
+      xray_exposure_time = #{xrayExposureTime,jdbcType=VARCHAR},
+      ablation_times = #{ablationTimes,jdbcType=INTEGER},
+      intraoperative_cable_rate = #{intraoperativeCableRate,jdbcType=VARCHAR},
+      before_heart_rate = #{beforeHeartRate,jdbcType=VARCHAR},
+      before_vt = #{beforeVt,jdbcType=VARCHAR},
+      before_ront = #{beforeRont,jdbcType=VARCHAR},
+      before_remarks = #{beforeRemarks,jdbcType=VARCHAR},
+      in_heart_rate = #{inHeartRate,jdbcType=VARCHAR},
+      in_vt = #{inVt,jdbcType=VARCHAR},
+      in_ront = #{inRont,jdbcType=VARCHAR},
+      in_remarks = #{inRemarks,jdbcType=VARCHAR},
+      complication_heart_rate = #{complicationHeartRate,jdbcType=VARCHAR},
+      complication_vt = #{complicationVt,jdbcType=VARCHAR},
+      complication_ront = #{complicationRont,jdbcType=VARCHAR},
+      complication_remarks = #{complicationRemarks,jdbcType=VARCHAR},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      global_remarks = #{globalRemarks,jdbcType=VARCHAR},
+      keyword1 = #{keyword1,jdbcType=VARCHAR},
+      keyword2 = #{keyword2,jdbcType=VARCHAR},
+      keyword3 = #{keyword3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
