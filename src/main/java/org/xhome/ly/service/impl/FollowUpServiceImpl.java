@@ -30,10 +30,10 @@ public class FollowUpServiceImpl  implements FollowUpService {
     @Override
     public int add(FollowUp followUp) {
         if (followUpMapper.insert(followUp) > 0) {
-            logger.debug("添加随访:" + followUp.getId() + "成功");
+            logger.debug("添加随访:" + followUp.getId() + " 成功");
             return Status.SUCCESS;
         }
-        logger.warn("添加随访:" + followUp.getId() + "失败");
+        logger.warn("添加随访:" + followUp.getId() + " 失败");
         return Status.ERROR;
     }
 
@@ -45,13 +45,13 @@ public class FollowUpServiceImpl  implements FollowUpService {
      */
     @Override
     public int update(FollowUp followUp) {
-        FollowUp fol=followUpMapper.selectByPrimaryKey(followUp.getId());
-        if(fol==null){
+        FollowUp fol = followUpMapper.selectByPrimaryKey(followUp.getId());
+        if(fol == null){
             logger.warn("尝试更新随访，但是随访不存在");
             return Status.NOT_EXISTS;
         }
         followUpMapper.updateByPrimaryKey(followUp);
-        logger.debug("修改随访："  + followUp.getId() + "成功");
+        logger.debug("修改随访："  + followUp.getId() + " 成功");
         return Status.SUCCESS;
     }
 
@@ -63,12 +63,12 @@ public class FollowUpServiceImpl  implements FollowUpService {
     @Override
     public int delete(FollowUp followUp) {
         FollowUp fol=followUpMapper.selectByPrimaryKey(followUp.getId());
-        if(fol==null){
+        if(fol == null){
             logger.warn("尝试删除随访，但是随访不存在");
             return Status.NOT_EXISTS;
         }
         followUpMapper.deleteByPrimaryKey(followUp.getId());
-        logger.debug("删除随访："  + followUp.getId() + "成功");
+        logger.debug("删除随访："  + followUp.getId() + " 成功");
         return Status.SUCCESS;
     }
 

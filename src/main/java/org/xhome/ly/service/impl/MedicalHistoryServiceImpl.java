@@ -29,10 +29,10 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     @Override
     public int add(MedicalHistory medicalHistory) {
         if (medicalHistoryMapper.insert(medicalHistory) > 0) {
-            logger.debug("添加病史:" + medicalHistory.getId() + "成功");
+            logger.debug("添加病史:" + medicalHistory.getId() + " 成功");
             return Status.SUCCESS;
         }
-        logger.warn("添加病史:" + medicalHistory.getId() + "失败");
+        logger.warn("添加病史:" + medicalHistory.getId() + " 失败");
         return Status.ERROR;
     }
 
@@ -45,12 +45,12 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
     @Override
     public int update(MedicalHistory medicalHistory) {
         MedicalHistory inter=medicalHistoryMapper.selectByPrimaryKey(medicalHistory.getId());
-        if(inter==null){
+        if(inter == null){
             logger.warn("尝试更新病史，但是病史不存在");
             return Status.NOT_EXISTS;
         }
         medicalHistoryMapper.updateByPrimaryKey(medicalHistory);
-        logger.debug("修改病史："  + medicalHistory.getId() + "成功");
+        logger.debug("修改病史："  + medicalHistory.getId() + " 成功");
         return Status.SUCCESS;
     }
 
@@ -61,13 +61,13 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
      */
     @Override
     public int delete(MedicalHistory medicalHistory) {
-        MedicalHistory medi=medicalHistoryMapper.selectByPrimaryKey(medicalHistory.getId());
-        if(medi==null){
+        MedicalHistory medi = medicalHistoryMapper.selectByPrimaryKey(medicalHistory.getId());
+        if(medi == null){
             logger.warn("尝试删除病史，但是病史不存在");
             return Status.NOT_EXISTS;
         }
         medicalHistoryMapper.deleteByPrimaryKey(medicalHistory.getId());
-        logger.debug("删除病史："  + medicalHistory.getId() + "成功");
+        logger.debug("删除病史："  + medicalHistory.getId() + " 成功");
         return Status.SUCCESS;
     }
 

@@ -30,10 +30,10 @@ public class OptionsServiceImpl implements OptionsService {
     @Override
     public int add(Options options) {
         if (optionsMapper.insert(options) > 0) {
-            logger.debug("添加选项:" + options.getId() + "成功");
+            logger.debug("添加选项:" + options.getId() + " 成功");
             return Status.SUCCESS;
         }
-        logger.warn("添加选项:" + options.getId() + "失败");
+        logger.warn("添加选项:" + options.getId() + " 失败");
         return Status.ERROR;
     }
 
@@ -45,13 +45,13 @@ public class OptionsServiceImpl implements OptionsService {
      */
     @Override
     public int update(Options options) {
-        Options opt=optionsMapper.selectByPrimaryKey(options.getId());
-        if(opt==null){
+        Options opt = optionsMapper.selectByPrimaryKey(options.getId());
+        if(opt == null){
             logger.warn("尝试更新选项，但是选项不存在");
             return Status.NOT_EXISTS;
         }
         optionsMapper.updateByPrimaryKey(options);
-        logger.debug("修改选项："  + options.getId() + "成功");
+        logger.debug("修改选项："  + options.getId() + " 成功");
         return Status.SUCCESS;
     }
 
@@ -62,8 +62,8 @@ public class OptionsServiceImpl implements OptionsService {
      */
     @Override
     public int delete(Options options) {
-        Options medi=optionsMapper.selectByPrimaryKey(options.getId());
-        if(medi==null){
+        Options medi = optionsMapper.selectByPrimaryKey(options.getId());
+        if(medi == null){
             logger.warn("尝试删除选项，但是选项不存在");
             return Status.NOT_EXISTS;
         }

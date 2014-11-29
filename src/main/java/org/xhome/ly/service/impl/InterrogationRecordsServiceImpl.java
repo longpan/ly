@@ -30,10 +30,10 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
     @Override
     public int add(InterrogationRecord interrogationRecord) {
         if (interrogationRecordMapper.insert(interrogationRecord) > 0) {
-            logger.debug("添加问诊记录:" + interrogationRecord.getId() + "成功");
+            logger.debug("添加问诊记录:" + interrogationRecord.getId() + " 成功");
             return Status.SUCCESS;
         }
-            logger.warn("添加问诊记录:" + interrogationRecord.getId() + "失败");
+            logger.warn("添加问诊记录:" + interrogationRecord.getId() + " 失败");
             return Status.ERROR;
         }
 
@@ -45,13 +45,13 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
      */
     @Override
     public int update(InterrogationRecord interrogationRecord) {
-        InterrogationRecord inter=interrogationRecordMapper.selectByPrimaryKey(interrogationRecord.getId());
-        if(inter==null){
+        InterrogationRecord inter = interrogationRecordMapper.selectByPrimaryKey(interrogationRecord.getId());
+        if(inter == null){
             logger.warn("尝试更新问诊记录，但是问诊记录不存在");
             return Status.NOT_EXISTS;
         }
         interrogationRecordMapper.updateByPrimaryKey(interrogationRecord);
-        logger.debug("修改问诊记录："  + interrogationRecord.getId() + "成功");
+        logger.debug("修改问诊记录："  + interrogationRecord.getId() + " 成功");
         return Status.SUCCESS;
     }
 
@@ -63,12 +63,12 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
     @Override
     public int delete(InterrogationRecord interrogationRecord) {
         InterrogationRecord inter=interrogationRecordMapper.selectByPrimaryKey(interrogationRecord.getId());
-        if(inter==null){
+        if(inter == null){
             logger.warn("尝试删除问诊记录，但是问诊记录不存在");
             return Status.NOT_EXISTS;
         }
         interrogationRecordMapper.deleteByPrimaryKey(interrogationRecord.getId());
-        logger.debug("删除问诊记录："  + interrogationRecord.getId() + "成功");
+        logger.debug("删除问诊记录："  + interrogationRecord.getId() + " 成功");
         return Status.SUCCESS;
     }
 
