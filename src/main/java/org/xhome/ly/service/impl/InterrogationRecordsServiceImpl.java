@@ -30,10 +30,10 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
     @Override
     public int add(InterrogationRecord interrogationRecord) {
         if (interrogationRecordMapper.insert(interrogationRecord) > 0) {
-            logger.debug("添加随访:" + interrogationRecord.getId() + "成功");
+            logger.debug("添加问诊记录:" + interrogationRecord.getId() + "成功");
             return Status.SUCCESS;
         }
-            logger.warn("添加随访:" + interrogationRecord.getId() + "失败");
+            logger.warn("添加问诊记录:" + interrogationRecord.getId() + "失败");
             return Status.ERROR;
         }
 
@@ -47,11 +47,11 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
     public int update(InterrogationRecord interrogationRecord) {
         InterrogationRecord inter=interrogationRecordMapper.selectByPrimaryKey(interrogationRecord.getId());
         if(inter==null){
-            logger.warn("尝试更新随访，但是随访不存在");
+            logger.warn("尝试更新问诊记录，但是问诊记录不存在");
             return Status.NOT_EXISTS;
         }
         interrogationRecordMapper.updateByPrimaryKey(interrogationRecord);
-        logger.debug("修改随访："  + interrogationRecord.getId() + "成功");
+        logger.debug("修改问诊记录："  + interrogationRecord.getId() + "成功");
         return Status.SUCCESS;
     }
 
@@ -64,11 +64,11 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
     public int delete(InterrogationRecord interrogationRecord) {
         InterrogationRecord inter=interrogationRecordMapper.selectByPrimaryKey(interrogationRecord.getId());
         if(inter==null){
-            logger.warn("尝试删除随访，但是随访不存在");
+            logger.warn("尝试删除问诊记录，但是问诊记录不存在");
             return Status.NOT_EXISTS;
         }
         interrogationRecordMapper.deleteByPrimaryKey(interrogationRecord.getId());
-        logger.debug("删除随访："  + interrogationRecord.getId() + "成功");
+        logger.debug("删除问诊记录："  + interrogationRecord.getId() + "成功");
         return Status.SUCCESS;
     }
 
@@ -81,9 +81,9 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
     public InterrogationRecord get(int id) {
         InterrogationRecord interrogationRecord = interrogationRecordMapper.selectByPrimaryKey(id);
         if (interrogationRecord == null) {
-            logger.warn("随访 ID:" + id + " 不存在");
+            logger.warn("问诊记录 ID:" + id + " 不存在");
         } else {
-            logger.debug("获取随访ID:" + id + " 成功");
+            logger.debug("获取问诊记录ID:" + id + " 成功");
         }
         return interrogationRecord;
     }
@@ -95,7 +95,7 @@ public class InterrogationRecordsServiceImpl implements InterrogationRecordServi
     @Override
     public void query(QueryBase queryBase) {
         if (logger.isDebugEnabled()) {
-            logger.debug("根据参数 " + queryBase.getParameters() + "  查询随访");
+            logger.debug("根据参数 " + queryBase.getParameters() + "  查询问诊记录");
         }
         queryBase.setResults(interrogationRecordMapper.queryInterrogationRecords(queryBase));
         queryBase.setTotalRow(interrogationRecordMapper.countInterrogationRecords(queryBase));

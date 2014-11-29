@@ -30,10 +30,10 @@ public class FollowUpServiceImpl  implements FollowUpService {
     @Override
     public int add(FollowUp followUp) {
         if (followUpMapper.insert(followUp) > 0) {
-            logger.debug("添加选项:" + followUp.getId() + "成功");
+            logger.debug("添加随访:" + followUp.getId() + "成功");
             return Status.SUCCESS;
         }
-        logger.warn("添加选项:" + followUp.getId() + "失败");
+        logger.warn("添加随访:" + followUp.getId() + "失败");
         return Status.ERROR;
     }
 
@@ -47,11 +47,11 @@ public class FollowUpServiceImpl  implements FollowUpService {
     public int update(FollowUp followUp) {
         FollowUp fol=followUpMapper.selectByPrimaryKey(followUp.getId());
         if(fol==null){
-            logger.warn("尝试更新选项，但是选项不存在");
+            logger.warn("尝试更新随访，但是随访不存在");
             return Status.NOT_EXISTS;
         }
         followUpMapper.updateByPrimaryKey(followUp);
-        logger.debug("修改选项："  + followUp.getId() + "成功");
+        logger.debug("修改随访："  + followUp.getId() + "成功");
         return Status.SUCCESS;
     }
 
@@ -64,11 +64,11 @@ public class FollowUpServiceImpl  implements FollowUpService {
     public int delete(FollowUp followUp) {
         FollowUp fol=followUpMapper.selectByPrimaryKey(followUp.getId());
         if(fol==null){
-            logger.warn("尝试删除选项，但是选项不存在");
+            logger.warn("尝试删除随访，但是随访不存在");
             return Status.NOT_EXISTS;
         }
         followUpMapper.deleteByPrimaryKey(followUp.getId());
-        logger.debug("删除选项："  + followUp.getId() + "成功");
+        logger.debug("删除随访："  + followUp.getId() + "成功");
         return Status.SUCCESS;
     }
 
@@ -81,9 +81,9 @@ public class FollowUpServiceImpl  implements FollowUpService {
     public FollowUp get(int id) {
         FollowUp followUp = followUpMapper.selectByPrimaryKey(id);
         if (followUp == null) {
-            logger.warn("选项 ID:" + id + " 不存在");
+            logger.warn("随访 ID:" + id + " 不存在");
         } else {
-            logger.debug("获取选项ID:" + id + " 成功");
+            logger.debug("获取随访ID:" + id + " 成功");
         }
         return followUp;
     }
