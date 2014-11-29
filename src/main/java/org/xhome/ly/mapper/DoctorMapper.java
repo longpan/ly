@@ -1,6 +1,9 @@
 package org.xhome.ly.mapper;
 
 import org.xhome.ly.bean.Doctor;
+import org.xhome.ly.common.QueryBase;
+
+import java.util.List;
 
 public interface DoctorMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,10 @@ public interface DoctorMapper {
     int updateByPrimaryKeySelective(Doctor doctor);
 
     int updateByPrimaryKey(Doctor doctor);
+
+    List<Doctor> queryDoctors(QueryBase queryBase);
+
+    long countDoctors(QueryBase queryBase);
+
+    boolean isDoctorExists(Doctor doctor);
 }

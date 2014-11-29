@@ -1,6 +1,9 @@
 package org.xhome.ly.mapper;
 
 import org.xhome.ly.bean.File;
+import org.xhome.ly.common.QueryBase;
+
+import java.util.List;
 
 public interface FileMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface FileMapper {
     int updateByPrimaryKeySelective(File file);
 
     int updateByPrimaryKey(File file);
+
+    List<File> queryFiles(QueryBase queryBase);
+
+    long countFiles(QueryBase queryBase);
 }

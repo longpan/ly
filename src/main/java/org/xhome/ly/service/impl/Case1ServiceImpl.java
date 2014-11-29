@@ -32,7 +32,7 @@ public class Case1ServiceImpl implements Case1Service{
     @Override
     public int add(Case1 case1) {
         if (case1Mapper.insert(case1) > 0) {
-            logger.debug("添加问诊记录: " + case1.getName() + "成功");
+            logger.debug("添加病种1: " + case1.getName() + "成功");
             return Status.SUCCESS;
         }
         return Status.ERROR;
@@ -48,11 +48,11 @@ public class Case1ServiceImpl implements Case1Service{
     public int update(Case1 case1) {
         Case1 c = case1Mapper.selectByPrimaryKey(case1.getId());
         if (c == null) {
-            logger.warn("尝试添加问诊记录，但是问诊记录不存在");
+            logger.warn("尝试添加病种1，但是病种1不存在");
             return Status.NOT_EXISTS;
         }
         case1Mapper.updateByPrimaryKeySelective(case1);
-        logger.debug("修改问诊记录：" + case1.getName() + " Id: " + case1.getId() + "成功");
+        logger.debug("修改病种1：" + case1.getName() + " Id: " + case1.getId() + "成功");
         return Status.SUCCESS;
     }
 
@@ -65,11 +65,11 @@ public class Case1ServiceImpl implements Case1Service{
     public int delete(Case1 case1) {
         Case1 c = case1Mapper.selectByPrimaryKey(case1.getId());
         if (c == null) {
-            logger.warn("尝试删除问诊记录，但是问诊记录不存在");
+            logger.warn("尝试删除病种1，但是病种1不存在");
             return Status.NOT_EXISTS;
         }
         case1Mapper.deleteByPrimaryKey(case1.getId());
-        logger.debug("删除问诊记录：" + case1.getName() + " Id: " + case1.getId() + "成功");
+        logger.debug("删除病种1：" + case1.getName() + " Id: " + case1.getId() + "成功");
         return Status.SUCCESS;
     }
 
@@ -82,9 +82,9 @@ public class Case1ServiceImpl implements Case1Service{
     public Case1 get(int id) {
         Case1 case1 = case1Mapper.selectByPrimaryKey(id);
         if (case1 == null) {
-            logger.warn("问诊记录 ID:" + id + " 不存在");
+            logger.warn("病种1 ID:" + id + " 不存在");
         } else {
-            logger.debug("问诊记录 ID:" + id + " 成功");
+            logger.debug("病种1 ID:" + id + " 成功");
         }
         return case1;
     }
@@ -96,7 +96,7 @@ public class Case1ServiceImpl implements Case1Service{
     @Override
     public void query(QueryBase queryBase) {
         if (logger.isDebugEnabled()) {
-            logger.debug("根据参数 " + queryBase.getParameters() + "  查询问诊记录");
+            logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1");
         }
         queryBase.setResults(case1Mapper.queryCase1s(queryBase));
         queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
