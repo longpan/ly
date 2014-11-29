@@ -98,5 +98,7 @@ public class Case1ServiceImpl implements Case1Service{
         if (logger.isDebugEnabled()) {
             logger.debug("根据参数 " + queryBase.getParameters() + "  查询问诊记录");
         }
+        queryBase.setResults(case1Mapper.queryCase1s(queryBase));
+        queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
     }
 }

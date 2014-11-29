@@ -1,6 +1,9 @@
 package org.xhome.ly.mapper;
 
 import org.xhome.ly.bean.Case1;
+import org.xhome.ly.common.QueryBase;
+
+import java.util.List;
 
 public interface Case1Mapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface Case1Mapper {
     int updateByPrimaryKeySelective(Case1 case1);
 
     int updateByPrimaryKey(Case1 case1);
+
+    List<Case1> queryCase1s(QueryBase queryBase);
+
+    Long countCase1s(QueryBase queryBase);
 }
