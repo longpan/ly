@@ -5,13 +5,13 @@ import org.xhome.ly.bean.File;
 public interface FileMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(File record);
+    int insert(File file);
 
-    int insertSelective(File record);
+    int insertSelective(File file);
 
     File selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(File record);
+    int updateByPrimaryKeySelective(File file);
 
-    int updateByPrimaryKey(File record);
+    int updateByPrimaryKey(File file);
 }

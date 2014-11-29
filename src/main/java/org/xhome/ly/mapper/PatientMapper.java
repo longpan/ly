@@ -5,13 +5,13 @@ import org.xhome.ly.bean.Patient;
 public interface PatientMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Patient record);
+    int insert(Patient patient);
 
-    int insertSelective(Patient record);
+    int insertSelective(Patient patient);
 
     Patient selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Patient record);
+    int updateByPrimaryKeySelective(Patient patient);
 
-    int updateByPrimaryKey(Patient record);
+    int updateByPrimaryKey(Patient patient);
 }

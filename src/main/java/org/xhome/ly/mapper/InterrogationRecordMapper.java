@@ -5,13 +5,13 @@ import org.xhome.ly.bean.InterrogationRecord;
 public interface InterrogationRecordMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(InterrogationRecord record);
+    int insert(InterrogationRecord interrogationRecord);
 
-    int insertSelective(InterrogationRecord record);
+    int insertSelective(InterrogationRecord interrogationRecord);
 
     InterrogationRecord selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(InterrogationRecord record);
+    int updateByPrimaryKeySelective(InterrogationRecord interrogationRecord);
 
-    int updateByPrimaryKey(InterrogationRecord record);
+    int updateByPrimaryKey(InterrogationRecord interrogationRecord);
 }

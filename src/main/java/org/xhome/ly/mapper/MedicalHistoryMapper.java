@@ -5,13 +5,13 @@ import org.xhome.ly.bean.MedicalHistory;
 public interface MedicalHistoryMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(MedicalHistory record);
+    int insert(MedicalHistory medicalHistory);
 
-    int insertSelective(MedicalHistory record);
+    int insertSelective(MedicalHistory medicalHistory);
 
     MedicalHistory selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(MedicalHistory record);
+    int updateByPrimaryKeySelective(MedicalHistory medicalHistory);
 
-    int updateByPrimaryKey(MedicalHistory record);
+    int updateByPrimaryKey(MedicalHistory medicalHistory);
 }

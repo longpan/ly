@@ -5,13 +5,13 @@ import org.xhome.ly.bean.Options;
 public interface OptionsMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Options record);
+    int insert(Options options);
 
-    int insertSelective(Options record);
+    int insertSelective(Options options);
 
     Options selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Options record);
+    int updateByPrimaryKeySelective(Options options);
 
-    int updateByPrimaryKey(Options record);
+    int updateByPrimaryKey(Options options);
 }

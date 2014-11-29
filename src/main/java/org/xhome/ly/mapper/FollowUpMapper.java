@@ -5,13 +5,13 @@ import org.xhome.ly.bean.FollowUp;
 public interface FollowUpMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(FollowUp record);
+    int insert(FollowUp followUp);
 
-    int insertSelective(FollowUp record);
+    int insertSelective(FollowUp followUp);
 
     FollowUp selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(FollowUp record);
+    int updateByPrimaryKeySelective(FollowUp followUp);
 
-    int updateByPrimaryKey(FollowUp record);
+    int updateByPrimaryKey(FollowUp followUp);
 }
