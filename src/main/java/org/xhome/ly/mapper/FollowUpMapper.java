@@ -1,6 +1,10 @@
 package org.xhome.ly.mapper;
 
 import org.xhome.ly.bean.FollowUp;
+import org.xhome.ly.bean.Options;
+import org.xhome.ly.common.QueryBase;
+
+import java.util.List;
 
 public interface FollowUpMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +18,8 @@ public interface FollowUpMapper {
     int updateByPrimaryKeySelective(FollowUp followUp);
 
     int updateByPrimaryKey(FollowUp followUp);
+
+    List<FollowUp> queryFollowUps(QueryBase queryBase);
+
+    Long countFollowUps(QueryBase queryBase);
 }

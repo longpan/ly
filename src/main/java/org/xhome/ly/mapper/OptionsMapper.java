@@ -1,6 +1,9 @@
 package org.xhome.ly.mapper;
 
 import org.xhome.ly.bean.Options;
+import org.xhome.ly.common.QueryBase;
+
+import java.util.List;
 
 public interface OptionsMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface OptionsMapper {
     int updateByPrimaryKeySelective(Options options);
 
     int updateByPrimaryKey(Options options);
+
+    List<Options> queryOptions(QueryBase queryBase);
+
+    Long countOptions(QueryBase queryBase);
 }

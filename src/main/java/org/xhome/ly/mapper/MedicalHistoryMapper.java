@@ -1,6 +1,9 @@
 package org.xhome.ly.mapper;
 
 import org.xhome.ly.bean.MedicalHistory;
+import org.xhome.ly.common.QueryBase;
+
+import java.util.List;
 
 public interface MedicalHistoryMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface MedicalHistoryMapper {
     int updateByPrimaryKeySelective(MedicalHistory medicalHistory);
 
     int updateByPrimaryKey(MedicalHistory medicalHistory);
+
+    List<MedicalHistory> queryMedicalHistorys(QueryBase queryBase);
+
+    Long countMedicalHistorys(QueryBase queryBase);
 }

@@ -271,4 +271,20 @@
       keyword3 = #{keyword3,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryFollowUps" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+    SELECT * FROM follow_up
+    <include refid="where_with_condition" />
+    LIMIT #{firstRow}, #{maxRow}
+  </select>
+
+  <select id="countFollowUps" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+    SELECT COUNT(id) FROM follow_up
+    <include refid="where_with_condition" />
+  </select>
+
+  <sql id="where_with_condition">
+    <trim prefix="WHERE" prefixOverrides="AND">
+    </trim>
+  </sql>
 </mapper>

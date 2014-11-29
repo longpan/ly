@@ -103,4 +103,20 @@
       keyword3 = #{keyword3,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryOptions" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+    SELECT * FROM options
+    <include refid="where_with_condition" />
+    LIMIT #{firstRow}, #{maxRow}
+  </select>
+
+  <select id="countOptions" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+    SELECT COUNT(id) FROM options
+    <include refid="where_with_condition" />
+  </select>
+
+  <sql id="where_with_condition">
+    <trim prefix="WHERE" prefixOverrides="AND">
+    </trim>
+  </sql>
 </mapper>
