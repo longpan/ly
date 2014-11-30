@@ -121,4 +121,17 @@ public class DoctorServiceImpl implements DoctorService {
         queryBase.setResults(doctorMapper.queryDoctors(queryBase));
         queryBase.setTotalRow(doctorMapper.countDoctors(queryBase));
     }
+
+    @Override
+    public int login(Doctor doctor) {
+        Doctor d = doctorMapper.selectByCertificationNumber(doctor.getCertificationNumber());
+        if (d == null) {
+            return Status.NOT_EXISTS;
+        }
+        String encryptPassword = EncryptionUtil.encrypt(doctor.getPassword());
+        if(!encryptPassword.equals(d.getPassword())){
+            return Status.PASSWD_NOT_MATCH;
+        }
+        return Status.SUCCESS;
+    }
 }

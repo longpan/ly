@@ -23,10 +23,18 @@ public class DoctorAction {
     private DoctorService doctorService;
 
     @ResponseBody
-    @RequestMapping(value="/api/login",method= RequestMethod.POST)
+    @RequestMapping(value="/api/doctor/regist",method= RequestMethod.POST)
     public Object registDoctor(@RequestBody Doctor doctor) {
         int status;
         status = doctorService.add(doctor);
+        return new Response(status);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/api/doctor/login",method=RequestMethod.POST)
+    public Object loginDoctor(@RequestBody Doctor doctor) {
+        int status;
+        status = doctorService.login(doctor);
         return new Response(status);
     }
 

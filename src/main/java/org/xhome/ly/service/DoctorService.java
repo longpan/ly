@@ -10,5 +10,5 @@ import org.xhome.ly.bean.Doctor;
  */
 public interface DoctorService extends BaseService<Doctor>{
 
-
+    public int login(Doctor doctor);
 }
