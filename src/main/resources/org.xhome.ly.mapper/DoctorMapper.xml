@@ -175,6 +175,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <select id="selectByCertificationNumber" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from doctor
+    where certification_number = #{certificationNumber,jdbcType=VARCHAR}
+  </select>
+
   <select id="isDoctorExists" parameterType="Doctor" resultType="boolean">
     SELECT
     COUNT(certification_number) FROM doctor WHERE certification_number =

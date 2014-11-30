@@ -3,6 +3,7 @@ package org.xhome.ly.mapper;
 import org.xhome.ly.bean.Doctor;
 import org.xhome.ly.common.QueryBase;
 
+import javax.print.Doc;
 import java.util.List;
 
 public interface DoctorMapper {
@@ -23,4 +24,6 @@ public interface DoctorMapper {
     long countDoctors(QueryBase queryBase);
 
     boolean isDoctorExists(Doctor doctor);
+
+    Doctor selectByCertificationNumber(String certificationNumber);
 }

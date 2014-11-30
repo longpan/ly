@@ -8,7 +8,7 @@ import org.xhome.ly.bean.File;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.FileMapper;
-import org.xhome.ly.service.BaseService;
+import org.xhome.ly.service.FileService;
 
 /**
  * Created by fenjuly
@@ -16,7 +16,7 @@ import org.xhome.ly.service.BaseService;
  * Time: 下午8:52
  */
 @Service
-public class FileServiceImpl implements BaseService<File> {
+public class FileServiceImpl implements FileService {
 
     private Log logger = LogFactory.getLog(FileServiceImpl.class);
 

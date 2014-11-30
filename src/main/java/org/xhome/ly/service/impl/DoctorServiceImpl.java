@@ -9,7 +9,7 @@ import org.xhome.ly.bean.Doctor;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.DoctorMapper;
-import org.xhome.ly.service.BaseService;
+import org.xhome.ly.service.DoctorService;
 import org.xhome.ly.utils.EncryptionUtil;
 
 /**
@@ -18,7 +18,7 @@ import org.xhome.ly.utils.EncryptionUtil;
  * Time: 下午8:06
  */
 @Service
-public class DoctorServiceImpl implements BaseService<Doctor> {
+public class DoctorServiceImpl implements DoctorService {
 
     private Log logger = LogFactory.getLog(DoctorServiceImpl.class);
 

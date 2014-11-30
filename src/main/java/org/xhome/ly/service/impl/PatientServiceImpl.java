@@ -3,18 +3,20 @@ package org.xhome.ly.service.impl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.xhome.ly.bean.Patient;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.PatientMapper;
-import org.xhome.ly.service.BaseService;
+import org.xhome.ly.service.PatientService;
 
 /**
  * Created by fenjuly
  * Date: 14/11/29
  * Time: 下午9:14
  */
-public class PatientServiceImpl implements BaseService<Patient> {
+@Service
+public class PatientServiceImpl implements PatientService {
 
     private Log logger = LogFactory.getLog(PatientServiceImpl.class);
 
