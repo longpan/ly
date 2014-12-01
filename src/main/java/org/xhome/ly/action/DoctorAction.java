@@ -24,7 +24,7 @@ public class DoctorAction {
     private DoctorService doctorService;
 
     @ResponseBody
-    @RequestMapping(value="/api/doctor/",method= RequestMethod.POST)
+    @RequestMapping(value="/api/doctor",method= RequestMethod.POST)
     public Object registDoctor(@RequestBody Doctor doctor) {
         int status;
         status = doctorService.add(doctor);

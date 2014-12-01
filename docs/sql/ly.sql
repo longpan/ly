@@ -2,7 +2,13 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2014/11/28 20:23:26                          */
 /*==============================================================*/
+
+drop database if exists ly;
+
+create database ly;
 use ly
+
+grant SELECT,INSERT,UPDATE,DELETE,EXECUTE on ly.* to 'xhremote'@'localhost' IDENTIFIED BY 'xhremote';
 
 drop table if exists case1;
 
