@@ -1,4 +1,0 @@
-#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Sun Nov 30 15:02:15 CST 2014
-@default-http\://maven.oschina.net/content/groups/public/.lastUpdated=1417330935179
-http\://maven.oschina.net/content/groups/public/.error=Could not transfer artifact com.alibaba\:druid\:jar\:0.2.9 from/to CN (http\://maven.oschina.net/content/groups/public/)\: GET request of\: com/alibaba/druid/0.2.9/druid-0.2.9.jar from CN failed
