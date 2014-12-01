@@ -2,10 +2,7 @@ package org.xhome.ly.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.bean.Options;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.service.OptionsService;
@@ -53,13 +50,15 @@ public class OptionsAction {
     /**
      *
      * @param request
-     * @param options   选项的json格式
+     * @param id   选项的json格式
      * @return  返回状态 0 成功  1 失败  7 不存在
      */
     @ResponseBody
-    @RequestMapping(value = "/api/options", method = RequestMethod.DELETE)
-    public Object delete(HttpServletRequest request, @RequestBody Options options){
+    @RequestMapping(value = "/api/options/{id}", method = RequestMethod.DELETE)
+    public Object delete(HttpServletRequest request, @PathVariable int id){
         int status;
+        Options options = new Options();
+        options.setId(id);
         status = optionsService.delete(options);
         return new Response(status);
     }
