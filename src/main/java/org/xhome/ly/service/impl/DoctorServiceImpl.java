@@ -122,6 +122,11 @@ public class DoctorServiceImpl implements DoctorService {
         queryBase.setTotalRow(doctorMapper.countDoctors(queryBase));
     }
 
+    /**
+     * 
+     * @param doctor
+     * @return
+     */
     @Override
     public int login(Doctor doctor) {
         Doctor d = doctorMapper.selectByCertificationNumber(doctor.getCertificationNumber());

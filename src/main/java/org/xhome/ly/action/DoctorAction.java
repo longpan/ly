@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xhome.ly.bean.Doctor;
 import org.xhome.ly.common.Response;
+import org.xhome.ly.common.Status;
 import org.xhome.ly.service.DoctorService;
 
 
@@ -23,15 +24,18 @@ public class DoctorAction {
     private DoctorService doctorService;
 
     @ResponseBody
-    @RequestMapping(value="/api/doctor/regist",method= RequestMethod.POST)
+    @RequestMapping(value="/api/doctor/",method= RequestMethod.POST)
     public Object registDoctor(@RequestBody Doctor doctor) {
         int status;
         status = doctorService.add(doctor);
+        if (status == Status.SUCCESS) {
+            return new Response(status, doctor.getId());
+        }
         return new Response(status);
     }
 
     @ResponseBody
-    @RequestMapping(value="/api/doctor/login",method=RequestMethod.POST)
+    @RequestMapping(value="/api/doctor/authentication",method=RequestMethod.POST)
     public Object loginDoctor(@RequestBody Doctor doctor) {
         int status;
         status = doctorService.login(doctor);
