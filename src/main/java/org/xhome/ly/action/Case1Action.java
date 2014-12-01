@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.Case1;
 import org.xhome.ly.bean.InterrogationRecord;
+import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.service.Case1Service;
 import org.xhome.ly.service.InterrogationRecordService;
+import org.xhome.ly.utils.DateUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +29,14 @@ public class Case1Action {
     @Autowired
     private InterrogationRecordService interrogationRecordService;
 
+    /**
+     *
+     * @param request
+     * @param case1
+     * @param doctorId
+     * @param patientId
+     * @return
+     */
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1",method= RequestMethod.POST)
@@ -46,6 +56,12 @@ public class Case1Action {
         return new Response(status);
     }
 
+    /**
+     *
+     * @param request
+     * @param case1
+     * @return
+     */
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1",method= RequestMethod.PATCH)
@@ -53,6 +69,28 @@ public class Case1Action {
         int status;
         status = case1Service.update(case1);
         return new Response(status);
+    }
+
+    /**
+     *
+     * @param date
+     * @param sex
+     * @return
+     */
+    @DoctorLoginAuthorized
+    @ResponseBody
+    @RequestMapping(value="/api/case1s",method= RequestMethod.GET)
+    public Object getCase1s(@RequestParam("date")String date, @RequestParam("sex")String sex) {
+        QueryBase queryBase = new QueryBase();
+        String[] temp = date.split("/");
+        int year = Integer.valueOf(temp[0]);
+        int month = Integer.valueOf(temp[1]);
+        int day = Integer.valueOf(temp[2]);
+        queryBase.addParameter("start", DateUtil.getCertainStartTimeTimeStamp(year, month, day));
+        queryBase.addParameter("end", DateUtil.getCertainEndTimeTimeStamp(year, month, day));
+        queryBase.addParameter("sex", sex);
+        case1Service.query(queryBase);
+        return new Response(Status.SUCCESS, queryBase.getResults());
     }
 
 }

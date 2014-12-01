@@ -1,6 +1,9 @@
 package org.xhome.ly.service;
 
 import org.xhome.ly.bean.Case1;
+import org.xhome.ly.common.QueryBase;
+
+import java.util.List;
 
 /**
  * Created by fenjuly

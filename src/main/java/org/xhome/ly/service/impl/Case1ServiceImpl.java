@@ -10,6 +10,8 @@ import org.xhome.ly.service.Case1Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.List;
+
 /**
  * Created by fenjuly
  * Date: 14/11/29
@@ -101,4 +103,5 @@ public class Case1ServiceImpl implements Case1Service{
         queryBase.setResults(case1Mapper.queryCase1s(queryBase));
         queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
     }
+
 }

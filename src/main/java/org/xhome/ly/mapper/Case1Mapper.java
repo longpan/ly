@@ -21,4 +21,5 @@ public interface Case1Mapper {
     List<Case1> queryCase1s(QueryBase queryBase);
 
     long countCase1s(QueryBase queryBase);
+
 }

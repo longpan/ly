@@ -77,6 +77,19 @@
     in_ront, in_remarks, complication_heart_rate, complication_vt, complication_ront, 
     complication_remarks, picture_url, global_remarks, keyword1, keyword2, keyword3
   </sql>
+  <sql id="Column_List" >
+    cas1.id, cas1.name, cas1.interrogation_record_id, cas1.operation_data, cas1.operator_name, cas1.operator_detail,
+    cas1.vt_type, cas1.vt_course_disease, acas1.rrhythmia_diagnose, cas1.electrophysiology_diagnose, cas1.postoperation_diagnose,
+    cas1.mechanism, cas1.part, cas1.la_bore, cas1.lv_bore, cas1.lvef_bore, cas1.ra_bore, cas1.rv_bore, cas1.ucg_remarks, ecg_type,
+    cas1.electrical_offset, cas1.preopreative_examination, cas1.anti_arrhythmia_drugs, cas1.invali_danti_arrhythmia_drugs,
+    cas1.merger_arrhythmia, cas1.imaging_inside_heart, cas1.induced_way, cas1.check_medication, cas1.tachycardia_regulation,
+    cas1.ccl, cas1.inspection_method, cas1.diastolic_potential, cas1.p_potential_examination, cas1.ablation_procedure,
+    cas1.ablation_lines, cas1.target_position, cas1.ablation_energy, cas1.ablation_judgement, cas1.ablation_end_point,
+    cas1.effective_target_site, cas1.discharge_time, cas1.xray_exposure_time, cas1.ablation_times, cas1.intraoperative_cable_rate,
+    cas1.before_heart_rate, cas1.before_vt, cas1.before_ront, cas1.before_remarks, cas1.in_heart_rate, cas1.in_vt,
+    cas1.in_ront, cas1.in_remarks, cas1.complication_heart_rate, cas1.complication_vt, cas1.complication_ront,
+    cas1.complication_remarks, cas1.picture_url, cas1.global_remarks, cas1.keyword1, cas1.keyword2, cas1.keyword3
+  </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -759,9 +772,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-
   <select id="queryCase1s" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
-    SELECT * FROM case1
+    SELECT
+    <include refid="Column_List" />
+    FROM case1
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>
@@ -773,6 +787,13 @@
 
   <sql id="where_with_condition">
     <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="parameters.sex != null and parameters.sex !=''">
+        INNER JOIN interrogation_record ON interrogation_record.id = case1.id
+        INNER JOIN patient ON patient.keyword1 = #{parameters.sex}
+      </if>
+      <if test="parameters.start != null and parameters.end != null">AND case1.operation_data >= #{parameters.start}
+        AND case1.operation_data &lt; #{parameters.end}
+      </if>
     </trim>
   </sql>
 </mapper>
