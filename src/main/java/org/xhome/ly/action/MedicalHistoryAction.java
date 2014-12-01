@@ -24,15 +24,15 @@ public class MedicalHistoryAction {
      *
      * @param request
      * @param medicalHistory
-     * @param patient_id
+     * @param patientId
      * @return
      */
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/medicalhistory", method = RequestMethod.POST)
-    public Object add(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory, @RequestParam("patient_id")int patient_id){
+    public Object add(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory, @RequestParam("patientId")int patientId){
         int stauts;
-        medicalHistory.setPatientId(patient_id);
+        medicalHistory.setPatientId(patientId);
         stauts=medicalHistoryService.add(medicalHistory);
         return new Response(stauts);
     }

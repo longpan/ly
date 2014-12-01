@@ -26,15 +26,15 @@ public class FollowUpAction {
      *
      * @param request
      * @param followUp  随访的json格式数据
-     * @param interrogation_rcord_id    问诊记录id
+     * @param interrogationRecordId    问诊记录id
      * @return  返回状态 0 成功  1 失败
      */
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/followup", method = RequestMethod.POST)
-    public Object add(HttpServletRequest request, @RequestBody FollowUp followUp, @RequestParam("interrogation_rcord_id")int interrogation_rcord_id){
+    public Object add(HttpServletRequest request, @RequestBody FollowUp followUp, @RequestParam("interrogationRecordId")int interrogationRecordId){
         int status;
-        followUp.setInterrogationRecordId(interrogation_rcord_id);
+        followUp.setInterrogationRecordId(interrogationRecordId);
         status = followUpService.add(followUp);
 
         return new Response(status);
