@@ -24,22 +24,22 @@ http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 	
 
 <!-- 	rick begin -->
-<!-- 启动对@AspectJ注解的支持
+<!-- 启动对@AspectJ注解的支持 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     
-    <bean class="org.xhome.cy.aspect.ActionIntercepters" name="actionIntercepters">
+    <bean class="org.xhome.ly.aspect.ActionIntercepters" name="actionIntercepters">
 	</bean>
-	<bean class="org.xhome.cy.common.Response" name="invalidOperationResponse" scope="singleton">
+	<bean class="org.xhome.ly.common.Response" name="invalidOperationResponse" scope="singleton">
 		<property name="status">
 			<value>13</value>
 		</property>
 	</bean>
-	<bean class="org.xhome.cy.common.Response" name="errorResponse" scope="singleton">
+	<bean class="org.xhome.ly.common.Response" name="errorResponse" scope="singleton">
 		<property name="status">
 			<value>14</value>
 		</property>
 	</bean>
-	-->
+
 <!-- 	rick end -->
 	
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->

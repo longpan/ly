@@ -220,13 +220,13 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8;
 create table patient
 (
    id                   int(11) not null auto_increment,
-   name                 varchar(20) not null comment '????',
+   name                 varchar(20) comment '????',
    id_card              varchar(18) not null default '' comment '????֤??',
-   birthday             timestamp not null default '0000-00-00 00:00:00',
-   phone_number         varchar(20) not null default '' comment '?绰????',
-   adress               varchar(100) not null default '' comment '??ͥסַ',
+   birthday             timestamp default '0000-00-00 00:00:00',
+   phone_number         varchar(20)  default '' comment '?绰????',
+   adress               varchar(100) default '' comment '??ͥסַ',
    education_level      varchar(20) default NULL comment '?Ļ??̶?',
-   profession           varchar(20) not null comment 'ְҵ',
+   profession           varchar(20) comment 'ְҵ',
    keyword1             varchar(100),
    keyword2             varchar(100),
    keyword3             varchar(100),

@@ -80,7 +80,7 @@ public class Case1Action {
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1s",method= RequestMethod.GET)
-    public Object getCase1s(@RequestParam("date")String date, @RequestParam("sex")String sex) {
+    public Object getCase1s(HttpServletRequest request, @RequestParam("date")String date, @RequestParam("sex")String sex) {
         QueryBase queryBase = new QueryBase();
         String[] temp = date.split("/");
         int year = Integer.valueOf(temp[0]);
