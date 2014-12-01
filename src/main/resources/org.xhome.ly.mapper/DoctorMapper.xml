@@ -29,7 +29,8 @@
     delete from doctor
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.Doctor" >
+  <insert id="insert" parameterType="org.xhome.ly.bean.Doctor"
+          useGeneratedKeys="true" keyProperty="id">
     insert into doctor (id, user_id, password, 
       name, major, job_title, 
       contact_number, belong_hospital, keyword1, 
@@ -188,13 +189,13 @@
     #{certificationNumber}
   </select>
 
-  <select id="queryDoctors" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+  <select id="queryDoctors" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT * FROM doctor
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>
 
-  <select id="countDoctors" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+  <select id="countDoctors" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM doctor
     <include refid="where_with_condition" />
   </select>

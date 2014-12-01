@@ -100,7 +100,8 @@
     delete from case1
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.Case1" >
+  <insert id="insert" parameterType="org.xhome.ly.bean.Case1"
+          useGeneratedKeys="true" keyProperty="id">
     insert into case1 (id, name, interrogation_record_id, 
       operation_data, operator_name, operator_detail, 
       vt_type, vt_course_disease, arrhythmia_diagnose, 
@@ -772,7 +773,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="queryCase1s" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+  <select id="queryCase1s" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT
     <include refid="Column_List" />
     FROM case1
@@ -780,7 +781,7 @@
     LIMIT #{firstRow}, #{maxRow}
   </select>
 
-  <select id="countCase1s" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+  <select id="countCase1s" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM case1
     <include refid="where_with_condition" />
   </select>

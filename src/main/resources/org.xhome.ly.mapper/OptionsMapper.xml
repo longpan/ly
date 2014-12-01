@@ -22,7 +22,8 @@
     delete from options
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.Options" >
+  <insert id="insert" parameterType="org.xhome.ly.bean.Options"
+          useGeneratedKeys="true" keyProperty="id">
     insert into options (id, number, name, 
       keyword1, keyword2, keyword3
       )
@@ -104,13 +105,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="queryOptions" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+  <select id="queryOptions" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT * FROM options
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>
 
-  <select id="countOptions" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+  <select id="countOptions" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM options
     <include refid="where_with_condition" />
   </select>

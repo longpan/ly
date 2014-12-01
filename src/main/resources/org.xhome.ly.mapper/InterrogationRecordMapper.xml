@@ -23,7 +23,8 @@
     delete from interrogation_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.InterrogationRecord" >
+  <insert id="insert" parameterType="org.xhome.ly.bean.InterrogationRecord"
+          useGeneratedKeys="true" keyProperty="id">
     insert into interrogation_record (id, doctor_id, patient_id, 
       case_type, keyword1, keyword2, 
       keyword3)
@@ -116,13 +117,13 @@
   </update>
 
 
-  <select id="queryInterrogationRecords" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+  <select id="queryInterrogationRecords" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT * FROM interrogation_record
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>
 
-  <select id="countInterrogationRecords" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+  <select id="countInterrogationRecords" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM interrogation_record
     <include refid="where_with_condition" />
   </select>

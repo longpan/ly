@@ -24,7 +24,8 @@
     delete from file
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.File" >
+  <insert id="insert" parameterType="org.xhome.ly.bean.File"
+          useGeneratedKeys="true" keyProperty="id">
     insert into file (id, interrogation_record_id, name, 
       type, url, keyword1, 
       keyword2, keyword3)
@@ -126,13 +127,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="queryFiles" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+  <select id="queryFiles" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT * FROM file
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>
 
-  <select id="countFiles" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+  <select id="countFiles" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM file
     <include refid="where_with_condition" />
   </select>
