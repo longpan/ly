@@ -24,7 +24,8 @@
     delete from medical_history
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.MedicalHistory" >
+  <insert id="insert" parameterType="org.xhome.ly.bean.MedicalHistory"
+          useGeneratedKeys="true" keyProperty="id">
     insert into medical_history (id, patient_id, type_name, 
       oprate_time, detail, keyword1, 
       keyword2, keyword3)
@@ -126,13 +127,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="queryMedicalHistorys" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+  <select id="queryMedicalHistorys" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT * FROM medical_history
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>
 
-  <select id="countMedicalHistorys" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+  <select id="countMedicalHistorys" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM medical_history
     <include refid="where_with_condition" />
   </select>

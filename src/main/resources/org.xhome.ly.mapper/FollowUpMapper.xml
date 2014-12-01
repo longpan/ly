@@ -40,7 +40,8 @@
     delete from follow_up
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.FollowUp" >
+  <insert id="insert" parameterType="org.xhome.ly.bean.FollowUp"
+          useGeneratedKeys="true" keyProperty="id">
     insert into follow_up (id, interrogation_record_id, follow_up_time, 
       follow_up_method, onset_evidence, evidence_source, 
       postoperative_anticoagulation, postoperative_complications, 
@@ -272,13 +273,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="queryFollowUps" parameterType="org.xhome.cy.common.QueryBase" resultMap="BaseResultMap">
+  <select id="queryFollowUps" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT * FROM follow_up
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>
 
-  <select id="countFollowUps" parameterType="org.xhome.cy.common.QueryBase" resultType="long">
+  <select id="countFollowUps" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM follow_up
     <include refid="where_with_condition" />
   </select>
