@@ -80,15 +80,20 @@ public class Case1Action {
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1s",method= RequestMethod.GET)
-    public Object getCase1s(HttpServletRequest request, @RequestParam("date")String date, @RequestParam("sex")String sex) {
+    public Object getCase1s(HttpServletRequest request, @RequestParam("date")String date, @RequestParam("sex")String sex,
+                            @RequestParam("doctorId")String doctorId ) {
         QueryBase queryBase = new QueryBase();
-        String[] temp = date.split("/");
-        int year = Integer.valueOf(temp[0]);
-        int month = Integer.valueOf(temp[1]);
-        int day = Integer.valueOf(temp[2]);
-        queryBase.addParameter("start", DateUtil.getCertainStartTimeTimeStamp(year, month, day));
-        queryBase.addParameter("end", DateUtil.getCertainEndTimeTimeStamp(year, month, day));
+        if(date != null && !date.equals("")) {
+            String[] temp = date.split("/");
+            int year = Integer.valueOf(temp[0]);
+            int month = Integer.valueOf(temp[1]);
+            int day = Integer.valueOf(temp[2]);
+            queryBase.addParameter("start", DateUtil.getCertainStartTimeTimeStamp(year, month, day));
+            queryBase.addParameter("end", DateUtil.getCertainEndTimeTimeStamp(year, month, day));
+        }
+
         queryBase.addParameter("sex", sex);
+        queryBase.addParameter("doctorId", doctorId);
         case1Service.query(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
     }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.bean.Options;
 import org.xhome.ly.common.Response;
+import org.xhome.ly.common.Status;
 import org.xhome.ly.service.OptionsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,9 @@ public class OptionsAction {
     public Object add(HttpServletRequest request, @RequestBody Options options){
         int status;
         status = optionsService.add(options);
+        if(status == Status.SUCCESS){
+            return new Response(status,options.getId());
+        }
         return new Response(status);
     }
 

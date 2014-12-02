@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.FollowUp;
 import org.xhome.ly.common.Response;
+import org.xhome.ly.common.Status;
 import org.xhome.ly.service.FollowUpService;
 import org.xhome.ly.service.InterrogationRecordService;
 
@@ -36,6 +37,9 @@ public class FollowUpAction {
         int status;
         followUp.setInterrogationRecordId(interrogationRecordId);
         status = followUpService.add(followUp);
+        if(status == Status.SUCCESS){
+            return new Response(status,followUp.getId());
+        }
 
         return new Response(status);
     }

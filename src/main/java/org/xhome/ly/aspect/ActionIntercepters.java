@@ -43,11 +43,11 @@ public class ActionIntercepters {
             HttpServletRequest request = (HttpServletRequest) point.getArgs()[0];
             String authentication = request.getHeader("Authentication");
             String[] temp = authentication.split("%");
-            String certificationNumber = temp[0];
+            String userId = temp[0];
             String encryptPassword = EncryptionUtil.encrypt(temp[1]);
-            logger.warn(certificationNumber + " and "+ temp[1]);
+            logger.warn(userId + " and "+ temp[1]);
 
-            Doctor doctor = doctorMapper.selectByCertificationNumber(certificationNumber);
+            Doctor doctor = doctorMapper.selectByUserId(userId);
             if(null != doctor && doctor.getPassword().equals(encryptPassword)){
                 return point.proceed();
             }

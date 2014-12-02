@@ -50,7 +50,7 @@ public class FollowUpServiceImpl  implements FollowUpService {
             logger.warn("尝试更新随访，但是随访不存在");
             return Status.NOT_EXISTS;
         }
-        followUpMapper.updateByPrimaryKey(followUp);
+        followUpMapper.updateByPrimaryKeySelective(followUp);
         logger.debug("修改随访："  + followUp.getId() + " 成功");
         return Status.SUCCESS;
     }

@@ -129,7 +129,7 @@ public class DoctorServiceImpl implements DoctorService {
      */
     @Override
     public int login(Doctor doctor) {
-        Doctor d = doctorMapper.selectByCertificationNumber(doctor.getCertificationNumber());
+        Doctor d = doctorMapper.selectByUserId(doctor.getUserId());
         if (d == null) {
             return Status.NOT_EXISTS;
         }

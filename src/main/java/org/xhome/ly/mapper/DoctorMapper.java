@@ -26,4 +26,6 @@ public interface DoctorMapper {
     boolean isDoctorExists(Doctor doctor);
 
     Doctor selectByCertificationNumber(String certificationNumber);
+
+    Doctor selectByUserId(String certificationNumber);
 }

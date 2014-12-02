@@ -11,9 +11,15 @@
     <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
     <result column="keyword3" property="keyword3" jdbcType="VARCHAR" />
   </resultMap>
+  <sql id="Column_List" >
+    medical_history.id, medical_history.patient_id, medical_history.type_name, medical_history.oprate_time, medical_history.detail,
+     medical_history.keyword1, medical_history.keyword2, medical_history.keyword3
+  </sql>
+
   <sql id="Base_Column_List" >
     id, patient_id, type_name, oprate_time, detail, keyword1, keyword2, keyword3
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -127,8 +133,16 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+
   <select id="queryMedicalHistorys" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
-    SELECT * FROM medical_history
+    SELECT
+    <include refid= "Column_List"/>
+    FROM medical_history
+    <if test="parameters.patientId != null and parameters.patientId !=''">
+      INNER JOIN patient ON patient.id=medical_history.patient_id
+      AND patient.id=#{parameters.patientId}
+
+    </if>
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
   </select>

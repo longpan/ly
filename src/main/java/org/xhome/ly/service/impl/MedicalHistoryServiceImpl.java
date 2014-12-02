@@ -49,7 +49,7 @@ public class MedicalHistoryServiceImpl implements MedicalHistoryService {
             logger.warn("尝试更新病史，但是病史不存在");
             return Status.NOT_EXISTS;
         }
-        medicalHistoryMapper.updateByPrimaryKey(medicalHistory);
+        medicalHistoryMapper.updateByPrimaryKeySelective(medicalHistory);
         logger.debug("修改病史："  + medicalHistory.getId() + " 成功");
         return Status.SUCCESS;
     }
