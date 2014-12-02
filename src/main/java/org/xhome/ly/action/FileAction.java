@@ -27,19 +27,27 @@ public class FileAction {
     private FileService fileService;
 
 
-    @DoctorLoginAuthorized
+
     @ResponseBody
-    @RequestMapping(value="/api/file",method= RequestMethod.PUT)
+    @RequestMapping(value="/api/file",method = RequestMethod.POST)
     public Object uploadFile (HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile,
                               @RequestParam("interrogationRecordId") int interrogationRecordId) {
         int status = Status.ERROR;
         if (!multipartFile.isEmpty()) {
             try {
                 // 文件保存路径
-                String filePath = request.getSession().getServletContext().getRealPath("/") + "upload/"
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "/upload/"
                         + multipartFile.getOriginalFilename();
+
                 // 转存文件
-                multipartFile.transferTo(new File(filePath));
+                File file_temp = new File(filePath);
+                if(!file_temp.exists()){
+                    file_temp.mkdirs();
+                }
+                multipartFile.transferTo(file_temp);
+//                System.out.println("FileName:==" + multipartFile.getOriginalFilename());
+//                System.out.println("SavePath:=="+filePath);
+//                System.out.println("RecordId:=="+interrogationRecordId);
                 org.xhome.ly.bean.File file = new org.xhome.ly.bean.File();
                 file.setInterrogationRecordId(interrogationRecordId);
                 file.setName(multipartFile.getOriginalFilename());
