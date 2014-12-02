@@ -54,7 +54,7 @@ public class OptionsAction {
     /**
      *
      * @param request
-     * @param id   选项的json格式
+     * @param id
      * @return  返回状态 0 成功  1 失败  7 不存在
      */
     @ResponseBody

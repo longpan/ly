@@ -66,4 +66,14 @@ public class MedicalHistoryAction {
         medicalHistoryService.query(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/medcalhistory/{id}", method = RequestMethod.DELETE)
+    public Object delete(HttpServletRequest request, @PathVariable int id){
+        int status;
+        MedicalHistory medicalHistory = new MedicalHistory();
+        medicalHistory.setId(id);
+        status = medicalHistoryService.delete(medicalHistory);
+        return new Response(status);
+    }
 }

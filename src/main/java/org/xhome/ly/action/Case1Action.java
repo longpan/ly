@@ -98,4 +98,14 @@ public class Case1Action {
         return new Response(Status.SUCCESS, queryBase.getResults());
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/api/case1/{id}", method = RequestMethod.DELETE)
+    public Object delete(HttpServletRequest request, @PathVariable int id){
+        int status;
+        Case1 case1 = new Case1();
+        case1.setId(id);
+        status = case1Service.delete(case1);
+        return new Response(status);
+    }
+
 }

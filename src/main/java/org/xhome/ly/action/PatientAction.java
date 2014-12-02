@@ -2,10 +2,7 @@ package org.xhome.ly.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.Patient;
 import org.xhome.ly.common.Response;
@@ -43,6 +40,16 @@ public class PatientAction {
     public Object update(HttpServletRequest request, @RequestBody Patient patient) {
         int status;
         status = patientService.update(patient);
+        return new Response(status);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/patient/{id}", method = RequestMethod.DELETE)
+    public Object delete(HttpServletRequest request, @PathVariable int id){
+        int status;
+        Patient patient = new Patient();
+        patient.setId(id);
+        status = patientService.delete(patient);
         return new Response(status);
     }
 }

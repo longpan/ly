@@ -8,7 +8,6 @@ import org.xhome.ly.bean.FollowUp;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.service.FollowUpService;
-import org.xhome.ly.service.InterrogationRecordService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,6 +56,16 @@ public class FollowUpAction {
         int status;
         status = followUpService.update(followUp);
 
+        return new Response(status);
+    }
+    @DoctorLoginAuthorized
+    @ResponseBody
+    @RequestMapping(value = "/api/followup/{id}", method = RequestMethod.DELETE)
+    public Object delete(HttpServletRequest request, @PathVariable int id){
+        int status;
+        FollowUp followUp = new FollowUp();
+        followUp.setId(id);
+        status = followUpService.delete(followUp);
         return new Response(status);
     }
 
