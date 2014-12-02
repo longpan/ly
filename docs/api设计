@@ -1,0 +1,245 @@
+api 设计
+
+
+      	(添加医生）:
+	  URL:"/api/doctor"
+	  Method: POST
+	  Authentication: None
+	  Request:
+		  {
+		   "userId":"1234423",
+		   "certificationNumber":"12345685", //医生职业编号
+   		   "password":"343434"		     //医生密码
+		  }
+	  Response:
+		  {
+    		   "status": 0,		//status  0 成功  1 失败  6 已存在
+           	   "body": 2		// body 为添加所添加医生的id(主键)
+		  }
+
+       (医生登录）:
+		URL:"/api/doctor/authentication"
+		Method:POST
+		Authentication: None
+	  	Request:
+		  {
+		    "userId":"1234423",	//		医生登录id
+		    "password":"343434"			//医生密码
+		  }
+		Response:
+		  {
+    		    "status": 0,	//status 0 成功	,  7 用户不存在, 9 密码不正确
+    		    "body": null
+		  }
+	
+	(添加病人):
+		URL:"/api/patient"
+	        Method: POST
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "name":"test",		//病人姓名
+		  "idCard":"1234567890123456"	//病人身份证号
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  6 已存在
+    		  "body": 2		// body 为添加所添加病人的id(主键)
+		}
+	修改病人信息:
+		URL:"/api/patient"
+	        Method: PATCH
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "id":"1",			//病人id
+		  "name":"test",		//病人姓名
+		  "idCard":"1234567890123456"	//病人身份证号
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
+		}
+
+	添加问诊记录:
+		URL:"/api/case1"
+	        Method: POST
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "name":"test",		//病例名称
+		  "operatorName":"test"		//手术医生姓名
+		}
+		URL params:
+		{
+		  "doctorId":"1",	// 医生id		 最后的URL:"/api/case1?doctorId=XX&patientId=XX"
+		  "patientId":"1",	//病人id
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  
+    		  "body": 4		// body 为添加所添加问诊记录的id(主键)
+		}
+
+	修改问诊记录:
+		URL:"/api/case1"
+	        Method: PATCH
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "id":"4",			//问诊记录id
+		  "name":"test",		//病例名称
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
+		}
+		
+	查询问诊记录:
+		URL:"/api/case1s"
+	        Method: GET
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	URL params:
+		{
+		  "date":"2014/12/1",	//按时间查询问诊记录  最后的URL:"case1s?date=XX&sex=XX"
+		  "sex":"male",		//按病人性别查询
+		  "doctorId":"1"	//按医生id查询	
+		}
+		Response:		
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": ...		//body中是一个问诊记录的json List
+		}
+	添加病史:
+		URL:"/api/medicalhistory"
+	        Method: POST
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "typeName":"test",		//病史类型名称
+		  "detail":"test"		//病史详情
+		}
+		URL params:
+		{
+		  "doctorId":"1",	// 医生id		 最后的URL:"/api/medicalhistory?doctorId=XX"
+		}
+
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  
+    		  "body": 4		// body 为添加所添加病史的id(主键)
+		}
+		
+	修改病史:
+		URL:"/api/medicalhistory"
+	        Method: PATCH
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "id":"4",			//问诊记录id
+		  "name":"test",		//病例名称
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
+		}
+	按照病人id查询病史:
+		URL:"api/medicalhistory/{id}"
+		Method: GET
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+		Response:
+		{
+    		"status": 0,
+    		"body": [
+        		{
+           		 "id": 3,
+            		"patientId": 2,
+            		"typeName": "test2",
+            		"oprateTime": 1417439352000,
+            		"detail": "teststdfdsf2",
+            		"keyword1": null,
+            		"keyword2": null,
+            		"keyword3": null
+       		 	}
+   			 ]
+		}
+	添加随访:
+		URL:"/api/followup"
+	        Method: POST
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "followUpMethod":"test"		//随访方法
+		  		
+		}
+		URL params:
+		{
+		  "interrogationRecordId":"1",	// 问诊记录id		 最后的URL:"/api/medicalhistory?interrogationRecordId=XX"
+		}
+
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  
+    		  "body": 2		// body 为添加所添加问诊记录的id(主键)
+		}
+
+	修改随访:
+		URL:"/api/followup"
+	        Method: PATCH
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "id":"2",			//随访id
+		 "followUpMethod":"update"		//随访方法
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
+		}
+
+	添加选项:
+		URL:"/api/options"
+	        Method: POST
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "number":"1",		//选项编号
+		  "name":"test"		//选项名称
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  6 已存在
+    		  "body": 2		// body 为添加所添加选项的id(主键)
+		}
+	修改选项信息:
+		URL:"/api/options"
+	        Method: PATCH
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "id":"1",			//病人id
+		  "number":"1",		//选项编号
+		  "name":"test"		//选项名称
+		}
+		Response:
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
+		}
+	删除选项:
+		URL:"/api/options/{id}" 
+		Method: DELETE
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码  
+		
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
+		}
+
