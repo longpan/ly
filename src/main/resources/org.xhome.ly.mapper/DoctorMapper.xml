@@ -192,7 +192,7 @@
 
   <select id="isDoctorExists" parameterType="Doctor" resultType="boolean">
     SELECT
-    COUNT(certification_number) FROM doctor WHERE user_id =
+    COUNT(id) FROM doctor WHERE user_id =
     #{userId}
   </select>
 

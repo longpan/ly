@@ -59,13 +59,15 @@ public class DoctorServiceImpl implements DoctorService {
             logger.warn("尝试更新医生, 但是医生不存在");
             return Status.NOT_EXISTS;
         }
-        String pwd = doctor.getPassword();
-        String encryptedPassword = EncryptionUtil.encrypt(pwd);
-        if (!StringUtils.isEmpty(doctor.getPassword())) {
-            if (d.getPassword().equals(pwd))
-                doctor.setPassword(null);
-            else
-                doctor.setPassword(encryptedPassword);
+        if (doctor.getPassword() != null) {
+            String pwd = doctor.getPassword();
+            String encryptedPassword = EncryptionUtil.encrypt(pwd);
+            if (!StringUtils.isEmpty(doctor.getPassword())) {
+                if (d.getPassword().equals(pwd))
+                    doctor.setPassword(null);
+                else
+                    doctor.setPassword(encryptedPassword);
+            }
         }
         if (doctorMapper.updateByPrimaryKeySelective(doctor) > 0) {
             logger.debug("更新医生成功 certificationNumber: " + d.getCertificationNumber());
