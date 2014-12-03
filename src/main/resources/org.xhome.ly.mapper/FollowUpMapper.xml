@@ -30,6 +30,15 @@
     postoperatie_lv, postoperatie_lvef, left_thrombosis, check_method, keyword1, keyword2, 
     keyword3
   </sql>
+
+  <sql id="Column_List" >
+    follow_up.id, follow_up.interrogation_record_id, follow_up.follow_up_time, follow_up.follow_up_method, follow_up.onset_evidence, follow_up.evidence_source,
+    follow_up.postoperative_anticoagulation, follow_up.postoperative_complications, follow_up.postoperative_arrhythmias,
+    follow_up.postoperatie_adds, follow_up.postoperatie_medication, follow_up.echocardiographic_time, follow_up.postoperatie_la,
+    follow_up.postoperatie_lv, follow_up.postoperatie_lvef, follow_up.left_thrombosis, follow_up.check_method, follow_up.keyword1, follow_up.keyword2,
+    follow_up.keyword3
+  </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -272,10 +281,21 @@
       keyword3 = #{keyword3,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <sql id="joinTable">
+    INNER JOIN interrogation_record ON interrogation_record.id=follow_up.interrogation_record_id
+  </sql>
+
 
   <select id="queryFollowUps" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
-    SELECT * FROM follow_up
+    SELECT
+    <include refid= "Column_List"/>
+    FROM follow_up
+    <include refid= "joinTable"/>
+    <if test="parameters.interrogationRecordId != null and parameters.interrogationRecordId !=''">
+    AND interrogation_record.id=#{parameters.interrogationRecordId}
+    </if>
     <include refid="where_with_condition" />
+
     LIMIT #{firstRow}, #{maxRow}
   </select>
 

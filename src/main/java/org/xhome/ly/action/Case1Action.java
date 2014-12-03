@@ -73,15 +73,25 @@ public class Case1Action {
 
     /**
      *
-     * @param date
-     * @param sex
+     * @param request
+     * @param date  病例日期
+     * @param patientSex   病人性别
+     * @param doctorId  医生id
+     * @param patientName   病人姓名
+     * @param patientIdCard     病人身份证号
+     * @param patientPhomeNumber    病人手机号
      * @return
      */
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1s",method= RequestMethod.GET)
-    public Object getCase1s(HttpServletRequest request, @RequestParam("date")String date, @RequestParam("sex")String sex,
-                            @RequestParam("doctorId")String doctorId ) {
+    public Object getCase1s(HttpServletRequest request,
+                            @RequestParam(value = "date", required = false)String date,
+                            @RequestParam(value = "patientSex", required = false)String patientSex,
+                            @RequestParam(value = "doctorId", required = false)String doctorId ,
+                            @RequestParam(value = "patientName", required = false)String patientName,
+                            @RequestParam(value = "patientIdCard", required = false)String patientIdCard,
+                            @RequestParam(value = "patientPhomeNumber", required = false)String patientPhomeNumber) {
         QueryBase queryBase = new QueryBase();
         if(date != null && !date.equals("")) {
             String[] temp = date.split("/");
@@ -92,8 +102,12 @@ public class Case1Action {
             queryBase.addParameter("end", DateUtil.getCertainEndTimeTimeStamp(year, month, day));
         }
 
-        queryBase.addParameter("sex", sex);
+        queryBase.addParameter("patientSex", patientSex);
         queryBase.addParameter("doctorId", doctorId);
+        queryBase.addParameter("patientName",patientName);
+        queryBase.addParameter("patientIdCard",patientIdCard);
+        queryBase.addParameter("patientPhomeNumber",patientPhomeNumber);
+
         case1Service.query(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
     }

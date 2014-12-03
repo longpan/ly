@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.FollowUp;
+import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.service.FollowUpService;
@@ -67,6 +68,22 @@ public class FollowUpAction {
         followUp.setId(id);
         status = followUpService.delete(followUp);
         return new Response(status);
+    }
+
+    /**     根据interrogationrcord_id获取随访
+     *
+     * @param request
+     * @param id   interrogationrcord_id
+     * @return
+     */
+    @DoctorLoginAuthorized
+    @ResponseBody
+    @RequestMapping(value = "/api/followup/interrogationrcord/{id}", method = RequestMethod.GET)
+    public Object getByInterrogationRecord(HttpServletRequest request, @PathVariable int id){
+        QueryBase queryBase = new QueryBase();
+        queryBase.addParameter("interrogationRecordId",id);
+        followUpService.query(queryBase);
+        return new Response(Status.SUCCESS, queryBase.getResults());
     }
 
 }

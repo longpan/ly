@@ -42,6 +42,21 @@ public class DoctorAction {
         return new Response(status);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/api/doctor/{id}", method = RequestMethod.GET)
+    public Object get(HttpServletRequest request, @PathVariable int id){
+        int status;
+        Doctor doctor;
+        doctor = doctorService.get(id);
+        if(doctor == null){
+            status = Status.NOT_EXISTS;
+            return new Response(status);
+        }else{
+            status = Status.SUCCESS;
+            return new Response(status,doctor);
+        }
+
+    }
 
     @ResponseBody
     @RequestMapping(value = "/api/doctor/{id}", method = RequestMethod.DELETE)

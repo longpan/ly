@@ -22,6 +22,12 @@ public class PatientAction {
     @Autowired
     private PatientService patientService;
 
+    /**     添加病人
+     *
+     * @param request
+     * @param patient   病人json格式数据
+     * @return  0 成功  1 失败  6 已存在
+     */
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/patient",method= RequestMethod.POST)
@@ -34,6 +40,13 @@ public class PatientAction {
         return new Response(status);
     }
 
+    /**     修改病人信息
+     *
+     * @param request
+     * @param patient   病人的json格式数据
+     * @return      0 成功  1 失败  7 不存在
+     */
+
     @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/patient",method= RequestMethod.PATCH)
@@ -42,7 +55,12 @@ public class PatientAction {
         status = patientService.update(patient);
         return new Response(status);
     }
-
+    /**
+     *
+     * @param request   按id删除病人
+     * @param id    病人id
+     * @return  status  0成功  7 不存在
+     */
     @ResponseBody
     @RequestMapping(value = "/api/patient/{id}", method = RequestMethod.DELETE)
     public Object delete(HttpServletRequest request, @PathVariable int id){
@@ -51,5 +69,27 @@ public class PatientAction {
         patient.setId(id);
         status = patientService.delete(patient);
         return new Response(status);
+    }
+
+    /**
+     *
+     * @param request  按id查询病人
+     * @param id    病人id
+     * @return  status  0成功  7 不存在
+     */
+    @ResponseBody
+    @RequestMapping(value = "/api/patient/{id}", method = RequestMethod.GET)
+    public Object get(HttpServletRequest request, @PathVariable int id){
+        int status;
+        Patient patient ;
+        patient = patientService.get(id);
+        if(patient == null){
+            status = Status.NOT_EXISTS;
+            return new Response(status);
+        }else{
+            status = Status.SUCCESS;
+            return new Response(status,patient);
+
+        }
     }
 }

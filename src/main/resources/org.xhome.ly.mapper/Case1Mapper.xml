@@ -784,8 +784,17 @@
     FROM case1
 
      <include refid="Join_InterrogationRecord"/>
-    <if test="parameters.sex != null and parameters.sex !=''">
-      AND patient.keyword1 = #{parameters.sex}
+    <if test="parameters.patientSex != null and parameters.patientSex !=''">
+      AND patient.keyword1 = #{parameters.patientSex}
+    </if>
+    <if test="parameters.patientName != null and parameters.patientName !=''">
+      AND patient.name = #{parameters.patientName}
+    </if>
+    <if test="parameters.patientIdCard != null and parameters.patientIdCard !=''">
+      AND patient.id_card = #{parameters.patientIdCard}
+    </if>
+    <if test="parameters.patientPhomeNumber != null and parameters.patientPhomeNumber !=''">
+      AND patient.phone_number = #{parameters.patientPhomeNumber}
     </if>
     <if test="parameters.doctorId != null and parameters.doctorId !=''">
       AND doctor.id=#{parameters.doctorId}
