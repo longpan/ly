@@ -192,8 +192,8 @@
 
   <select id="isDoctorExists" parameterType="Doctor" resultType="boolean">
     SELECT
-    COUNT(certification_number) FROM doctor WHERE certification_number =
-    #{certificationNumber}
+    COUNT(certification_number) FROM doctor WHERE user_id =
+    #{userId}
   </select>
 
   <select id="queryDoctors" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
