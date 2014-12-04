@@ -44,7 +44,7 @@ Integer id;	   		'id'  主键
  String xrayExposureTime;	 'x线暴光时间'
  Integer ablationTimes;		 '消融次数'
  String intraoperativeCableRate; '术中电复率'
- String beforeHeartRate;	 '消融前心率'
+ String beforeHeartRate;	 '消融前窦性心率'
  String beforeVt;		 '消融前室速'
  String beforeRont;		 '消融前室早'
  String beforeRemarks;		 '消融前备注'
@@ -52,15 +52,27 @@ Integer id;	   		'id'  主键
  String inVt;			 '术中室速'
  String inRont;			 '术中室早'
  String inRemarks;		 '术中备注'
- String complicationHeartRate;	 '并发症窦性心率'
- String complicationVt;		 '并发症室速'
- String complicationRont;	 '并发症室早'
- String complicationRemarks;	 '并发症备注'
- String pictureUrl;		 '图片路径'
+
  String globalRemarks;		 '全局备注'
  String keyword1;		 '保留关键字'
  String keyword2;		 '保留关键字'
  String keyword3;		 '保留关键字'
+++++++++++++++++++++++++++++++++++++++++++++	添加以下字段
+ String operationNumber;	'手术编号'
+ String caseNumber;		'病例编号'
+ String vtFrequency;		'室速频度'
+ String vtEveryAttackTime;	'每次发作持续时间'
+ String vtLastAttackTime;	'最近发作持续时间'
+ String cardioversionMethod;	'曾用用转律方方法'
+ String cardioversionMedication; '转律用用药'
+ String complication;		 '并发症'
+
+-------------------------------------------------- 删除以下字段
+String complicationHeartRate;	 '并发症窦性心率'
+ String complicationVt;		 '并发症室速'
+ String complicationRont;	 '并发症室早'
+ String complicationRemarks;	 '并发症备注'
+ String pictureUrl;		 '图片路径'
 
 doctor 医生:
 
@@ -91,6 +103,9 @@ patient 病人:
  String keyword1;		'保留关键字'  用作 sex 性别
  String keyword2;		'保留关键字'
  String keyword3;		'保留关键字'
++++++++++++++++++++++++++++++++++++++++++++++++++++	添加以下字段
+String age;			'年龄'
+String sex;			'性别'
 
 
 MedicalHistory(病史)
@@ -125,6 +140,9 @@ FollowUp(随访)
  String keyword1;			'保留关键字'
  String keyword2;			'保留关键字'
  String keyword3;			'保留关键字'
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 添加以下字段
+String postoperativeArrhythmiasTime;    '术后心率失常发生时间'
+
 
 
 option(选项)
