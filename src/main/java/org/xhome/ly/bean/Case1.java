@@ -107,13 +107,7 @@ public class Case1 {
 
     private String inRemarks;
 
-    private String complicationHeartRate;
 
-    private String complicationVt;
-
-    private String complicationRont;
-
-    private String complicationRemarks;
 
     private String pictureUrl;
 
@@ -124,6 +118,22 @@ public class Case1 {
     private String keyword2;
 
     private String keyword3;
+
+    private String operationNumber;
+
+    private String caseNumber;
+
+    private String vtFrequency;
+
+    private String vtEveryAttackTime;
+
+    private String vtLastAttackTime;
+
+    private String cardioversionMethod;
+
+    private String cardioversionMedication;
+
+    private String complication;
 
     public Integer getId() {
         return id;
@@ -541,37 +551,6 @@ public class Case1 {
         this.inRemarks = inRemarks == null ? null : inRemarks.trim();
     }
 
-    public String getComplicationHeartRate() {
-        return complicationHeartRate;
-    }
-
-    public void setComplicationHeartRate(String complicationHeartRate) {
-        this.complicationHeartRate = complicationHeartRate == null ? null : complicationHeartRate.trim();
-    }
-
-    public String getComplicationVt() {
-        return complicationVt;
-    }
-
-    public void setComplicationVt(String complicationVt) {
-        this.complicationVt = complicationVt == null ? null : complicationVt.trim();
-    }
-
-    public String getComplicationRont() {
-        return complicationRont;
-    }
-
-    public void setComplicationRont(String complicationRont) {
-        this.complicationRont = complicationRont == null ? null : complicationRont.trim();
-    }
-
-    public String getComplicationRemarks() {
-        return complicationRemarks;
-    }
-
-    public void setComplicationRemarks(String complicationRemarks) {
-        this.complicationRemarks = complicationRemarks == null ? null : complicationRemarks.trim();
-    }
 
     public String getPictureUrl() {
         return pictureUrl;
@@ -611,5 +590,69 @@ public class Case1 {
 
     public void setKeyword3(String keyword3) {
         this.keyword3 = keyword3 == null ? null : keyword3.trim();
+    }
+
+    public String getOperationNumber() {
+        return operationNumber;
+    }
+
+    public void setOperationNumber(String operationNumber) {
+        this.operationNumber = operationNumber == null ? null : operationNumber.trim();
+    }
+
+    public String getCaseNumber() {
+        return caseNumber;
+    }
+
+    public void setCaseNumber(String caseNumber) {
+        this.caseNumber = caseNumber == null ? null : caseNumber.trim();
+    }
+
+    public String getVtFrequency() {
+        return vtFrequency;
+    }
+
+    public void setVtFrequency(String vtFrequency) {
+        this.vtFrequency = vtFrequency == null ? null : vtFrequency.trim();
+    }
+
+    public String getVtEveryAttackTime() {
+        return vtEveryAttackTime;
+    }
+
+    public void setVtEveryAttackTime(String vtEveryAttackTime) {
+        this.vtEveryAttackTime = vtEveryAttackTime == null ? null : vtEveryAttackTime.trim();
+    }
+
+    public String getVtLastAttackTime() {
+        return vtLastAttackTime;
+    }
+
+    public void setVtLastAttackTime(String vtLastAttackTime) {
+        this.vtLastAttackTime = vtLastAttackTime == null ? null : vtLastAttackTime.trim();
+    }
+
+    public String getCardioversionMethod() {
+        return cardioversionMethod;
+    }
+
+    public void setCardioversionMethod(String cardioversionMethod) {
+        this.cardioversionMethod = cardioversionMethod == null ? null : cardioversionMethod.trim();
+    }
+
+    public String getCardioversionMedication() {
+        return cardioversionMedication;
+    }
+
+    public void setCardioversionMedication(String cardioversionMedication) {
+        this.cardioversionMedication = cardioversionMedication == null ? null : cardioversionMedication.trim();
+    }
+
+    public String getComplication() {
+        return complication;
+    }
+
+    public void setComplication(String complication) {
+        this.complication = complication == null ? null : complication.trim();
     }
 }

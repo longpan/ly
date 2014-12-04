@@ -83,15 +83,18 @@ create table case1
    in_vt                varchar(20) default NULL comment '????????',
    in_ront              varchar(20) default NULL comment '????????',
    in_remarks           varchar(300) default NULL comment '???б?ע',
-   complication_heart_rate varchar(20) default NULL comment '????֢????????',
-   complication_vt      varchar(20) default NULL comment '????֢????',
-   complication_ront    varchar(20) default NULL comment '????֢????',
-   complication_remarks varchar(300) default NULL comment '????֢??ע',
-   picture_url          varchar(50) default NULL comment 'ͼƬ·??',
    global_remarks       varchar(500) default NULL comment 'ȫ?ֱ?ע',
    keyword1             varchar(100),
    keyword2             varchar(100),
    keyword3             varchar(100),
+   operation_number	varchar(20),
+   case_number		varchar(20),
+   vt_frequency		varchar(20),
+   vt_every_attack_time  varchar(20),
+   vt_last_attack_time   varchar(20),
+   cardioversion_method	 varchar(100),
+   cardioversion_medication	varchar(100),
+   complication		varchar(100),
    primary key (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -109,7 +112,7 @@ create table doctor
    name                 varchar(20) comment 'ҽ??????',
    major                varchar(50) comment '???η???',
    job_title            varchar(30) comment 'ְ??',
-   contact_number       varchar(20) not null comment '??ϵ??ʽ',
+   contact_number       varchar(20)  comment '??ϵ??ʽ',
    belong_hospital      varchar(50)  comment '????ҽԺ',
    keyword1             varchar(100),
    keyword2             varchar(100),
@@ -162,6 +165,7 @@ create table follow_up
    keyword1             varchar(100),
    keyword2             varchar(100),
    keyword3             varchar(100),
+   postoperative_arrhythmias_time 	varchar(30),
    primary key (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -230,6 +234,8 @@ create table patient
    keyword1             varchar(100),
    keyword2             varchar(100),
    keyword3             varchar(100),
+   age			int(6) ,
+   sex			varchar(20),
    primary key (id)
 )
 ENGINE=InnoDB DEFAULT CHARSET=utf8;

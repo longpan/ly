@@ -22,25 +22,17 @@
     <result column="keyword1" property="keyword1" jdbcType="VARCHAR" />
     <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
     <result column="keyword3" property="keyword3" jdbcType="VARCHAR" />
+    <result column="postoperative_arrhythmias_time" property="postoperativeArrhythmiasTime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, interrogation_record_id, follow_up_time, follow_up_method, onset_evidence, evidence_source, 
-    postoperative_anticoagulation, postoperative_complications, postoperative_arrhythmias, 
-    postoperatie_adds, postoperatie_medication, echocardiographic_time, postoperatie_la, 
-    postoperatie_lv, postoperatie_lvef, left_thrombosis, check_method, keyword1, keyword2, 
-    keyword3
+    id, interrogation_record_id, follow_up_time, follow_up_method, onset_evidence, evidence_source,
+    postoperative_anticoagulation, postoperative_complications, postoperative_arrhythmias,
+    postoperatie_adds, postoperatie_medication, echocardiographic_time, postoperatie_la,
+    postoperatie_lv, postoperatie_lvef, left_thrombosis, check_method, keyword1, keyword2,
+    keyword3, postoperative_arrhythmias_time
   </sql>
-
-  <sql id="Column_List" >
-    follow_up.id, follow_up.interrogation_record_id, follow_up.follow_up_time, follow_up.follow_up_method, follow_up.onset_evidence, follow_up.evidence_source,
-    follow_up.postoperative_anticoagulation, follow_up.postoperative_complications, follow_up.postoperative_arrhythmias,
-    follow_up.postoperatie_adds, follow_up.postoperatie_medication, follow_up.echocardiographic_time, follow_up.postoperatie_la,
-    follow_up.postoperatie_lv, follow_up.postoperatie_lvef, follow_up.left_thrombosis, follow_up.check_method, follow_up.keyword1, follow_up.keyword2,
-    follow_up.keyword3
-  </sql>
-
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from follow_up
     where id = #{id,jdbcType=INTEGER}
@@ -51,22 +43,24 @@
   </delete>
   <insert id="insert" parameterType="org.xhome.ly.bean.FollowUp"
           useGeneratedKeys="true" keyProperty="id">
-    insert into follow_up (id, interrogation_record_id, follow_up_time, 
-      follow_up_method, onset_evidence, evidence_source, 
-      postoperative_anticoagulation, postoperative_complications, 
-      postoperative_arrhythmias, postoperatie_adds, 
-      postoperatie_medication, echocardiographic_time, 
-      postoperatie_la, postoperatie_lv, postoperatie_lvef, 
-      left_thrombosis, check_method, keyword1, 
-      keyword2, keyword3)
-    values (#{id,jdbcType=INTEGER}, #{interrogationRecordId,jdbcType=INTEGER}, #{followUpTime,jdbcType=TIMESTAMP}, 
-      #{followUpMethod,jdbcType=VARCHAR}, #{onsetEvidence,jdbcType=VARCHAR}, #{evidenceSource,jdbcType=VARCHAR}, 
-      #{postoperativeAnticoagulation,jdbcType=VARCHAR}, #{postoperativeComplications,jdbcType=VARCHAR}, 
-      #{postoperativeArrhythmias,jdbcType=VARCHAR}, #{postoperatieAdds,jdbcType=VARCHAR}, 
-      #{postoperatieMedication,jdbcType=VARCHAR}, #{echocardiographicTime,jdbcType=VARCHAR}, 
-      #{postoperatieLa,jdbcType=VARCHAR}, #{postoperatieLv,jdbcType=VARCHAR}, #{postoperatieLvef,jdbcType=VARCHAR}, 
-      #{leftThrombosis,jdbcType=VARCHAR}, #{checkMethod,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR}, 
-      #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR})
+    insert into follow_up (id, interrogation_record_id, follow_up_time,
+    follow_up_method, onset_evidence, evidence_source,
+    postoperative_anticoagulation, postoperative_complications,
+    postoperative_arrhythmias, postoperatie_adds,
+    postoperatie_medication, echocardiographic_time,
+    postoperatie_la, postoperatie_lv, postoperatie_lvef,
+    left_thrombosis, check_method, keyword1,
+    keyword2, keyword3, postoperative_arrhythmias_time
+    )
+    values (#{id,jdbcType=INTEGER}, #{interrogationRecordId,jdbcType=INTEGER}, #{followUpTime,jdbcType=TIMESTAMP},
+    #{followUpMethod,jdbcType=VARCHAR}, #{onsetEvidence,jdbcType=VARCHAR}, #{evidenceSource,jdbcType=VARCHAR},
+    #{postoperativeAnticoagulation,jdbcType=VARCHAR}, #{postoperativeComplications,jdbcType=VARCHAR},
+    #{postoperativeArrhythmias,jdbcType=VARCHAR}, #{postoperatieAdds,jdbcType=VARCHAR},
+    #{postoperatieMedication,jdbcType=VARCHAR}, #{echocardiographicTime,jdbcType=VARCHAR},
+    #{postoperatieLa,jdbcType=VARCHAR}, #{postoperatieLv,jdbcType=VARCHAR}, #{postoperatieLvef,jdbcType=VARCHAR},
+    #{leftThrombosis,jdbcType=VARCHAR}, #{checkMethod,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR},
+    #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR}, #{postoperativeArrhythmiasTime,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="org.xhome.ly.bean.FollowUp" >
     insert into follow_up
@@ -131,6 +125,9 @@
       <if test="keyword3 != null" >
         keyword3,
       </if>
+      <if test="postoperativeArrhythmiasTime != null" >
+        postoperative_arrhythmias_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -192,6 +189,9 @@
       </if>
       <if test="keyword3 != null" >
         #{keyword3,jdbcType=VARCHAR},
+      </if>
+      <if test="postoperativeArrhythmiasTime != null" >
+        #{postoperativeArrhythmiasTime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -255,32 +255,45 @@
       <if test="keyword3 != null" >
         keyword3 = #{keyword3,jdbcType=VARCHAR},
       </if>
+      <if test="postoperativeArrhythmiasTime != null" >
+        postoperative_arrhythmias_time = #{postoperativeArrhythmiasTime,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.xhome.ly.bean.FollowUp" >
     update follow_up
     set interrogation_record_id = #{interrogationRecordId,jdbcType=INTEGER},
-      follow_up_time = #{followUpTime,jdbcType=TIMESTAMP},
-      follow_up_method = #{followUpMethod,jdbcType=VARCHAR},
-      onset_evidence = #{onsetEvidence,jdbcType=VARCHAR},
-      evidence_source = #{evidenceSource,jdbcType=VARCHAR},
-      postoperative_anticoagulation = #{postoperativeAnticoagulation,jdbcType=VARCHAR},
-      postoperative_complications = #{postoperativeComplications,jdbcType=VARCHAR},
-      postoperative_arrhythmias = #{postoperativeArrhythmias,jdbcType=VARCHAR},
-      postoperatie_adds = #{postoperatieAdds,jdbcType=VARCHAR},
-      postoperatie_medication = #{postoperatieMedication,jdbcType=VARCHAR},
-      echocardiographic_time = #{echocardiographicTime,jdbcType=VARCHAR},
-      postoperatie_la = #{postoperatieLa,jdbcType=VARCHAR},
-      postoperatie_lv = #{postoperatieLv,jdbcType=VARCHAR},
-      postoperatie_lvef = #{postoperatieLvef,jdbcType=VARCHAR},
-      left_thrombosis = #{leftThrombosis,jdbcType=VARCHAR},
-      check_method = #{checkMethod,jdbcType=VARCHAR},
-      keyword1 = #{keyword1,jdbcType=VARCHAR},
-      keyword2 = #{keyword2,jdbcType=VARCHAR},
-      keyword3 = #{keyword3,jdbcType=VARCHAR}
+    follow_up_time = #{followUpTime,jdbcType=TIMESTAMP},
+    follow_up_method = #{followUpMethod,jdbcType=VARCHAR},
+    onset_evidence = #{onsetEvidence,jdbcType=VARCHAR},
+    evidence_source = #{evidenceSource,jdbcType=VARCHAR},
+    postoperative_anticoagulation = #{postoperativeAnticoagulation,jdbcType=VARCHAR},
+    postoperative_complications = #{postoperativeComplications,jdbcType=VARCHAR},
+    postoperative_arrhythmias = #{postoperativeArrhythmias,jdbcType=VARCHAR},
+    postoperatie_adds = #{postoperatieAdds,jdbcType=VARCHAR},
+    postoperatie_medication = #{postoperatieMedication,jdbcType=VARCHAR},
+    echocardiographic_time = #{echocardiographicTime,jdbcType=VARCHAR},
+    postoperatie_la = #{postoperatieLa,jdbcType=VARCHAR},
+    postoperatie_lv = #{postoperatieLv,jdbcType=VARCHAR},
+    postoperatie_lvef = #{postoperatieLvef,jdbcType=VARCHAR},
+    left_thrombosis = #{leftThrombosis,jdbcType=VARCHAR},
+    check_method = #{checkMethod,jdbcType=VARCHAR},
+    keyword1 = #{keyword1,jdbcType=VARCHAR},
+    keyword2 = #{keyword2,jdbcType=VARCHAR},
+    keyword3 = #{keyword3,jdbcType=VARCHAR},
+    postoperative_arrhythmias_time = #{postoperativeArrhythmiasTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <sql id="Column_List" >
+    follow_up.id, follow_up.interrogation_record_id, follow_up.follow_up_time, follow_up.follow_up_method, follow_up.onset_evidence, follow_up.evidence_source,
+    follow_up.postoperative_anticoagulation, follow_up.postoperative_complications, follow_up.postoperative_arrhythmias,
+    follow_up.postoperatie_adds, follow_up.postoperatie_medication, follow_up.echocardiographic_time, follow_up.postoperatie_la,
+    follow_up.postoperatie_lv, follow_up.postoperatie_lvef, follow_up.left_thrombosis, follow_up.check_method, follow_up.keyword1, follow_up.keyword2,
+    follow_up.keyword3
+  </sql>
+
   <sql id="joinTable">
     INNER JOIN interrogation_record ON interrogation_record.id=follow_up.interrogation_record_id
   </sql>

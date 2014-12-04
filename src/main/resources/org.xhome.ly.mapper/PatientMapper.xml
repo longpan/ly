@@ -13,13 +13,15 @@
     <result column="keyword1" property="keyword1" jdbcType="VARCHAR" />
     <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
     <result column="keyword3" property="keyword3" jdbcType="VARCHAR" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, id_card, birthday, phone_number, adress, education_level, profession, keyword1, 
-    keyword2, keyword3
+    id, name, id_card, birthday, phone_number, adress, education_level, profession, keyword1,
+    keyword2, keyword3, age, sex
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from patient
     where id = #{id,jdbcType=INTEGER}
@@ -30,14 +32,16 @@
   </delete>
   <insert id="insert" parameterType="org.xhome.ly.bean.Patient"
           useGeneratedKeys="true" keyProperty="id">
-    insert into patient (id, name, id_card, 
-      birthday, phone_number, adress, 
-      education_level, profession, keyword1, 
-      keyword2, keyword3)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=TIMESTAMP}, #{phoneNumber,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, 
-      #{educationLevel,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR}, 
-      #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR})
+    insert into patient (id, name, id_card,
+    birthday, phone_number, adress,
+    education_level, profession, keyword1,
+    keyword2, keyword3, age,
+    sex)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
+    #{birthday,jdbcType=TIMESTAMP}, #{phoneNumber,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR},
+    #{educationLevel,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR},
+    #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
+    #{sex,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.xhome.ly.bean.Patient" >
     insert into patient
@@ -75,6 +79,12 @@
       <if test="keyword3 != null" >
         keyword3,
       </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -109,6 +119,12 @@
       </if>
       <if test="keyword3 != null" >
         #{keyword3,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -145,6 +161,12 @@
       <if test="keyword3 != null" >
         keyword3 = #{keyword3,jdbcType=VARCHAR},
       </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -159,7 +181,9 @@
       profession = #{profession,jdbcType=VARCHAR},
       keyword1 = #{keyword1,jdbcType=VARCHAR},
       keyword2 = #{keyword2,jdbcType=VARCHAR},
-      keyword3 = #{keyword3,jdbcType=VARCHAR}
+      keyword3 = #{keyword3,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

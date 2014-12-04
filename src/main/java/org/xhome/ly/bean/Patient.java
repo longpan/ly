@@ -25,6 +25,10 @@ public class Patient {
 
     private String keyword3;
 
+    private Integer age;
+
+    private String sex;
+
     public Integer getId() {
         return id;
     }
@@ -111,5 +115,21 @@ public class Patient {
 
     public void setKeyword3(String keyword3) {
         this.keyword3 = keyword3 == null ? null : keyword3.trim();
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
     }
 }

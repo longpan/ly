@@ -43,6 +43,8 @@ public class FollowUp {
 
     private String keyword3;
 
+    private String postoperativeArrhythmiasTime;
+
     public Integer getId() {
         return id;
     }
@@ -201,5 +203,13 @@ public class FollowUp {
 
     public void setKeyword3(String keyword3) {
         this.keyword3 = keyword3 == null ? null : keyword3.trim();
+    }
+
+    public String getPostoperativeArrhythmiasTime() {
+        return postoperativeArrhythmiasTime;
+    }
+
+    public void setPostoperativeArrhythmiasTime(String postoperativeArrhythmiasTime) {
+        this.postoperativeArrhythmiasTime = postoperativeArrhythmiasTime == null ? null : postoperativeArrhythmiasTime.trim();
     }
 }
