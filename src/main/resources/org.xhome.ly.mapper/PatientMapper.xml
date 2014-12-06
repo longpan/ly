@@ -187,6 +187,14 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+
+  <select id="selectByIdCard" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />
+    from patient
+    where id_card = #{idCard}
+  </select>
+
   <select id="isPatientExists" parameterType="Patient" resultType="boolean">
     SELECT
     COUNT(id_card) FROM patient WHERE id_card =

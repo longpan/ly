@@ -37,7 +37,7 @@ public class Case1Action {
      * @param patientId
      * @return
      */
-    @DoctorLoginAuthorized
+   // @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1",method= RequestMethod.POST)
     public Object add(HttpServletRequest request, @RequestBody Case1 case1, @RequestParam("doctorId")int doctorId
@@ -110,6 +110,16 @@ public class Case1Action {
 
         case1Service.query(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
+    }
+    @DoctorLoginAuthorized
+    @ResponseBody
+    @RequestMapping(value = "/api/case1s/counts", method = RequestMethod.GET)
+    public Object getCaselNumber(HttpServletRequest request, @RequestParam(value = "doctorId", required = false)String doctorId){
+        QueryBase queryBase = new QueryBase();
+        queryBase.addParameter("doctorId", doctorId);
+
+        case1Service.countCasels(queryBase);
+        return new Response(Status.SUCCESS, queryBase.getTotalRow());
     }
 
     @ResponseBody

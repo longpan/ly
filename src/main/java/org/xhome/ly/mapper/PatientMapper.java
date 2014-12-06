@@ -23,4 +23,6 @@ public interface PatientMapper {
     long countPatients(QueryBase queryBase);
 
     boolean isPatientExists(Patient patient);
+
+    Patient selectByIdCard(String idCard);
 }

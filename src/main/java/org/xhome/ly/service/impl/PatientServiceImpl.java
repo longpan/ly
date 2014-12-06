@@ -91,6 +91,17 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public  Patient getByIdCard(String idCard){
+        Patient patient = patientMapper.selectByIdCard(idCard);
+        if(patient == null){
+            logger.warn("病人 idCard: " + idCard + " 不存在");
+        } else {
+            logger.debug("病人 idCard: " + idCard + " 成功");
+        }
+        return patient;
+    }
+
+    @Override
     public void query(QueryBase queryBase) {
         if (logger.isDebugEnabled()) {
             logger.debug("根据参数 " + queryBase.getParameters() + "  查询病人");

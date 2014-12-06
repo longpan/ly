@@ -104,4 +104,16 @@ public class Case1ServiceImpl implements Case1Service{
         queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
     }
 
+    /**
+     *
+     * @param queryBase
+     */
+    @Override
+    public void countCasels(QueryBase queryBase){
+        if (logger.isDebugEnabled()) {
+            logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1数量");
+        }
+        queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
+    }
+
 }

@@ -109,7 +109,7 @@ public class Case1 {
 
 
 
-    private String pictureUrl;
+
 
     private String globalRemarks;
 
@@ -552,13 +552,7 @@ public class Case1 {
     }
 
 
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
 
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl == null ? null : pictureUrl.trim();
-    }
 
     public String getGlobalRemarks() {
         return globalRemarks;

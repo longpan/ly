@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.Patient;
+import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.service.PatientService;
@@ -77,6 +78,7 @@ public class PatientAction {
      * @param id    病人id
      * @return  status  0成功  7 不存在
      */
+    @DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/patient/{id}", method = RequestMethod.GET)
     public Object get(HttpServletRequest request, @PathVariable int id){
@@ -90,6 +92,27 @@ public class PatientAction {
             status = Status.SUCCESS;
             return new Response(status,patient);
 
+        }
+    }
+
+    /**         根据病人idCard查询病人
+     *
+     * @param request
+     * @param idCard    idCard
+     * @return      病人json格式数据
+     */
+    @DoctorLoginAuthorized
+    @ResponseBody
+    @RequestMapping(value = "/api/patient", method = RequestMethod.GET)
+    public Object getPatientByIdCard(HttpServletRequest request, @RequestParam(value = "idCard", required = false)String idCard){
+        if(idCard == null || idCard == ""){
+            return new Response(Status.ERROR);
+        }
+        Patient patient = patientService.getByIdCard(idCard);
+        if(patient == null){
+            return new Response(Status.NOT_EXISTS);
+        }else {
+            return new Response(Status.SUCCESS, patient);
         }
     }
 }

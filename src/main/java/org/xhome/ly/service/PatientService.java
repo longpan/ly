@@ -8,6 +8,6 @@ import org.xhome.ly.bean.Patient;
  * Time: 下午3:32
  */
 public interface PatientService extends BaseService<Patient>{
-
+    public  Patient getByIdCard(String idCard);
 
 }

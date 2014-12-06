@@ -1,0 +1,158 @@
+Case1 病例1：
+ 
+Integer id;	   		'id'  主键					
+ String name;			'病例表名称'
+ Integer interrogationRecordId; '随访记录id'  外键
+ Date operationData;		'手术时间'
+ String operatorName;		'手术者姓名'
+ String operatorDetail;		'手术详情'
+ String vtType;			'室速类型'
+ String vtCourseDisease;	'室速病程'
+ String arrhythmiaDiagnose;	'临床心律失常诊断'
+ String electrophysiologyDiagnose;'电生理检查诊断'
+ String postoperationDiagnose;	 '术后诊断'
+ String mechanism;		 '机制'
+ String part;			 '部位'
+ String laBore;			 'LA内径'
+ String lvBore;			 'lv内径'
+ String lvefBore;		 'LVEF_内径'
+ String raBore;			 'RA内径'
+ String rvBore;			 'RV内径'
+ String ucgRemarks;		 'UCG备注'
+ String ecgType;		 'ECG束支阻滞类型'
+ String electricalOffset;	 '电轴偏移'
+ String preopreativeExamination; '术前其他检查重要阳性描述'
+ String antiArrhythmiaDrugs;	 '术前抗心律失常药物'
+ String invaliDantiArrhythmiaDrugs; '术前无效抗心律失常药物'
+ String mergerArrhythmia;	 '术前合并心律失常'
+ String imagingInsideHeart;	 '心脏内造影'
+ String inducedWay;		 '诱发方式'
+ String checkMedication;	 '检查用药'
+ String tachycardiaRegulation;	 '心动过速发作是否规则'
+ String ccl;			 '周长（CCL）'
+ String inspectionMethod;	 '检查方法'
+ String diastolicPotential;	 '舒张期电位'
+ String pPotentialExamination;	 'P电位标测'
+ String ablationProcedure;	 '消融术式'
+ String ablationLines;		 '消融径线'
+ String targetPosition;		 '靶点部位'
+ String ablationEnergy;		 '消融能源'
+ String ablationJudgement;	 '判断消融有效指标'
+ String ablationEndPoint;	 '消融终点'
+ String effectiveTargetSite;	 '有效靶点'
+ String dischargeTime;		 '总放电时间'
+ String xrayExposureTime;	 'x线暴光时间'
+ Integer ablationTimes;		 '消融次数'
+ String intraoperativeCableRate; '术中电复率'
+ String beforeHeartRate;	 '消融前窦性心率'
+ String beforeVt;		 '消融前室速'
+ String beforeRont;		 '消融前室早'
+ String beforeRemarks;		 '消融前备注'
+ String inHeartRate;		 '术中窦性心率'
+ String inVt;			 '术中室速'
+ String inRont;			 '术中室早'
+ String inRemarks;		 '术中备注'
+
+ String globalRemarks;		 '全局备注'
+ String keyword1;		 '保留关键字'
+ String keyword2;		 '保留关键字'
+ String keyword3;		 '保留关键字'
+++++++++++++++++++++++++++++++++++++++++++++	添加以下字段
+ String operationNumber;	'手术编号'
+ String caseNumber;		'病例编号'
+ String vtFrequency;		'室速频度'
+ String vtEveryAttackTime;	'每次发作持续时间'
+ String vtLastAttackTime;	'最近发作持续时间'
+ String cardioversionMethod;	'曾用用转律方方法'
+ String cardioversionMedication; '转律用用药'
+ String complication;		 '并发症'
+
+-------------------------------------------------- 删除以下字段
+String complicationHeartRate;	 '并发症窦性心率'
+ String complicationVt;		 '并发症室速'
+ String complicationRont;	 '并发症室早'
+ String complicationRemarks;	 '并发症备注'
+ String pictureUrl;		 '图片路径'
+
+doctor 医生:
+
+ Integer id;			'主键'
+ String userId;			'医生id'  用于登录
+ String password;		'密码'
+ String name;			'医生姓名'
+ String major;			'科室'
+ String jobTitle;		'职称'
+ String contactNumber;		'联系方式'
+ String belongHospital;		'所属医院'
+ String keyword1;		'保留关键字'
+ String keyword2;		'保留关键字'
+ String keyword3;		'保留关键字'
+ String certificationNumber;	'行医资格证号'
+
+
+patient 病人:
+
+ Integer id;			'主键'
+ String name;			'姓名'
+ String idCard;			'身份证'
+ Date birthday;			'出生年月'
+ String phoneNumber;		'电话号码'
+ String adress;			'地址'
+ String educationLevel;		'文化程度'
+ String profession;		'职业'
+ String keyword1;		'保留关键字'  用作 sex 性别
+ String keyword2;		'保留关键字'
+ String keyword3;		'保留关键字'
+
+
+MedicalHistory(病史)
+ Integer id;			'主键'
+ Integer patientId;		'病人id' 外键
+ String typeName;		'病史类型'
+ Date oprateTime;		'手术时间'
+ String detail;			'手术详情'
+ String keyword1;		'保留关键字'
+ String keyword2;		'保留关键字'
+ String keyword3;		'保留关键字'
+
+
+FollowUp(随访)
+ Integer id;			'主键'
+ Integer interrogationRecordId;	'问诊记录'  外键
+ Date followUpTime;		'随访时间'
+ String followUpMethod;		'随访方法'
+ String onsetEvidence;		'房速/房扑发作证据'
+ String evidenceSource;		'证据来源'
+ String postoperativeAnticoagulation;	'术后抗凝治疗'
+ String postoperativeComplications;	'术后并发证'
+ String postoperativeArrhythmias;	'术后心率失常'
+ String postoperatieAdds;		'术后ADDS'
+ String postoperatieMedication;		'术后其他用药'
+ String echocardiographicTime;		'术后超声时间'
+ String postoperatieLa;			'术后超声la'
+ String postoperatieLv;			'术后超声lv'
+ String postoperatieLvef;		'术后超声lvef'
+ String leftThrombosis;			'术后左房血栓'
+ String checkMethod;			'检测方法'
+ String keyword1;			'保留关键字'
+ String keyword2;			'保留关键字'
+ String keyword3;			'保留关键字'
+
+
+option(选项)
+ Integer id;			'主键'
+ Integer number;		'选项编号'
+ String name;			'选项名称'
+ String keyword1;		'保留关键字'
+ String keyword2;		'保留关键字'
+ String keyword3;		'保留关键字'
+
+
+
+
+
+
+
+
+
+

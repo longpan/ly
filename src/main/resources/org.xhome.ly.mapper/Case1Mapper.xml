@@ -54,7 +54,6 @@
     <result column="in_vt" property="inVt" jdbcType="VARCHAR" />
     <result column="in_ront" property="inRont" jdbcType="VARCHAR" />
     <result column="in_remarks" property="inRemarks" jdbcType="VARCHAR" />
-    <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
     <result column="global_remarks" property="globalRemarks" jdbcType="VARCHAR" />
     <result column="keyword1" property="keyword1" jdbcType="VARCHAR" />
     <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
@@ -78,7 +77,7 @@
     ablation_lines, target_position, ablation_energy, ablation_judgement, ablation_end_point,
     effective_target_site, discharge_time, xray_exposure_time, ablation_times, intraoperative_cable_rate,
     before_heart_rate, before_vt, before_ront, before_remarks, in_heart_rate, in_vt,
-    in_ront, in_remarks, picture_url, global_remarks, keyword1, keyword2, keyword3, operation_number,
+    in_ront, in_remarks,  global_remarks, keyword1, keyword2, keyword3, operation_number,
     case_number, vt_frequency, vt_every_attack_time, vt_last_attack_time, cardioversion_method,
     cardioversion_medication, complication
   </sql>
@@ -113,7 +112,7 @@
     intraoperative_cable_rate, before_heart_rate,
     before_vt, before_ront, before_remarks,
     in_heart_rate, in_vt, in_ront,
-    in_remarks, picture_url, global_remarks,
+    in_remarks,  global_remarks,
     keyword1, keyword2, keyword3,
     operation_number, case_number, vt_frequency,
     vt_every_attack_time, vt_last_attack_time, cardioversion_method,
@@ -137,7 +136,7 @@
     #{intraoperativeCableRate,jdbcType=VARCHAR}, #{beforeHeartRate,jdbcType=VARCHAR},
     #{beforeVt,jdbcType=VARCHAR}, #{beforeRont,jdbcType=VARCHAR}, #{beforeRemarks,jdbcType=VARCHAR},
     #{inHeartRate,jdbcType=VARCHAR}, #{inVt,jdbcType=VARCHAR}, #{inRont,jdbcType=VARCHAR},
-    #{inRemarks,jdbcType=VARCHAR}, #{pictureUrl,jdbcType=VARCHAR}, #{globalRemarks,jdbcType=VARCHAR},
+    #{inRemarks,jdbcType=VARCHAR},  #{globalRemarks,jdbcType=VARCHAR},
     #{keyword1,jdbcType=VARCHAR}, #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR},
     #{operationNumber,jdbcType=VARCHAR}, #{caseNumber,jdbcType=VARCHAR}, #{vtFrequency,jdbcType=VARCHAR},
     #{vtEveryAttackTime,jdbcType=VARCHAR}, #{vtLastAttackTime,jdbcType=VARCHAR}, #{cardioversionMethod,jdbcType=VARCHAR},
@@ -302,9 +301,7 @@
       <if test="inRemarks != null" >
         in_remarks,
       </if>
-      <if test="pictureUrl != null" >
-        picture_url,
-      </if>
+
       <if test="globalRemarks != null" >
         global_remarks,
       </if>
@@ -499,9 +496,7 @@
       <if test="inRemarks != null" >
         #{inRemarks,jdbcType=VARCHAR},
       </if>
-      <if test="pictureUrl != null" >
-        #{pictureUrl,jdbcType=VARCHAR},
-      </if>
+
       <if test="globalRemarks != null" >
         #{globalRemarks,jdbcType=VARCHAR},
       </if>
@@ -696,9 +691,7 @@
       <if test="inRemarks != null" >
         in_remarks = #{inRemarks,jdbcType=VARCHAR},
       </if>
-      <if test="pictureUrl != null" >
-        picture_url = #{pictureUrl,jdbcType=VARCHAR},
-      </if>
+
       <if test="globalRemarks != null" >
         global_remarks = #{globalRemarks,jdbcType=VARCHAR},
       </if>
@@ -791,7 +784,6 @@
       in_vt = #{inVt,jdbcType=VARCHAR},
       in_ront = #{inRont,jdbcType=VARCHAR},
       in_remarks = #{inRemarks,jdbcType=VARCHAR},
-      picture_url = #{pictureUrl,jdbcType=VARCHAR},
       global_remarks = #{globalRemarks,jdbcType=VARCHAR},
       keyword1 = #{keyword1,jdbcType=VARCHAR},
       keyword2 = #{keyword2,jdbcType=VARCHAR},
@@ -819,7 +811,7 @@
     case1.effective_target_site, case1.discharge_time, case1.xray_exposure_time, case1.ablation_times, case1.intraoperative_cable_rate,
     case1.before_heart_rate, case1.before_vt, case1.before_ront, case1.before_remarks, case1.in_heart_rate, case1.in_vt,
     case1.in_ront, case1.in_remarks, case1.complication_heart_rate, case1.complication_vt, case1.complication_ront,
-    case1.complication_remarks, case1.picture_url, case1.global_remarks, case1.keyword1, case1.keyword2, case1.keyword3
+    case1.complication_remarks,  case1.global_remarks, case1.keyword1, case1.keyword2, case1.keyword3
   </sql>
 
   <sql id="Join_InterrogationRecord">
@@ -854,7 +846,11 @@
   </select>
 
   <select id="countCase1s" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
-    SELECT COUNT(id) FROM case1
+    SELECT COUNT(case1.id) FROM case1
+    <include refid="Join_InterrogationRecord"/>
+    <if test="parameters.doctorId != null and parameters.doctorId !=''">
+      AND doctor.id=#{parameters.doctorId}
+    </if>
     <include refid="where_with_condition" />
   </select>
 

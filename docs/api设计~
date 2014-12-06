@@ -1,7 +1,7 @@
 api 设计
 
 
-      	(添加医生）:
+      	添加医生:
 	  URL:"/api/doctor"
 	  Method: POST
 	  Authentication: None
@@ -17,7 +17,7 @@ api 设计
            	   "body": 2		// body 为添加所添加医生的id(主键)
 		  }
 
-       (医生登录）:
+       医生登录:
 		URL:"/api/doctor/authentication"
 		Method:POST
 		Authentication: None
@@ -33,7 +33,7 @@ api 设计
 		  }
 
 
-	(根据id查询医生):
+	根据id查询医生:
 		URL:"/api/doctor/{id}"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
@@ -58,7 +58,7 @@ api 设计
    		 }
 		}
 		}
-	(添加病人):
+	添加病人:
 		URL:"/api/patient"
 	        Method: POST
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
@@ -88,7 +88,7 @@ api 设计
     		  "body": null		
 		}
 	
-	(根据id查询病人):
+	根据id查询病人:
 		URL:"/api/patient/{id}"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
@@ -111,9 +111,38 @@ api 设计
         	  "keyword3": null
 	    }
 		}
+
+	根据身份证号（idCard）查询病人:				
+		URL:"/api/patient"
+	        Method: GET
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	URL params:
+		{
+		  "idCard":"12344321",	//按医生id查询	
+		}
+		Response:		
+		{
+    		  "status": 0,		//status 0 成功   7 不存在
+    		  "body": 		// 成功时body为返回病人的json格式数据
+		{
+       		  "id": 1,
+       		  "name": "test",
+       		  "idCard": "123443212",
+        	  "birthday": 1417679893000,
+       		  "phoneNumber": "12345",
+        	  "adress": null,
+        	  "educationLevel": null,
+        	  "profession": null,
+        	  "keyword1": null,
+        	  "keyword2": null,
+        	  "keyword3": null,
+        	  "age": null,
+        	  "sex": "male"
+    		}
+		}
 	
 	根据病人id查询病史:
-		URL:"/api/medcalhistory/patient/{patientId}"
+		URL:"/api/patient/medcalhistory/{patientId}"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	
@@ -180,12 +209,27 @@ api 设计
 		  "patientName":"test",	///按病人姓名查询
 		  "patientIdCard":"123443321",		//按病人身份证号查询
 		  "patientPhomeNumber":"12345",	//按病人手机号查询	
-}
+		}
 		Response:		
 		{
     		  "status": 0,		//status  0 成功    
     		  "body": ......		//body中是一个问诊记录的json List,
 		}
+
+	根据医生id查询问诊记录总数:				
+		URL:"/api/case1s/counts"
+	        Method: GET
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	URL params:
+		{
+		  "doctorId":"1",	//按医生id查询	
+		}
+		Response:		
+		{
+    		  "status": 0,		//status  0 成功    
+    		  "body": 3		//body 为返回的数量
+		}
+
 	添加病史:
 		URL:"/api/medicalhistory"
 	        Method: POST
@@ -220,26 +264,7 @@ api 设计
     		  "status": 0,		//status  0 成功  1 失败  7 不存在
     		  "body": null		
 		}
-	按照病人id查询病史:
-		URL:"api/medicalhistory/{id}"
-		Method: GET
-	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
-		Response:
-		{
-    		"status": 0,
-    		"body": [
-        		{
-           		 "id": 3,
-            		"patientId": 2,
-            		"typeName": "test2",
-            		"oprateTime": 1417439352000,
-            		"detail": "teststdfdsf2",
-            		"keyword1": null,
-            		"keyword2": null,
-            		"keyword3": null
-       		 	}
-   			 ]
-		}
+	
 	添加随访:
 		URL:"/api/followup"
 	        Method: POST
@@ -287,7 +312,7 @@ api 设计
 		}
 	
 	根据问诊记录查询随访:
-		URL:"/api/medcalhistory/interrogationrcord/{id}"
+		URL:"/api/interrogationrcord/followup/{id}"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	
