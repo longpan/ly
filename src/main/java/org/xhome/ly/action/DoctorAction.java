@@ -39,7 +39,7 @@ public class DoctorAction {
     public Object loginDoctor(@RequestBody Doctor doctor) {
         int status;
         status = doctorService.login(doctor);
-        return new Response(status);
+        return new Response(status, doctor.getId());
     }
 
     @ResponseBody

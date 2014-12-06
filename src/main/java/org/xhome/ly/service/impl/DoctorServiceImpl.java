@@ -139,6 +139,7 @@ public class DoctorServiceImpl implements DoctorService {
         if(!encryptPassword.equals(d.getPassword())){
             return Status.PASSWD_NOT_MATCH;
         }
+        doctor.setId(d.getId());
         return Status.SUCCESS;
     }
 }
