@@ -78,7 +78,7 @@ public class FollowUpAction {
      */
     @DoctorLoginAuthorized
     @ResponseBody
-    @RequestMapping(value = "/api/followup/interrogationrcord/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/interrogationrcord/followup/{id}", method = RequestMethod.GET)
     public Object getByInterrogationRecord(HttpServletRequest request, @PathVariable int id){
         QueryBase queryBase = new QueryBase();
         queryBase.addParameter("interrogationRecordId",id);
