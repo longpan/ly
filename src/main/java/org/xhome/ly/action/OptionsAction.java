@@ -3,7 +3,9 @@ package org.xhome.ly.action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.Options;
+import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.service.OptionsService;
@@ -65,5 +67,21 @@ public class OptionsAction {
         options.setId(id);
         status = optionsService.delete(options);
         return new Response(status);
+    }
+
+
+    //@DoctorLoginAuthorized
+    @ResponseBody
+    @RequestMapping(value = "/api/options", method = RequestMethod.GET)
+    public Object getPatientByIdCard(HttpServletRequest request, @RequestParam(value = "number", required = false)String number){
+        if(number == null || number == ""){
+            return new Response(Status.ERROR);
+        }
+        QueryBase queryBase = new QueryBase();
+        queryBase.addParameter("number", number);
+        optionsService.query(queryBase);
+
+            return new Response(Status.SUCCESS, queryBase.getResults());
+
     }
 }

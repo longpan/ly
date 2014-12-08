@@ -386,3 +386,43 @@ api 设计
     		  "body": null		
 		}
 
+
+	根据number查询选项:				
+		URL:"/api/options"
+	        Method: GET
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	URL params:
+		{
+		  "number":"2",	//按number查询	
+		}
+		Response:		
+		{
+    		  "status": 0,		//status  0 成功    
+		  "body" :		//选项的json格式数据
+    		 {			//下拉列表number与name对应关系：
+           	 "id": 7,		   1       文化程度
+           	 "number": 2,		   2   	心脏内造影
+           	 "name": "左室",	   3	诱发方式
+           	 "keyword1": null,	   4	消融术式
+           	 "keyword2": null,	   5	消融径线
+           	 "keyword3": null	   6	消融能源
+        	},			   7	判断消融是否有效
+       		 {			   8	消融终点
+          	 "id": 8,		   9	并发症
+           	 "number": 2,
+           	 "name": "右室",
+            	 "keyword1": null,
+           	 "keyword2": null,
+            	 "keyword3": null
+      		  },
+      		  {
+         	  "id": 9,
+         	  "number": 2,
+          	  "name": "无",
+           	  "keyword1": null,
+          	  "keyword2": null,
+          	  "keyword3": null
+       		 }
+  		  ]
+		}
+

@@ -118,6 +118,8 @@
 
   <sql id="where_with_condition">
     <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="parameters.number != null and parameters.number!= ''">AND number = #{parameters.number}
+      </if>
     </trim>
   </sql>
 </mapper>
