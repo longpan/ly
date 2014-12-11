@@ -35,9 +35,15 @@ public class FileAction {
         int status = Status.ERROR;
         if (!multipartFile.isEmpty()) {
             try {
+                org.xhome.ly.bean.File file = new org.xhome.ly.bean.File();
+                file.setInterrogationRecordId(interrogationRecordId);
+                file.setName(multipartFile.getOriginalFilename());
+               // file.setUrl(filePath);
+                status = fileService.add(file);
+                String rename =  interrogationRecordId + "_" + file.getId() + "_" + "attachment" ;
                 // 文件保存路径
                 String filePath = request.getSession().getServletContext().getRealPath("/") + "/upload/"
-                        + multipartFile.getOriginalFilename();
+                        + rename;
 
                 // 转存文件
                 File file_temp = new File(filePath);
@@ -45,14 +51,14 @@ public class FileAction {
                     file_temp.mkdirs();
                 }
                 multipartFile.transferTo(file_temp);
+
+                file.setUrl(filePath);
+                file.setName(rename);
+                fileService.update(file);
 //                System.out.println("FileName:==" + multipartFile.getOriginalFilename());
 //                System.out.println("SavePath:=="+filePath);
 //                System.out.println("RecordId:=="+interrogationRecordId);
-                org.xhome.ly.bean.File file = new org.xhome.ly.bean.File();
-                file.setInterrogationRecordId(interrogationRecordId);
-                file.setName(multipartFile.getOriginalFilename());
-                file.setUrl(filePath);
-                status = fileService.add(file);
+                return new Response(status,rename);
             } catch (Exception e) {
                 e.printStackTrace();
             }

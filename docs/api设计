@@ -426,3 +426,22 @@ api 设计
   		  ]
 		}
 
+	上传文件:
+		URL:"/api/file"
+	        Method: POST
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+		Request:
+		{
+		  Content-Type:multipart/form-data;
+		}
+	  	Request:
+		{
+		  "file",		//所上传的文件   要求 Content-Type:multipart/form-data;
+		  "interrogationRecordId":"1"		//问诊记录id
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  
+    		  "body": 1_4_attachment		// body 为上传文件的保存名
+		}
+
