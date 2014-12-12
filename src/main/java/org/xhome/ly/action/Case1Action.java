@@ -82,10 +82,11 @@ public class Case1Action {
      * @param patientPhomeNumber    病人手机号
      * @return
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1s",method= RequestMethod.GET)
     public Object getCase1s(HttpServletRequest request,
+                            @RequestParam(value = "id", required = false)String id,
                             @RequestParam(value = "date", required = false)String date,
                             @RequestParam(value = "patientSex", required = false)String patientSex,
                             @RequestParam(value = "doctorId", required = false)String doctorId ,
@@ -101,7 +102,7 @@ public class Case1Action {
             queryBase.addParameter("start", DateUtil.getCertainStartTimeTimeStamp(year, month, day));
             queryBase.addParameter("end", DateUtil.getCertainEndTimeTimeStamp(year, month, day));
         }
-
+        queryBase.addParameter("id", id);
         queryBase.addParameter("patientSex", patientSex);
         queryBase.addParameter("doctorId", doctorId);
         queryBase.addParameter("patientName",patientName);

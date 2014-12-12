@@ -810,8 +810,9 @@
     case1.ablation_lines, case1.target_position, case1.ablation_energy, case1.ablation_judgement, case1.ablation_end_point,
     case1.effective_target_site, case1.discharge_time, case1.xray_exposure_time, case1.ablation_times, case1.intraoperative_cable_rate,
     case1.before_heart_rate, case1.before_vt, case1.before_ront, case1.before_remarks, case1.in_heart_rate, case1.in_vt,
-    case1.in_ront, case1.in_remarks, case1.complication_heart_rate, case1.complication_vt, case1.complication_ront,
-    case1.complication_remarks,  case1.global_remarks, case1.keyword1, case1.keyword2, case1.keyword3
+    case1.in_ront, case1.in_remarks,case1.global_remarks, case1.keyword1, case1.keyword2, case1.keyword3,case1.operation_number, case1.case_number,
+    case1.vt_frequency,case1.vt_every_attack_time, case1.vt_last_attack_time, case1.cardioversion_method,
+    case1.cardioversion_medication, case1.complication
   </sql>
 
   <sql id="Join_InterrogationRecord">
@@ -858,6 +859,8 @@
     <trim prefix="WHERE" prefixOverrides="AND">
       <if test="parameters.start != null and parameters.end != null">AND case1.operation_data >= #{parameters.start}
         AND case1.operation_data &lt; #{parameters.end}
+      </if>
+      <if test="parameters.id != null and parameters.id != '' ">AND case1.id = #{parameters.id}
       </if>
     </trim>
   </sql>

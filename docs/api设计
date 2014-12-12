@@ -42,7 +42,7 @@ api 设计
 		{
     		 {
     		  "status": 0,					//status 0 成功	,  7 医生不存在
-    		  "body": {
+    		  "body": {					// 成功则返回医生的json格式数据
        		   "id": 1,
        		   "userId": null,
        		   "password": "e8e19d7bc955775422ccd1b5e5cfed52",
@@ -57,6 +57,21 @@ api 设计
        		   "certificationNumber": "fenjulyy"		//行医资格证
    		 }
 		}
+		}
+	修改医生信息:
+		URL:"/api/doctor"
+	        Method: PATCH
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+	  	Request:
+		{
+		  "id":"1",			//医生id
+		  "name":"test",		//医生姓名
+		  "password":"1234567890123456"	//医生密码
+		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
 		}
 	添加病人:
 		URL:"/api/patient"
@@ -202,7 +217,7 @@ api 设计
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	URL params:
-		{
+		{ "id":"1",		//病例id
 		  "date":"2014/12/1",	//按时间查询问诊记录  最后的URL:"case1s?date=XX&patientSex=XX...."
 		  "patientSex":"male",		//按病人性别查询
 		  "doctorId":"1",	//按医生id查询	
