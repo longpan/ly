@@ -3,12 +3,16 @@ package org.xhome.ly.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xhome.ly.bean.Case1;
+import org.xhome.ly.bean.InterrogationRecord;
+import org.xhome.ly.bean.Patient;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.Case1Mapper;
 import org.xhome.ly.service.Case1Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.xhome.ly.service.InterrogationRecordService;
+import org.xhome.ly.service.PatientService;
 
 import java.util.List;
 
@@ -25,7 +29,11 @@ public class Case1ServiceImpl implements Case1Service{
     @Autowired
     private Case1Mapper case1Mapper;
 
+    @Autowired
+    private InterrogationRecordService interrogationRecordService;
 
+    @Autowired
+    private PatientService patientService;
     /**
      *
      * @param case1
@@ -100,7 +108,17 @@ public class Case1ServiceImpl implements Case1Service{
         if (logger.isDebugEnabled()) {
             logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1");
         }
-        queryBase.setResults(case1Mapper.queryCase1s(queryBase));
+        List<Case1> case1List = case1Mapper.queryCase1s(queryBase);
+        InterrogationRecord interrogationRecord;
+        Patient patient;
+
+        for(Case1 case1 : case1List){                                                   // 查询与病例相关的病人信息。
+            interrogationRecord = interrogationRecordService.get(case1.getInterrogationRecordId());
+            patient = patientService.get(interrogationRecord.getPatientId());
+            case1.setPatient(patient);
+        }
+
+        queryBase.setResults(case1List);
         queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
     }
 

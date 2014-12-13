@@ -29,7 +29,7 @@ api 设计
 		Response:
 		  {
     		    "status": 0,	//status 0 成功	,  7 用户不存在, 9 密码不正确
-    		    "body": null
+    		    "body": 1		//如成功 则返回 所登录医生的id,  不成功则返回null
 		  }
 
 
@@ -85,7 +85,7 @@ api 设计
 		Response:
 		{
     		  "status": 0,		//status  0 成功  1 失败  6 已存在
-    		  "body": 2		// body 为添加所添加病人的id(主键)
+    		  "body": 2		//  若 成功 body为添加所添加病人的id(主键); 若 失败 body 为Null ；若 已存在 body 为病人id；
 		}
 	修改病人信息:
 		URL:"/api/patient"
@@ -228,7 +228,33 @@ api 设计
 		Response:		
 		{
     		  "status": 0,		//status  0 成功    
-    		  "body": ......		//body中是一个问诊记录的json List,
+    		  "body": 		//body 中是一个问诊记录的json List,  patient 是与该问诊记录相关联的病人信息。 
+		{			
+		  "id": 1,
+            	  "name": "test",
+           	   "interrogationRecordId": 2,
+           	   "operationData": 1418369419000,
+           	   "operatorName": "test",
+           	   "operatorDetail": null,
+             	   ......
+            	   "complication": null,
+            	   "patient":
+		  {
+            	   "id": 1,
+             	   "name": "test",
+             	   "idCard": "1234567890123456",
+                   "birthday": 1418369412000,
+               	   "phoneNumber": null,
+                   "adress": null,
+                   "educationLevel": null,
+                   "profession": null,
+                   "keyword1": null,
+                   "keyword2": null,
+                   "keyword3": null,
+                   "age": null,
+                   "sex": null
+           	 }
+        	}
 		}
 
 	根据医生id查询问诊记录总数:				
@@ -274,6 +300,17 @@ api 设计
 		  "id":"4",			//问诊记录id
 		  "name":"test",		//病例名称
 		}
+		Response:
+		{
+    		  "status": 0,		//status  0 成功  1 失败  7 不存在
+    		  "body": null		
+		}
+
+	删除病史:
+		URL:"/api/medicalhistory/{id}" 
+		Method: DELETE
+	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码  
+		
 		Response:
 		{
     		  "status": 0,		//status  0 成功  1 失败  7 不存在

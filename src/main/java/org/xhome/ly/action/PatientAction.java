@@ -29,7 +29,7 @@ public class PatientAction {
      * @param patient   病人json格式数据
      * @return  0 成功  1 失败  6 已存在
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/patient",method= RequestMethod.POST)
     public Object add(HttpServletRequest request, @RequestBody Patient patient) {
@@ -37,6 +37,9 @@ public class PatientAction {
         status = patientService.add(patient);
         if (status == Status.SUCCESS) {
             return new Response(status, patient.getId());
+        }else if(status == Status.EXISTS){
+            Patient patient_exists = patientService.getByIdCard(patient.getIdCard()) ;
+            return new Response(status, patient_exists.getId());
         }
         return new Response(status);
     }

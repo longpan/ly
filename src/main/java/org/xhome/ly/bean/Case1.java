@@ -111,6 +111,8 @@ public class Case1 {
 
 
 
+
+
     private String globalRemarks;
 
     private String keyword1;
@@ -134,6 +136,9 @@ public class Case1 {
     private String cardioversionMedication;
 
     private String complication;
+
+
+    private Patient patient;     //查询时返回与病例相关联的病人信息
 
     public Integer getId() {
         return id;
@@ -648,5 +653,14 @@ public class Case1 {
 
     public void setComplication(String complication) {
         this.complication = complication == null ? null : complication.trim();
+    }
+
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }
