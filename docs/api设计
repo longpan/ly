@@ -138,22 +138,8 @@ api 设计
 		Response:		
 		{
     		  "status": 0,		//status 0 成功   7 不存在  1 错误（传入的idCard为空）
-    		  "body": 		// 成功时body为返回病人的json格式数据
-		{
-       		  "id": 1,
-       		  "name": "test",
-       		  "idCard": "123443212",
-        	  "birthday": 1417679893000,
-       		  "phoneNumber": "12345",
-        	  "adress": null,
-        	  "educationLevel": null,
-        	  "profession": null,
-        	  "keyword1": null,
-        	  "keyword2": null,
-        	  "keyword3": null,
-        	  "age": null,
-        	  "sex": "male"
-    		}
+    		  "body": 1		// 成功时body 为返回的病人id
+		
 		}
 	
 	根据病人id查询病史:

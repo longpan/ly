@@ -115,7 +115,7 @@ public class PatientAction {
         if(patient == null){
             return new Response(Status.NOT_EXISTS);
         }else {
-            return new Response(Status.SUCCESS, patient);
+            return new Response(Status.SUCCESS, patient.getId());
         }
     }
 }
