@@ -59,7 +59,7 @@ public class MedicalHistoryAction {
 
     @DoctorLoginAuthorized
     @ResponseBody
-    @RequestMapping(value = "/api/patient/medcalhistory/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/patient/{id}/medcalhistory", method = RequestMethod.GET)
     public Object getMedicalHistorys(HttpServletRequest request, @PathVariable int id){
         QueryBase queryBase = new QueryBase();
         queryBase.addParameter("patientId",id);

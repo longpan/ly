@@ -143,7 +143,7 @@ api 设计
 		}
 	
 	根据病人id查询病史:
-		URL:"/api/patient/medcalhistory/{patientId}"
+		URL:"/api/patient/{id}/medcalhistory"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	
@@ -202,15 +202,18 @@ api 设计
 		URL:"/api/case1s"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+
 	  	URL params:
-		{ "id":"1",		//病例id
+		 ( "id":"1",		//病例id
 		  "date":"2014/12/1",	//按时间查询问诊记录  最后的URL:"case1s?date=XX&patientSex=XX...."
 		  "patientSex":"male",		//按病人性别查询
 		  "doctorId":"1",	//按医生id查询	
 		  "patientName":"test",	///按病人姓名查询
 		  "patientIdCard":"123443321",		//按病人身份证号查询
 		  "patientPhomeNumber":"12345",	//按病人手机号查询	
-		}
+		)
+
+
 		Response:		
 		{
     		  "status": 0,		//status  0 成功    
@@ -248,9 +251,9 @@ api 设计
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	URL params:
-		{
+		(
 		  "doctorId":"1",	//按医生id查询	
-		}
+		)
 		Response:		
 		{
     		  "status": 0,		//status  0 成功    
