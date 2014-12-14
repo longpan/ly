@@ -114,7 +114,7 @@ public class Case1Action {
     }
     @DoctorLoginAuthorized
     @ResponseBody
-    @RequestMapping(value = "/api/case1s/counts", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/case1/counts", method = RequestMethod.GET)
     public Object getCaselNumber(HttpServletRequest request, @RequestParam(value = "doctorId", required = false)String doctorId){
         QueryBase queryBase = new QueryBase();
         queryBase.addParameter("doctorId", doctorId);
