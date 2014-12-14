@@ -26,15 +26,14 @@ public class MedicalHistoryAction {
      *
      * @param request
      * @param medicalHistory
-     * @param patientId
      * @return
      */
     @DoctorLoginAuthorized
     @ResponseBody
-    @RequestMapping(value = "/api/medicalhistory", method = RequestMethod.POST)
-    public Object add(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory, @RequestParam("patientId")int patientId){
+    @RequestMapping(value = "/api/patient/{id}/medcalhistory", method = RequestMethod.POST)
+    public Object add(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory, @PathVariable int id){
         int stauts;
-        medicalHistory.setPatientId(patientId);
+        medicalHistory.setPatientId(id);
         stauts=medicalHistoryService.add(medicalHistory);
         if(stauts==Status.SUCCESS){
             return new Response(stauts,medicalHistory.getId());

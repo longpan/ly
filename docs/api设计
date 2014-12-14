@@ -261,7 +261,7 @@ api 设计
 		}
 
 	添加病史:
-		URL:"/api/medicalhistory"
+		URL:"/api/patient/{id}/medcalhistory"
 	        Method: POST
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	Request:
@@ -269,10 +269,6 @@ api 设计
 		  "typeName":"test",		//病史类型名称
 		  "detail":"test"		//病史详情
 		}
-		URL params:
-		(
-		  "doctorId":"1",	// 医生id		 最后的URL:"/api/medicalhistory?doctorId=XX"
-		)
 
 		Response:
 		{
