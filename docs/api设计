@@ -132,9 +132,9 @@ api 设计
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	URL params:
-		{
+		(
 		  "idCard":"12344321",	//按医生id查询	
-		}
+		)
 		Response:		
 		{
     		  "status": 0,		//status 0 成功   7 不存在  1 错误（传入的idCard为空）
@@ -173,10 +173,10 @@ api 设计
 		  "operatorName":"test"		//手术医生姓名
 		}
 		URL params:
-		{
+		(
 		  "doctorId":"1",	// 医生id		 最后的URL:"/api/case1?doctorId=XX&patientId=XX"
 		  "patientId":"1",	//病人id
-		}
+		)
 		Response:
 		{
     		  "status": 0,		//status  0 成功  1 失败  
@@ -270,9 +270,9 @@ api 设计
 		  "detail":"test"		//病史详情
 		}
 		URL params:
-		{
+		(
 		  "doctorId":"1",	// 医生id		 最后的URL:"/api/medicalhistory?doctorId=XX"
-		}
+		)
 
 		Response:
 		{
@@ -316,9 +316,9 @@ api 设计
 		  		
 		}
 		URL params:
-		{
+		(
 		  "interrogationRecordId":"1",	// 问诊记录id		 最后的URL:"/api/medicalhistory?interrogationRecordId=XX"
-		}
+		)
 
 		Response:
 		{
@@ -433,9 +433,9 @@ api 设计
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	URL params:
-		{
+		(
 		  "number":"2",	//按number查询	
-		}
+		)
 		Response:		
 		{
     		  "status": 0,		//status  0 成功    
