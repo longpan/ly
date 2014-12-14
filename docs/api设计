@@ -143,7 +143,7 @@ api 设计
 		}
 	
 	根据病人id查询病史:
-		URL:"/api/patient/{id}/medcalhistory"
+		URL:"/api/patient/{id}/medicalhistory"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	
@@ -261,7 +261,7 @@ api 设计
 		}
 
 	添加病史:
-		URL:"/api/patient/{id}/medcalhistory"
+		URL:"/api/patient/{id}/medicalhistory"
 	        Method: POST
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
 	  	Request:

@@ -30,7 +30,7 @@ public class MedicalHistoryAction {
      */
     @DoctorLoginAuthorized
     @ResponseBody
-    @RequestMapping(value = "/api/patient/{id}/medcalhistory", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/patient/{id}/medicalhistory", method = RequestMethod.POST)
     public Object add(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory, @PathVariable int id){
         int stauts;
         medicalHistory.setPatientId(id);
@@ -49,7 +49,7 @@ public class MedicalHistoryAction {
      */
     @DoctorLoginAuthorized
     @ResponseBody
-    @RequestMapping(value = "/api/medcalhistory", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/api/medicalhistory", method = RequestMethod.PATCH)
     public Object update(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory){
         int status;
         status = medicalHistoryService.update(medicalHistory);
@@ -58,7 +58,7 @@ public class MedicalHistoryAction {
 
     @DoctorLoginAuthorized
     @ResponseBody
-    @RequestMapping(value = "/api/patient/{id}/medcalhistory", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/patient/{id}/medicalhistory", method = RequestMethod.GET)
     public Object getMedicalHistorys(HttpServletRequest request, @PathVariable int id){
         QueryBase queryBase = new QueryBase();
         queryBase.addParameter("patientId",id);
@@ -67,7 +67,7 @@ public class MedicalHistoryAction {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/api/medcalhistory/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/api/medicalhistory/{id}", method = RequestMethod.DELETE)
     public Object delete(HttpServletRequest request, @PathVariable int id){
         int status;
         MedicalHistory medicalHistory = new MedicalHistory();
