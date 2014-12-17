@@ -163,7 +163,7 @@ api 设计
        		 }
 		}
 
-	添加问诊记录:
+	添加问诊记录1:
 		URL:"/api/case1"
 	        Method: POST
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
@@ -183,7 +183,7 @@ api 设计
     		  "body": 4		// body 为添加所添加问诊记录的id(主键)
 		}
 
-	修改问诊记录:
+	修改问诊记录1:
 		URL:"/api/case1"
 	        Method: PATCH
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
@@ -198,7 +198,7 @@ api 设计
     		  "body": null		
 		}
 		
-	按条件查询问诊记录:				注：条件可多个并存，当条件为空时查询全部问诊记录
+	按条件查询问诊记录1:				注：条件可多个并存，当条件为空时查询全部问诊记录
 		URL:"/api/case1s"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
@@ -246,7 +246,7 @@ api 设计
         	}
 		}
 
-	根据医生id查询问诊记录总数:				
+	根据医生id查询问诊记录2总数:
 		URL:"/api/case1/counts"
 	        Method: GET
 	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
@@ -259,6 +259,105 @@ api 设计
     		  "status": 0,		//status  0 成功    
     		  "body": 3		//body 为返回的数量
 		}
+
+
+
+		添加问诊记录2:
+        		URL:"/api/case2"
+        	        Method: POST
+        	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+        	  	Request:
+        		{
+        		  "name":"test",		//病例名称
+        		  "operatorName":"test"		//手术医生姓名
+        		}
+        		URL params:
+        		(
+        		  "doctorId":"1",	// 医生id		 最后的URL:"/api/case1?doctorId=XX&patientId=XX"
+        		  "patientId":"1",	//病人id
+        		)
+        		Response:
+        		{
+            		  "status": 0,		//status  0 成功  1 失败
+            		  "body": 4		// body 为添加所添加问诊记录的id(主键)
+        		}
+
+        	修改问诊记录2:
+        		URL:"/api/case2"
+        	        Method: PATCH
+        	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+        	  	Request:
+        		{
+        		  "id":"4",			//问诊记录id
+        		  "name":"test",		//病例名称
+        		}
+        		Response:
+        		{
+            		  "status": 0,		//status  0 成功  1 失败  7 不存在
+            		  "body": null
+        		}
+
+        	按条件查询问诊记录2:				注：条件可多个并存，当条件为空时查询全部问诊记录
+        		URL:"/api/case2s"
+        	        Method: GET
+        	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+
+        	  	URL params:
+        		 ( "id":"1",		//病例id
+        		  "date":"2014/12/1",	//按时间查询问诊记录  最后的URL:"case1s?date=XX&patientSex=XX...."
+        		  "patientSex":"male",		//按病人性别查询
+        		  "doctorId":"1",	//按医生id查询
+        		  "patientName":"test",	///按病人姓名查询
+        		  "patientIdCard":"123443321",		//按病人身份证号查询
+        		  "patientPhomeNumber":"12345",	//按病人手机号查询
+        		)
+
+
+        		Response:
+        		{
+            		  "status": 0,		//status  0 成功
+            		  "body": 		//body 中是一个问诊记录的json List,  patient 是与该问诊记录相关联的病人信息。
+        		{
+        		  "id": 1,
+                    	  "name": "test",
+                   	   "interrogationRecordId": 2,
+                   	   "operationData": 1418369419000,
+                   	   "operatorName": "test",
+                   	   "operatorDetail": null,
+                     	   ......
+                    	   "complication": null,
+                    	   "patient":
+        		  {
+                    	   "id": 1,
+                     	   "name": "test",
+                     	   "idCard": "1234567890123456",
+                           "birthday": 1418369412000,
+                       	   "phoneNumber": null,
+                           "adress": null,
+                           "educationLevel": null,
+                           "profession": null,
+                           "keyword1": null,
+                           "keyword2": null,
+                           "keyword3": null,
+                           "age": null,
+                           "sex": null
+                   	 }
+                	}
+        		}
+
+        	根据医生id查询问诊记录2总数:
+        		URL:"/api/case2/counts"
+        	        Method: GET
+        	  	Authentication: "12345685%343434"  //"userId%password"  医生登录id%医生密码
+        	  	URL params:
+        		(
+        		  "doctorId":"1",	//按医生id查询
+        		)
+        		Response:
+        		{
+            		  "status": 0,		//status  0 成功
+            		  "body": 3		//body 为返回的数量
+        		}
 
 	添加病史:
 		URL:"/api/patient/{id}/medicalhistory"

@@ -131,6 +131,11 @@ public class Case2 {
 
     private String afCourseDisease;
 
+
+
+    private Patient patient;     //查询时返回与病例相关联的病人信息
+
+
     public Integer getId() {
         return id;
     }
@@ -641,5 +646,13 @@ public class Case2 {
 
     public void setAfCourseDisease(String afCourseDisease) {
         this.afCourseDisease = afCourseDisease == null ? null : afCourseDisease.trim();
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }
