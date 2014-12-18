@@ -37,8 +37,6 @@ public class Case2 {
 
     private String ucgRemarks;
 
-    private String preopreativeExamination;
-
     private String antiArrhythmiaDrugs;
 
     private String invaliDantiArrhythmiaDrugs;
@@ -68,8 +66,6 @@ public class Case2 {
     private String targetPosition;
 
     private String ablationEnergy;
-
-    private String ablationJudgement;
 
     private String ablationEndPoint;
 
@@ -131,10 +127,11 @@ public class Case2 {
 
     private String afCourseDisease;
 
+    private String laThrombusDetection;
 
+    private String mappingMode;
 
     private Patient patient;     //查询时返回与病例相关联的病人信息
-
 
     public Integer getId() {
         return id;
@@ -272,14 +269,6 @@ public class Case2 {
         this.ucgRemarks = ucgRemarks == null ? null : ucgRemarks.trim();
     }
 
-    public String getPreopreativeExamination() {
-        return preopreativeExamination;
-    }
-
-    public void setPreopreativeExamination(String preopreativeExamination) {
-        this.preopreativeExamination = preopreativeExamination == null ? null : preopreativeExamination.trim();
-    }
-
     public String getAntiArrhythmiaDrugs() {
         return antiArrhythmiaDrugs;
     }
@@ -398,14 +387,6 @@ public class Case2 {
 
     public void setAblationEnergy(String ablationEnergy) {
         this.ablationEnergy = ablationEnergy == null ? null : ablationEnergy.trim();
-    }
-
-    public String getAblationJudgement() {
-        return ablationJudgement;
-    }
-
-    public void setAblationJudgement(String ablationJudgement) {
-        this.ablationJudgement = ablationJudgement == null ? null : ablationJudgement.trim();
     }
 
     public String getAblationEndPoint() {
@@ -646,6 +627,22 @@ public class Case2 {
 
     public void setAfCourseDisease(String afCourseDisease) {
         this.afCourseDisease = afCourseDisease == null ? null : afCourseDisease.trim();
+    }
+
+    public String getLaThrombusDetection() {
+        return laThrombusDetection;
+    }
+
+    public void setLaThrombusDetection(String laThrombusDetection) {
+        this.laThrombusDetection = laThrombusDetection == null ? null : laThrombusDetection.trim();
+    }
+
+    public String getMappingMode() {
+        return mappingMode;
+    }
+
+    public void setMappingMode(String mappingMode) {
+        this.mappingMode = mappingMode == null ? null : mappingMode.trim();
     }
 
     public Patient getPatient() {

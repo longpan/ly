@@ -99,7 +99,7 @@ Integer id;	   		'id'  主键
  String ucgRemarks;		 'UCG备注'
 -- String ecgType;		 'ECG束支阻滞类型'
 -- String electricalOffset;	 '电轴偏移'
- String preopreativeExamination; '术前其他检查重要阳性描述'
+--String preopreativeExamination; '术前其他检查重要阳性描述'
  String antiArrhythmiaDrugs;	 '术前抗心律失常药物'
  String invaliDantiArrhythmiaDrugs; '术前无效抗心律失常药物'
  String mergerArrhythmia;	 '术前合并心律失常'
@@ -115,7 +115,7 @@ Integer id;	   		'id'  主键
  String ablationLines;		 '消融径线'
  String targetPosition;		 '靶点部位'
  String ablationEnergy;		 '消融能源'
- String ablationJudgement;	 '判断消融有效指标'
+--String ablationJudgement;	 '判断消融有效指标'
  String ablationEndPoint;	 '消融终点'
  String effectiveTargetSite;	 '有效靶点'
  String dischargeTime;		 '总放电时间'
@@ -147,8 +147,10 @@ Integer id;	   		'id'  主键
 
 ++ String afAblationTreatment; 	 '是否做过房颤消融治疗'
 ++ String beforeAnticoagulant;	 '术前抗凝药物'
+++ String laThrombusDetection;   '术前LA血栓检测'
+++ String mappingMode;  	 '标测方式'
 
-注： case2 相对于 case1 表 新增了两个字段（++），删除了两个字段（--），修改了三个字段（**）。
+注： case2 相对于 case1 表 新增了四个字段（++），删除了四个字段（--），修改了五个字段（**）。
 
 doctor 医生:
 
