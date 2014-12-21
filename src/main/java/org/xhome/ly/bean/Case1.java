@@ -107,12 +107,6 @@ public class Case1 {
 
     private String inRemarks;
 
-
-
-
-
-
-
     private String globalRemarks;
 
     private String keyword1;
@@ -137,8 +131,17 @@ public class Case1 {
 
     private String complication;
 
+    private String vtDuration;
 
-    private Patient patient;     //查询时返回与病例相关联的病人信息
+    private Patient patient;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
 
     public Integer getId() {
         return id;
@@ -556,9 +559,6 @@ public class Case1 {
         this.inRemarks = inRemarks == null ? null : inRemarks.trim();
     }
 
-
-
-
     public String getGlobalRemarks() {
         return globalRemarks;
     }
@@ -655,12 +655,11 @@ public class Case1 {
         this.complication = complication == null ? null : complication.trim();
     }
 
-
-    public Patient getPatient() {
-        return patient;
+    public String getVtDuration() {
+        return vtDuration;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setVtDuration(String vtDuration) {
+        this.vtDuration = vtDuration == null ? null : vtDuration.trim();
     }
 }

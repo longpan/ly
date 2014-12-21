@@ -2,7 +2,7 @@ package org.xhome.ly.bean;
 
 import java.util.Date;
 
-public class Case2 {
+public class Case3 {
     private Integer id;
 
     private String name;
@@ -15,15 +15,15 @@ public class Case2 {
 
     private String operatorDetail;
 
+    private String afType;
+
+    private String afCourseDisease;
+
     private String arrhythmiaDiagnose;
 
     private String electrophysiologyDiagnose;
 
     private String postoperationDiagnose;
-
-    private String mechanism;
-
-    private String part;
 
     private String laBore;
 
@@ -63,9 +63,9 @@ public class Case2 {
 
     private String ablationEnergy;
 
-    private String ablationEndPoint;
+    private String ablationJudgement;
 
-    private String effectiveTargetSite;
+    private String ablationEndPoint;
 
     private String dischargeTime;
 
@@ -79,7 +79,7 @@ public class Case2 {
 
     private String beforeRr;
 
-    private String beforeRe;
+    private String beforeAf;
 
     private String beforeRemarks;
 
@@ -87,7 +87,7 @@ public class Case2 {
 
     private String inRr;
 
-    private String inRe;
+    private String inAf;
 
     private String inRemarks;
 
@@ -103,11 +103,11 @@ public class Case2 {
 
     private String caseNumber;
 
-    private String rrFrequency;
+    private String afFrequency;
 
-    private String rrEveryAttackTime;
+    private String afEveryAttackTime;
 
-    private String rrLastAttackTime;
+    private String afLastAttackTime;
 
     private String cardioversionMethod;
 
@@ -115,19 +115,25 @@ public class Case2 {
 
     private String complication;
 
-    private String rrAblationTreatment;
-
-    private String beforeAnticoagulant;
-
-    private String rrType;
-
-    private String rrCourseDisease;
+    private String beforeAntioagulant;
 
     private String laThrombusDetection;
 
-    private String mappingMode;
+    private String testMethod;
 
-    private String rrDuration;
+    private String lungVein;
+
+    private String gpAblation;
+
+    private String vagalReflex;
+
+    private String intraoperativeVagusReflexAreas;
+
+    private String beforeRe;
+
+    private String inRe;
+
+    private String afDuration;
 
     private Patient patient;
 
@@ -187,6 +193,22 @@ public class Case2 {
         this.operatorDetail = operatorDetail == null ? null : operatorDetail.trim();
     }
 
+    public String getAfType() {
+        return afType;
+    }
+
+    public void setAfType(String afType) {
+        this.afType = afType == null ? null : afType.trim();
+    }
+
+    public String getAfCourseDisease() {
+        return afCourseDisease;
+    }
+
+    public void setAfCourseDisease(String afCourseDisease) {
+        this.afCourseDisease = afCourseDisease == null ? null : afCourseDisease.trim();
+    }
+
     public String getArrhythmiaDiagnose() {
         return arrhythmiaDiagnose;
     }
@@ -209,22 +231,6 @@ public class Case2 {
 
     public void setPostoperationDiagnose(String postoperationDiagnose) {
         this.postoperationDiagnose = postoperationDiagnose == null ? null : postoperationDiagnose.trim();
-    }
-
-    public String getMechanism() {
-        return mechanism;
-    }
-
-    public void setMechanism(String mechanism) {
-        this.mechanism = mechanism == null ? null : mechanism.trim();
-    }
-
-    public String getPart() {
-        return part;
-    }
-
-    public void setPart(String part) {
-        this.part = part == null ? null : part.trim();
     }
 
     public String getLaBore() {
@@ -379,20 +385,20 @@ public class Case2 {
         this.ablationEnergy = ablationEnergy == null ? null : ablationEnergy.trim();
     }
 
+    public String getAblationJudgement() {
+        return ablationJudgement;
+    }
+
+    public void setAblationJudgement(String ablationJudgement) {
+        this.ablationJudgement = ablationJudgement == null ? null : ablationJudgement.trim();
+    }
+
     public String getAblationEndPoint() {
         return ablationEndPoint;
     }
 
     public void setAblationEndPoint(String ablationEndPoint) {
         this.ablationEndPoint = ablationEndPoint == null ? null : ablationEndPoint.trim();
-    }
-
-    public String getEffectiveTargetSite() {
-        return effectiveTargetSite;
-    }
-
-    public void setEffectiveTargetSite(String effectiveTargetSite) {
-        this.effectiveTargetSite = effectiveTargetSite == null ? null : effectiveTargetSite.trim();
     }
 
     public String getDischargeTime() {
@@ -443,12 +449,12 @@ public class Case2 {
         this.beforeRr = beforeRr == null ? null : beforeRr.trim();
     }
 
-    public String getBeforeRe() {
-        return beforeRe;
+    public String getBeforeAf() {
+        return beforeAf;
     }
 
-    public void setBeforeRe(String beforeRe) {
-        this.beforeRe = beforeRe == null ? null : beforeRe.trim();
+    public void setBeforeAf(String beforeAf) {
+        this.beforeAf = beforeAf == null ? null : beforeAf.trim();
     }
 
     public String getBeforeRemarks() {
@@ -475,12 +481,12 @@ public class Case2 {
         this.inRr = inRr == null ? null : inRr.trim();
     }
 
-    public String getInRe() {
-        return inRe;
+    public String getInAf() {
+        return inAf;
     }
 
-    public void setInRe(String inRe) {
-        this.inRe = inRe == null ? null : inRe.trim();
+    public void setInAf(String inAf) {
+        this.inAf = inAf == null ? null : inAf.trim();
     }
 
     public String getInRemarks() {
@@ -539,28 +545,28 @@ public class Case2 {
         this.caseNumber = caseNumber == null ? null : caseNumber.trim();
     }
 
-    public String getRrFrequency() {
-        return rrFrequency;
+    public String getAfFrequency() {
+        return afFrequency;
     }
 
-    public void setRrFrequency(String rrFrequency) {
-        this.rrFrequency = rrFrequency == null ? null : rrFrequency.trim();
+    public void setAfFrequency(String afFrequency) {
+        this.afFrequency = afFrequency == null ? null : afFrequency.trim();
     }
 
-    public String getRrEveryAttackTime() {
-        return rrEveryAttackTime;
+    public String getAfEveryAttackTime() {
+        return afEveryAttackTime;
     }
 
-    public void setRrEveryAttackTime(String rrEveryAttackTime) {
-        this.rrEveryAttackTime = rrEveryAttackTime == null ? null : rrEveryAttackTime.trim();
+    public void setAfEveryAttackTime(String afEveryAttackTime) {
+        this.afEveryAttackTime = afEveryAttackTime == null ? null : afEveryAttackTime.trim();
     }
 
-    public String getRrLastAttackTime() {
-        return rrLastAttackTime;
+    public String getAfLastAttackTime() {
+        return afLastAttackTime;
     }
 
-    public void setRrLastAttackTime(String rrLastAttackTime) {
-        this.rrLastAttackTime = rrLastAttackTime == null ? null : rrLastAttackTime.trim();
+    public void setAfLastAttackTime(String afLastAttackTime) {
+        this.afLastAttackTime = afLastAttackTime == null ? null : afLastAttackTime.trim();
     }
 
     public String getCardioversionMethod() {
@@ -587,36 +593,12 @@ public class Case2 {
         this.complication = complication == null ? null : complication.trim();
     }
 
-    public String getRrAblationTreatment() {
-        return rrAblationTreatment;
+    public String getBeforeAntioagulant() {
+        return beforeAntioagulant;
     }
 
-    public void setRrAblationTreatment(String rrAblationTreatment) {
-        this.rrAblationTreatment = rrAblationTreatment == null ? null : rrAblationTreatment.trim();
-    }
-
-    public String getBeforeAnticoagulant() {
-        return beforeAnticoagulant;
-    }
-
-    public void setBeforeAnticoagulant(String beforeAnticoagulant) {
-        this.beforeAnticoagulant = beforeAnticoagulant == null ? null : beforeAnticoagulant.trim();
-    }
-
-    public String getRrType() {
-        return rrType;
-    }
-
-    public void setRrType(String rrType) {
-        this.rrType = rrType == null ? null : rrType.trim();
-    }
-
-    public String getRrCourseDisease() {
-        return rrCourseDisease;
-    }
-
-    public void setRrCourseDisease(String rrCourseDisease) {
-        this.rrCourseDisease = rrCourseDisease == null ? null : rrCourseDisease.trim();
+    public void setBeforeAntioagulant(String beforeAntioagulant) {
+        this.beforeAntioagulant = beforeAntioagulant == null ? null : beforeAntioagulant.trim();
     }
 
     public String getLaThrombusDetection() {
@@ -627,19 +609,67 @@ public class Case2 {
         this.laThrombusDetection = laThrombusDetection == null ? null : laThrombusDetection.trim();
     }
 
-    public String getMappingMode() {
-        return mappingMode;
+    public String getTestMethod() {
+        return testMethod;
     }
 
-    public void setMappingMode(String mappingMode) {
-        this.mappingMode = mappingMode == null ? null : mappingMode.trim();
+    public void setTestMethod(String testMethod) {
+        this.testMethod = testMethod == null ? null : testMethod.trim();
     }
 
-    public String getRrDuration() {
-        return rrDuration;
+    public String getLungVein() {
+        return lungVein;
     }
 
-    public void setRrDuration(String rrDuration) {
-        this.rrDuration = rrDuration == null ? null : rrDuration.trim();
+    public void setLungVein(String lungVein) {
+        this.lungVein = lungVein == null ? null : lungVein.trim();
+    }
+
+    public String getGpAblation() {
+        return gpAblation;
+    }
+
+    public void setGpAblation(String gpAblation) {
+        this.gpAblation = gpAblation == null ? null : gpAblation.trim();
+    }
+
+    public String getVagalReflex() {
+        return vagalReflex;
+    }
+
+    public void setVagalReflex(String vagalReflex) {
+        this.vagalReflex = vagalReflex == null ? null : vagalReflex.trim();
+    }
+
+    public String getIntraoperativeVagusReflexAreas() {
+        return intraoperativeVagusReflexAreas;
+    }
+
+    public void setIntraoperativeVagusReflexAreas(String intraoperativeVagusReflexAreas) {
+        this.intraoperativeVagusReflexAreas = intraoperativeVagusReflexAreas == null ? null : intraoperativeVagusReflexAreas.trim();
+    }
+
+    public String getBeforeRe() {
+        return beforeRe;
+    }
+
+    public void setBeforeRe(String beforeRe) {
+        this.beforeRe = beforeRe == null ? null : beforeRe.trim();
+    }
+
+    public String getInRe() {
+        return inRe;
+    }
+
+    public void setInRe(String inRe) {
+        this.inRe = inRe == null ? null : inRe.trim();
+    }
+
+    public String getAfDuration() {
+        return afDuration;
+    }
+
+    public void setAfDuration(String afDuration) {
+        this.afDuration = afDuration == null ? null : afDuration.trim();
     }
 }

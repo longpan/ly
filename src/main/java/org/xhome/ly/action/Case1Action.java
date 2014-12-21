@@ -112,7 +112,7 @@ public class Case1Action {
         case1Service.query(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
     }
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/case1/counts", method = RequestMethod.GET)
     public Object getCaselNumber(HttpServletRequest request, @RequestParam(value = "doctorId", required = false)String doctorId){
