@@ -67,6 +67,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
         </property>
     </bean>
 
+	<mvc:default-servlet-handler/>
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
