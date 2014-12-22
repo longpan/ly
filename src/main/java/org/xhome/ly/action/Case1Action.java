@@ -124,6 +124,18 @@ public class Case1Action {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/api/cases/counts", method = RequestMethod.GET)
+    public Object getAllCasesNumber(HttpServletRequest request, @RequestParam(value = "doctorId", required = false)String doctorId){
+        QueryBase queryBase = new QueryBase();
+        queryBase.addParameter("doctorId", doctorId);
+
+        case1Service.countAllCases(queryBase);
+        return new Response(Status.SUCCESS, queryBase.getTotalRow());
+    }
+
+
+
+    @ResponseBody
     @RequestMapping(value = "/api/case1/{id}", method = RequestMethod.DELETE)
     public Object delete(HttpServletRequest request, @PathVariable int id){
         int status;

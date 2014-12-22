@@ -8,6 +8,8 @@ import org.xhome.ly.bean.Patient;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.Case1Mapper;
+import org.xhome.ly.mapper.Case2Mapper;
+import org.xhome.ly.mapper.Case3Mapper;
 import org.xhome.ly.service.Case1Service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,6 +30,10 @@ public class Case1ServiceImpl implements Case1Service{
 
     @Autowired
     private Case1Mapper case1Mapper;
+    @Autowired
+    private Case2Mapper case2Mapper;
+    @Autowired
+    private Case3Mapper case3Mapper;
 
     @Autowired
     private InterrogationRecordService interrogationRecordService;
@@ -132,6 +138,20 @@ public class Case1ServiceImpl implements Case1Service{
             logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1数量");
         }
         queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
+    }
+
+    /**
+     *
+     * @param queryBase
+     */
+    @Override
+    public void countAllCases(QueryBase queryBase){
+        if (logger.isDebugEnabled()) {
+            logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1数量");
+        }
+        long counts = 0;
+        counts = case1Mapper.countCase1s(queryBase) + case2Mapper.countCase2s(queryBase) + case3Mapper.countCase3s(queryBase);
+        queryBase.setTotalRow(counts);
     }
 
 }

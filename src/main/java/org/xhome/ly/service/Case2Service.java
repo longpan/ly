@@ -9,6 +9,6 @@ import org.xhome.ly.common.QueryBase;
  */
 public interface Case2Service extends BaseService<Case2>{
 
-    public void countCasels(QueryBase queryBase);
+    public void countCase2s(QueryBase queryBase);
 
 }

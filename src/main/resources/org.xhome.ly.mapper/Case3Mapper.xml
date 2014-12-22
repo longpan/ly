@@ -818,4 +818,59 @@
       af_duration = #{afDuration,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <sql id="Column_List" >
+    case3.*
+
+  </sql>
+
+  <sql id="Join_InterrogationRecord">
+    INNER JOIN interrogation_record ON interrogation_record.id = case3.interrogation_record_id
+    INNER JOIN patient ON patient.id = interrogation_record.patient_id
+    INNER JOIN doctor ON doctor.id = interrogation_record.doctor_id
+  </sql>
+
+  <select id="queryCase3s" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Column_List" />
+    FROM case3
+
+    <include refid="Join_InterrogationRecord"/>
+    <if test="parameters.patientSex != null and parameters.patientSex !=''">
+      AND patient.sex = #{parameters.patientSex}
+    </if>
+    <if test="parameters.patientName != null and parameters.patientName !=''">
+      AND patient.name = #{parameters.patientName}
+    </if>
+    <if test="parameters.patientIdCard != null and parameters.patientIdCard !=''">
+      AND patient.id_card = #{parameters.patientIdCard}
+    </if>
+    <if test="parameters.patientPhomeNumber != null and parameters.patientPhomeNumber !=''">
+      AND patient.phone_number = #{parameters.patientPhomeNumber}
+    </if>
+    <if test="parameters.doctorId != null and parameters.doctorId !=''">
+      AND doctor.id=#{parameters.doctorId}
+    </if>
+    <include refid="where_with_condition" />
+    LIMIT #{firstRow}, #{maxRow}
+  </select>
+
+  <select id="countCase3s" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
+    SELECT COUNT(case3.id) FROM case3
+    <include refid="Join_InterrogationRecord"/>
+    <if test="parameters.doctorId != null and parameters.doctorId !=''">
+      AND doctor.id=#{parameters.doctorId}
+    </if>
+    <include refid="where_with_condition" />
+  </select>
+
+  <sql id="where_with_condition">
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="parameters.start != null and parameters.end != null">AND case3.operation_data >= #{parameters.start}
+        AND case3.operation_data &lt; #{parameters.end}
+      </if>
+      <if test="parameters.id != null and parameters.id != '' ">AND case3.id = #{parameters.id}
+      </if>
+    </trim>
+  </sql>
 </mapper>
