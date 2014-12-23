@@ -131,6 +131,17 @@ public class Case2 {
 
     private Patient patient;
 
+
+    private Doctor doctor;
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     public Patient getPatient() {
         return patient;
     }
