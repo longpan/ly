@@ -30,7 +30,7 @@ public class FollowUpAction {
      * @param interrogationRecordId    问诊记录id
      * @return  返回状态 0 成功  1 失败
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/followup", method = RequestMethod.POST)
     public Object add(HttpServletRequest request, @RequestBody FollowUp followUp, @RequestParam("interrogationRecordId")int interrogationRecordId){
@@ -50,7 +50,7 @@ public class FollowUpAction {
      * @param followUp  随访的json格式数据
      * @return  返回状态 0 成功  1 失败  7 不存在
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/followup", method = RequestMethod.PATCH)
     public Object update(HttpServletRequest request, @RequestBody FollowUp followUp ){
@@ -59,7 +59,7 @@ public class FollowUpAction {
 
         return new Response(status);
     }
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/followup/{id}", method = RequestMethod.DELETE)
     public Object delete(HttpServletRequest request, @PathVariable int id){
@@ -76,7 +76,7 @@ public class FollowUpAction {
      * @param id   interrogationrcord_id
      * @return
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/interrogationrcord/{id}/followup", method = RequestMethod.GET)
     public Object getByInterrogationRecord(HttpServletRequest request, @PathVariable int id){

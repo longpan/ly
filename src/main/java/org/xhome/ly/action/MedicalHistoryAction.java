@@ -28,7 +28,7 @@ public class MedicalHistoryAction {
      * @param medicalHistory
      * @return
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/patient/{id}/medicalhistory", method = RequestMethod.POST)
     public Object add(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory, @PathVariable int id){
@@ -47,7 +47,7 @@ public class MedicalHistoryAction {
      * @param medicalHistory
      * @return
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/medicalhistory", method = RequestMethod.PATCH)
     public Object update(HttpServletRequest request, @RequestBody MedicalHistory medicalHistory){
@@ -56,7 +56,7 @@ public class MedicalHistoryAction {
         return new Response(status);
     }
 
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/patient/{id}/medicalhistory", method = RequestMethod.GET)
     public Object getMedicalHistorys(HttpServletRequest request, @PathVariable int id){

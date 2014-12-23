@@ -127,7 +127,7 @@ public class Case2ServiceImpl implements Case2Service {
      * @param queryBase
      */
     @Override
-    public void countCasels(QueryBase queryBase){
+    public void countCase2s(QueryBase queryBase){
         if (logger.isDebugEnabled()) {
             logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1数量");
         }

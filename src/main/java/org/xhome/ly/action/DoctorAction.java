@@ -68,7 +68,7 @@ public class DoctorAction {
         return new Response(status);
     }
 
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/doctor", method = RequestMethod.PATCH)
     public Object update(HttpServletRequest request, @RequestBody Doctor doctor) {

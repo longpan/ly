@@ -37,7 +37,7 @@ public class Case1Action {
      * @param patientId
      * @return
      */
-   // @DoctorLoginAuthorized
+   // ////@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1",method= RequestMethod.POST)
     public Object add(HttpServletRequest request, @RequestBody Case1 case1, @RequestParam("doctorId")int doctorId
@@ -62,7 +62,7 @@ public class Case1Action {
      * @param case1
      * @return
      */
-    @DoctorLoginAuthorized
+    ////@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1",method= RequestMethod.PATCH)
     public Object update(HttpServletRequest request, @RequestBody Case1 case1) {
@@ -82,7 +82,7 @@ public class Case1Action {
      * @param patientPhomeNumber    病人手机号
      * @return
      */
-    //@DoctorLoginAuthorized
+    ////@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/case1s",method= RequestMethod.GET)
     public Object getCase1s(HttpServletRequest request,
@@ -143,7 +143,7 @@ public class Case1Action {
         case1Service.queryAdmin(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
     }
-    //@DoctorLoginAuthorized
+    ////@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/case1/counts", method = RequestMethod.GET)
     public Object getCaselNumber(HttpServletRequest request, @RequestParam(value = "doctorId", required = false)String doctorId){

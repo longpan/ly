@@ -29,7 +29,7 @@ public class PatientAction {
      * @param patient   病人json格式数据
      * @return  0 成功  1 失败  6 已存在
      */
-    //@DoctorLoginAuthorized
+    ////@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/patient",method= RequestMethod.POST)
     public Object add(HttpServletRequest request, @RequestBody Patient patient) {
@@ -51,7 +51,7 @@ public class PatientAction {
      * @return      0 成功  1 失败  7 不存在
      */
 
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/patient",method= RequestMethod.PATCH)
     public Object update(HttpServletRequest request, @RequestBody Patient patient) {
@@ -81,7 +81,7 @@ public class PatientAction {
      * @param id    病人id
      * @return  status  0成功  7 不存在
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/patient/{id}", method = RequestMethod.GET)
     public Object get(HttpServletRequest request, @PathVariable int id){
@@ -104,7 +104,7 @@ public class PatientAction {
      * @param idCard    idCard
      * @return      病人json格式数据
      */
-    @DoctorLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/patient", method = RequestMethod.GET)
     public Object getPatientByIdCard(HttpServletRequest request, @RequestParam(value = "idCard", required = false)String idCard){
