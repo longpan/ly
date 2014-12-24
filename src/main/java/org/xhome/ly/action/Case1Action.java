@@ -123,7 +123,11 @@ public class Case1Action {
                             @RequestParam(value = "doctorId", required = false)String doctorId ,
                             @RequestParam(value = "patientName", required = false)String patientName,
                             @RequestParam(value = "patientIdCard", required = false)String patientIdCard,
-                            @RequestParam(value = "patientPhomeNumber", required = false)String patientPhomeNumber) {
+                            @RequestParam(value = "patientPhomeNumber", required = false)String patientPhomeNumber,
+                            @RequestParam(value = "doctorPhomeNumber", required = false)String doctorPhomeNumber,
+                            @RequestParam(value = "caseNumber", required = false)String caseNumber
+                            )
+                            {
         QueryBase queryBase = new QueryBase();
         if(date != null && !date.equals("")) {
             String[] temp = date.split("/");
@@ -139,6 +143,8 @@ public class Case1Action {
         queryBase.addParameter("patientName",patientName);
         queryBase.addParameter("patientIdCard",patientIdCard);
         queryBase.addParameter("patientPhomeNumber",patientPhomeNumber);
+        queryBase.addParameter("doctorPhomeNumber", doctorPhomeNumber);
+        queryBase.addParameter("caseNumber", caseNumber);
 
         case1Service.queryAdmin(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
