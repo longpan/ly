@@ -56,4 +56,29 @@ public class ActionIntercepters {
         }
         return invalidResponse;
     }
+    /**
+     * 验证是否已经登陆
+     * @param point
+     * @return
+     * @throws Throwable
+     */
+    @Around("@annotation(org.xhome.ly.annotation.AdminLoginAuthorized)")
+    public Object checkAdminLoginAuthorized(ProceedingJoinPoint point) throws Throwable{
+        try {
+            HttpServletRequest request = (HttpServletRequest) point.getArgs()[0];
+            String authentication = request.getHeader("Authentication");
+            String[] temp = authentication.split("%");
+            String userId = temp[0];
+            String encryptPassword = EncryptionUtil.encrypt(temp[1]);
+            Doctor doctor = doctorMapper.selectByUserId(userId);
+
+            if (null != doctor && doctor.getPassword().equals(encryptPassword) && doctor.getUserId().equals("111111")) {
+                return point.proceed();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return invalidResponse;
+    }
 }
+
