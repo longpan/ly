@@ -3,6 +3,7 @@ package org.xhome.ly.action;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.xhome.ly.annotation.AdminLoginAuthorized;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.Doctor;
 import org.xhome.ly.common.Response;
@@ -41,7 +42,8 @@ public class DoctorAction {
         status = doctorService.login(doctor);
         return new Response(status, doctor.getId());
     }
-
+    @AdminLoginAuthorized
+    //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/doctor/{id}", method = RequestMethod.GET)
     public Object get(HttpServletRequest request, @PathVariable int id){
@@ -76,5 +78,7 @@ public class DoctorAction {
         status = doctorService.update(doctor);
         return new Response(status);
     }
+
+
 
 }

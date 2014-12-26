@@ -2,15 +2,14 @@ package org.xhome.ly.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xhome.ly.bean.Case2;
-import org.xhome.ly.bean.InterrogationRecord;
-import org.xhome.ly.bean.Patient;
+import org.xhome.ly.bean.*;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.Case2Mapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xhome.ly.service.Case2Service;
+import org.xhome.ly.service.DoctorService;
 import org.xhome.ly.service.InterrogationRecordService;
 import org.xhome.ly.service.PatientService;
 
@@ -34,6 +33,9 @@ public class Case2ServiceImpl implements Case2Service {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private DoctorService doctorService;
     /**
      *
      * @param case2
@@ -116,6 +118,30 @@ public class Case2ServiceImpl implements Case2Service {
             interrogationRecord = interrogationRecordService.get(case2.getInterrogationRecordId());
             patient = patientService.get(interrogationRecord.getPatientId());
             case2.setPatient(patient);
+        }
+
+        queryBase.setResults(case2List);
+        queryBase.setTotalRow(case2Mapper.countCase2s(queryBase));
+    }
+
+
+    @Override
+    public void queryAdmin(QueryBase queryBase) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1");
+        }
+        List<Case2> case2List = case2Mapper.queryCase2s(queryBase);
+        InterrogationRecord interrogationRecord;
+        Patient patient;
+        Doctor doctor;
+
+        for(Case2 case2 : case2List){                                                   // 查询与病例相关的病人信息。
+            interrogationRecord = interrogationRecordService.get(case2.getInterrogationRecordId());
+            patient = patientService.get(interrogationRecord.getPatientId());
+            doctor =  doctorService.get(interrogationRecord.getDoctorId());
+            case2.setPatient(patient);
+            case2.setDoctor(doctor);
+
         }
 
         queryBase.setResults(case2List);

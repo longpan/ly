@@ -4,13 +4,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xhome.ly.bean.Case3;
-import org.xhome.ly.bean.InterrogationRecord;
-import org.xhome.ly.bean.Patient;
+import org.xhome.ly.bean.*;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.Case3Mapper;
 import org.xhome.ly.service.Case3Service;
+import org.xhome.ly.service.DoctorService;
 import org.xhome.ly.service.InterrogationRecordService;
 import org.xhome.ly.service.PatientService;
 
@@ -34,6 +33,9 @@ public class Case3ServiceImpl implements Case3Service {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private DoctorService doctorService;
     /**
      *
      * @param case3
@@ -116,6 +118,29 @@ public class Case3ServiceImpl implements Case3Service {
             interrogationRecord = interrogationRecordService.get(case3.getInterrogationRecordId());
             patient = patientService.get(interrogationRecord.getPatientId());
             case3.setPatient(patient);
+        }
+
+        queryBase.setResults(case3List);
+        queryBase.setTotalRow(case3Mapper.countCase3s(queryBase));
+    }
+
+    @Override
+    public void queryAdmin(QueryBase queryBase) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("根据参数 " + queryBase.getParameters() + "  查询病种1");
+        }
+        List<Case3> case3List = case3Mapper.queryCase3s(queryBase);
+        InterrogationRecord interrogationRecord;
+        Patient patient;
+        Doctor doctor;
+
+        for(Case3 case3 : case3List){                                                   // 查询与病例相关的病人信息。
+            interrogationRecord = interrogationRecordService.get(case3.getInterrogationRecordId());
+            patient = patientService.get(interrogationRecord.getPatientId());
+            doctor =  doctorService.get(interrogationRecord.getDoctorId());
+            case3.setPatient(patient);
+            case3.setDoctor(doctor);
+
         }
 
         queryBase.setResults(case3List);

@@ -11,4 +11,6 @@ public interface Case3Service extends BaseService<Case3>{
 
     public void countCase3s(QueryBase queryBase);
 
+    public void queryAdmin(QueryBase queryBase);
+
 }

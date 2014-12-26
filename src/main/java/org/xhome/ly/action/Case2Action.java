@@ -133,4 +133,39 @@ public class Case2Action {
         return new Response(status);
     }
 
+    @ResponseBody
+    @RequestMapping(value="/api/admin/case2s",method= RequestMethod.GET)
+    public Object adminGetCase2s(HttpServletRequest request,
+                                 @RequestParam(value = "id", required = false)String id,
+                                 @RequestParam(value = "date", required = false)String date,
+                                 @RequestParam(value = "patientSex", required = false)String patientSex,
+                                 @RequestParam(value = "doctorId", required = false)String doctorId ,
+                                 @RequestParam(value = "patientName", required = false)String patientName,
+                                 @RequestParam(value = "patientIdCard", required = false)String patientIdCard,
+                                 @RequestParam(value = "patientPhomeNumber", required = false)String patientPhomeNumber,
+                                 @RequestParam(value = "doctorPhomeNumber", required = false)String doctorPhomeNumber,
+                                 @RequestParam(value = "caseNumber", required = false)String caseNumber
+    )
+    {
+        QueryBase queryBase = new QueryBase();
+        if(date != null && !date.equals("")) {
+            String[] temp = date.split("/");
+            int year = Integer.valueOf(temp[0]);
+            int month = Integer.valueOf(temp[1]);
+            int day = Integer.valueOf(temp[2]);
+            queryBase.addParameter("start", DateUtil.getCertainStartTimeTimeStamp(year, month, day));
+            queryBase.addParameter("end", DateUtil.getCertainEndTimeTimeStamp(year, month, day));
+        }
+        queryBase.addParameter("id", id);
+        queryBase.addParameter("patientSex", patientSex);
+        queryBase.addParameter("doctorId", doctorId);
+        queryBase.addParameter("patientName",patientName);
+        queryBase.addParameter("patientIdCard",patientIdCard);
+        queryBase.addParameter("patientPhomeNumber",patientPhomeNumber);
+        queryBase.addParameter("doctorPhomeNumber", doctorPhomeNumber);
+        queryBase.addParameter("caseNumber", caseNumber);
+
+        case2Service.queryAdmin(queryBase);
+        return new Response(Status.SUCCESS, queryBase.getResults());
+    }
 }

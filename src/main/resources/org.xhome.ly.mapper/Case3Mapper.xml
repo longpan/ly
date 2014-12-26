@@ -837,16 +837,19 @@
 
     <include refid="Join_InterrogationRecord"/>
     <if test="parameters.patientSex != null and parameters.patientSex !=''">
-      AND patient.sex = #{parameters.patientSex}
+      AND patient.sex LIKE CONCAT('%',#{parameters.patientSex},'%')
     </if>
     <if test="parameters.patientName != null and parameters.patientName !=''">
-      AND patient.name = #{parameters.patientName}
+      AND patient.name LIKE CONCAT('%',#{parameters.patientName},'%')
     </if>
     <if test="parameters.patientIdCard != null and parameters.patientIdCard !=''">
       AND patient.id_card = #{parameters.patientIdCard}
     </if>
     <if test="parameters.patientPhomeNumber != null and parameters.patientPhomeNumber !=''">
       AND patient.phone_number = #{parameters.patientPhomeNumber}
+    </if>
+    <if test="parameters.doctorPhomeNumber != null and parameters.doctorPhomeNumber !=''">
+      AND doctor.contact_number = #{parameters.doctorPhomeNumber}
     </if>
     <if test="parameters.doctorId != null and parameters.doctorId !=''">
       AND doctor.id=#{parameters.doctorId}
@@ -870,6 +873,8 @@
         AND case3.operation_data &lt; #{parameters.end}
       </if>
       <if test="parameters.id != null and parameters.id != '' ">AND case3.id = #{parameters.id}
+      </if>
+      <if test="parameters.caseNumber != null and parameters.caseNumber != '' ">AND case3. = #{parameters.caseNumber}
       </if>
     </trim>
   </sql>

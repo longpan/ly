@@ -11,4 +11,6 @@ public interface Case2Service extends BaseService<Case2>{
 
     public void countCase2s(QueryBase queryBase);
 
+    public void queryAdmin(QueryBase queryBase);
+
 }
