@@ -8,10 +8,7 @@ import org.xhome.ly.bean.*;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.Case3Mapper;
-import org.xhome.ly.service.Case3Service;
-import org.xhome.ly.service.DoctorService;
-import org.xhome.ly.service.InterrogationRecordService;
-import org.xhome.ly.service.PatientService;
+import org.xhome.ly.service.*;
 
 import java.util.List;
 
@@ -36,6 +33,9 @@ public class Case3ServiceImpl implements Case3Service {
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private FollowUpService followUpService;
     /**
      *
      * @param case3
@@ -133,13 +133,17 @@ public class Case3ServiceImpl implements Case3Service {
         InterrogationRecord interrogationRecord;
         Patient patient;
         Doctor doctor;
+        List<FollowUp> followUps;
 
         for(Case3 case3 : case3List){                                                   // 查询与病例相关的病人信息。
             interrogationRecord = interrogationRecordService.get(case3.getInterrogationRecordId());
             patient = patientService.get(interrogationRecord.getPatientId());
             doctor =  doctorService.get(interrogationRecord.getDoctorId());
+            followUps = followUpService.getByInterrogationRecordId(interrogationRecord.getId());
+
             case3.setPatient(patient);
             case3.setDoctor(doctor);
+            case3.setFollowUps(followUps);
 
         }
 

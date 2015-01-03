@@ -2,6 +2,8 @@ package org.xhome.ly.service;
 
 import org.xhome.ly.bean.FollowUp;
 
+import java.util.List;
+
 /**
  * Created by fenjuly
  * Date: 14/11/29
@@ -9,5 +11,5 @@ import org.xhome.ly.bean.FollowUp;
  */
 public interface FollowUpService extends BaseService<FollowUp>{
 
-
+    public List<FollowUp> getByInterrogationRecordId(long interrogationRecordId);
 }

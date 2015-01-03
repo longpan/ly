@@ -8,10 +8,7 @@ import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.Case2Mapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xhome.ly.service.Case2Service;
-import org.xhome.ly.service.DoctorService;
-import org.xhome.ly.service.InterrogationRecordService;
-import org.xhome.ly.service.PatientService;
+import org.xhome.ly.service.*;
 
 import java.util.List;
 
@@ -36,6 +33,10 @@ public class Case2ServiceImpl implements Case2Service {
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private FollowUpService followUpService;
+
     /**
      *
      * @param case2
@@ -134,13 +135,16 @@ public class Case2ServiceImpl implements Case2Service {
         InterrogationRecord interrogationRecord;
         Patient patient;
         Doctor doctor;
+        List<FollowUp> followUps;
 
         for(Case2 case2 : case2List){                                                   // 查询与病例相关的病人信息。
             interrogationRecord = interrogationRecordService.get(case2.getInterrogationRecordId());
             patient = patientService.get(interrogationRecord.getPatientId());
             doctor =  doctorService.get(interrogationRecord.getDoctorId());
+            followUps = followUpService.getByInterrogationRecordId(interrogationRecord.getId());
             case2.setPatient(patient);
             case2.setDoctor(doctor);
+            case2.setFollowUps(followUps);
 
         }
 

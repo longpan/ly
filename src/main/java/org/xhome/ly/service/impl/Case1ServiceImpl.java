@@ -2,21 +2,15 @@ package org.xhome.ly.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xhome.ly.bean.Case1;
-import org.xhome.ly.bean.Doctor;
-import org.xhome.ly.bean.InterrogationRecord;
-import org.xhome.ly.bean.Patient;
+import org.xhome.ly.bean.*;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.Case1Mapper;
 import org.xhome.ly.mapper.Case2Mapper;
 import org.xhome.ly.mapper.Case3Mapper;
-import org.xhome.ly.service.Case1Service;
+import org.xhome.ly.service.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xhome.ly.service.DoctorService;
-import org.xhome.ly.service.InterrogationRecordService;
-import org.xhome.ly.service.PatientService;
 
 import java.util.List;
 
@@ -45,6 +39,9 @@ public class Case1ServiceImpl implements Case1Service{
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private FollowUpService followUpService;
     /**
      *
      * @param case1
@@ -142,13 +139,18 @@ public class Case1ServiceImpl implements Case1Service{
         InterrogationRecord interrogationRecord;
         Patient patient;
         Doctor doctor;
+        List<FollowUp> followUps;
+
 
         for(Case1 case1 : case1List){                                                   // 查询与病例相关的病人信息。
             interrogationRecord = interrogationRecordService.get(case1.getInterrogationRecordId());
             patient = patientService.get(interrogationRecord.getPatientId());
             doctor =  doctorService.get(interrogationRecord.getDoctorId());
+            followUps = followUpService.getByInterrogationRecordId(interrogationRecord.getId());
+
             case1.setPatient(patient);
             case1.setDoctor(doctor);
+            case1.setFollowUps(followUps);
 
         }
 

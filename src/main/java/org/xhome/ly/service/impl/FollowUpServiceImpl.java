@@ -10,6 +10,9 @@ import org.xhome.ly.common.Status;
 import org.xhome.ly.mapper.FollowUpMapper;
 import org.xhome.ly.service.FollowUpService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by onglchen
  * on 14-11-29.
@@ -99,5 +102,14 @@ public class FollowUpServiceImpl  implements FollowUpService {
         }
         queryBase.setResults(followUpMapper.queryFollowUps(queryBase));
         queryBase.setTotalRow(followUpMapper.countFollowUps(queryBase));
+    }
+
+    public List<FollowUp> getByInterrogationRecordId(long interrogationRecordId){
+        QueryBase queryBase = new QueryBase();
+        queryBase.addParameter("interrogationRecordId",interrogationRecordId);
+        List<FollowUp> followUps = new ArrayList<FollowUp>();
+        followUps = followUpMapper.queryFollowUps(queryBase);
+
+        return followUps;
     }
 }

@@ -1,6 +1,7 @@
 package org.xhome.ly.bean;
 
 import java.util.Date;
+import java.util.List;
 
 public class Case2 {
     private Integer id;
@@ -133,6 +134,16 @@ public class Case2 {
 
 
     private Doctor doctor;
+
+    public List<FollowUp> getFollowUps() {
+        return followUps;
+    }
+
+    public void setFollowUps(List<FollowUp> followUps) {
+        this.followUps = followUps;
+    }
+
+    List<FollowUp> followUps;
 
     public Doctor getDoctor() {
         return doctor;
