@@ -1,0 +1,2024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>query</title>
+	<link rel="stylesheet" type="text/css" href="../css/base.css">
+	<script type="text/javascript" src="../script/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../script/avalon.min.js"></script>
+  	<script type="text/javascript" src="../script/query.js"></script>
+</head>
+<body>
+	<div id="wrapper" ms-controller="navigation" class="ms-controller">
+		<nav>
+			<div class="inner clearfix">
+				<ul class="clearfix">
+					<li ms-repeat-item="nav" ms-attr-id="{{item.id}}" ms-class="current: item.self" ms-click="deal">
+						{{item.name}} 
+					</li>
+				</ul>
+				<div id="search"> 
+					<form>
+						<input type="text" name="search" ms-duplex="searchContent" placeholder="请输入搜索内容">
+						<div class="dropdown">
+							<p class="toggle" ms-click="toggle()" id="choice">{{theChoice}}</p>
+							<ul class="dropdownContent" ms-visible="search">
+								<li ms-repeat-el="choiceOption" ms-click="choice()">{{el}}</li>
+							</ul>
+						</div>
+						<label for="search" ms-click="query(theChoice, searchContent)">搜索</label>
+					</form>
+				</div>
+				<div id="user">
+					<span class="username">{{login.userName}}</span>
+					<span class="logout" ms-click="deleteStorage()">注销</span>
+				</div>
+			</div>
+		</nav>
+		<div id="content">
+			<div id="doctorBox" ms-visible="( nav[1].self && nav[1].check )">			
+				<form ms-controller="doctor" class="form">
+					<fieldset>
+						<legend>医生基本信息</legend>
+						<div class="form-group">
+							<input type="text" name="id"  ms-duplex="info[0].id">
+							<label for="id">医生ID：</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="certificationNumber"  ms-duplex="info[0].certificationNumber">
+							<label for="certificationNumber">行医资格证书：</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="name" ms-duplex="info[0].name">
+							<label for="name">医生姓名：</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="major" ms-duplex="info[0].major">
+							<label for="major">主治：</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="jobTitle" ms-duplex="info[0].jobTitle">
+							<label for="jobTitle">职称：</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="belongHospital" ms-duplex="info[0].belongHospital">
+							<label for="belongHospital">所属医院</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="contactNumber" ms-duplex="info[0].contactNumber">
+							<label for="contactNumber">联系方式</label>
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend>问诊记录</legend>
+						<div>
+							<table>
+								<thead>
+									<th>病例ID</th>
+									<th>病人ID</th>
+									<th>病人姓名</th>
+									<th>手术日期</th>
+								</thead>
+								<tbody>
+									<tr ms-repeat-item="info" ms-class="color: $index%2!=0">
+										<td>{{item.id}}</td>
+										<td>{{item.patient.id}}</td>
+										<td>{{item.patient.name}}</td>
+										<td>{{item.operationData}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+					<fieldset>
+						<button class="btn" type="botton" ms-click="submit('doctor')">提交</button>
+					</fieldset>
+				</form>
+			</div>
+			<div id="patientBox" ms-visible="( nav[2].self && nav[2].check )">
+				<form ms-controller="patient" class="form">
+					<fieldset>
+						<legend>病人基本信息</legend>
+						<div class="form-group">
+							<input type="text" name="id"  ms-duplex="info[0].patient.id">
+							<label for="id">ID</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="name" ms-duplex="info[0].patient.name">
+							<label for="name">姓名</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="idCard" ms-duplex="info[0].patient.idCard">
+							<label for="idCard">身份证</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="birthday" ms-duplex="info[0].patient.birthday">
+							<label for="birthday">出生年月</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="phoneNumber" ms-duplex="info[0].patient.phoneNumber">
+							<label for="phoneNumber">电话号码</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="adress" ms-duplex="info[0].patient.adress">
+							<label for="adress">地址</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="educationLevel" ms-duplex="info[0].patient.educationLevel">
+							<label for="educationLevel">文化程度</label>
+						</div>
+						<div class="form-group">
+							<input type="text" name="electricalOffset" ms-duplex="info[0].patient.electricalOffset">
+							<label for="electricalOffset">职业</label>
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend>病人病例</legend>
+						<div>
+							<table>
+								<thead>
+									<th>病例ID</th>
+									<th>病例类型</th>
+									<th>手术者姓名</th>
+									<th>手术日期</td>
+								</thead>
+								<tbody>
+									<tr ms-repeat-item="info" ms-class="color: $index%2!=0">
+										<td>{{item.id}}</td>
+										<td>{{item.name}}</td>
+										<td>{{item.operatorName}}</td>
+										<td>{{item.operationData}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+					<fieldset>
+						<button class="btn" type="botton" ms-click="submit('patient')">提交</button>
+					</fieldset>
+				</form>
+			</div>
+			<div id="caseBox" ms-visible="( nav[0].self && nav[0].check )">
+				<div id="case1" ms-if="nav[0].case1">
+					<form ms-controller="case1" class="form">
+						<fieldset>
+							<legend>诊断信息</legend>
+							<div class="form-group">
+								<input type="text" name="operationData" ms-duplex="info[0].operationData">
+								<label for="operationData">手术日期</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="operationNumber"  ms-duplex="info[0].operationNumber">
+								<label for="operationNumber">手术编号</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="operatorName" ms-duplex="info[0].operatorName">
+								<label for="operatorName">术者</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>室速类型</h3>
+								<div class="form-group">
+									<input type="text" name="vtType" ms-duplex="info[0].vtType">
+									<label for="vtType">类型</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="vtFrequency" ms-duplex="info[0].vtFrequency">
+									<label for="vtFrequency">频度</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="vtEveryAttackTime" ms-duplex="info[0].vtEveryAttackTime">
+									<label for="vtEveryAttackTime">每次发作持续时间</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="vtLastAttackTime" ms-duplex="info[0].vtLastAttackTime">
+									<label for="vtLastAttackTime">最近发作持续时间</label>
+								</div>
+								<div class="form-group">
+									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
+									<label for="cardioversionMethod">曾用转复方法</label>
+								</div>
+								<div class="form-group">
+									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
+									<label for="cardioversionMethod">转律用药</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input name="vtCourseDisease" ms-duplex="info[0].vtCourseDisease">
+								<label for="vtCourseDisease">室速病程</label>
+							</div>
+							<div class="form-group">
+								<textarea name="arrhythmiaDiagnose" ms-duplex="info[0].arrhythmiaDiagnose"></textarea>
+								<label for="arrhythmiaDiagnose">临床心率失常诊断</label>
+							</div>
+							<div class="form-group">
+								<textarea name="electrophysiologyDiagnose" ms-duplex="info[0].electrophysiologyDiagnose"></textarea>
+								<label for="electrophysiologyDiagnose">电生理检查诊断</label>
+							</div>
+							<div class="form-group">
+								<textarea name="postoperationDiagnose" ms-duplex="info[0].postoperationDiagnose"></textarea>
+								<label for="postoperationDiagnose">术后诊断</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="mechanism" ms-duplex="info[0].mechanism">
+								<label for="mechanism">机制</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="part" ms-duplex="info[0].part">
+								<label for="part">部位</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术前信息</legend>
+							<div class="inner-form clearfix">
+								<h3>术前UCG</h3>
+								<div class="form-group">
+									<input type="text" name="laBore" ms-duplex="info[0].laBore">
+									<label for="laBore">LA内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="raBore" ms-duplex="info[0].raBore">
+									<label for="raBore">RA内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="lvBore" ms-duplex="info[0].lvBore">
+									<label for="lvBore">LV内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="rvBore" ms-duplex="info[0].rvBore">
+									<label for="rvBore">RV内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="lvefBore" ms-duplex="info[0].lvefBore">
+									<label for="lvefBore">LVEF内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="ucgRemarks" ms-duplex="info[0].ucgRemarks">
+									<label for="ucgRemarks">备注</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" name="ecgType" ms-duplex="info[0].ecgType">
+								<label for="ecgType">ECG束支阻滞类型</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="electricalOffset" ms-duplex="info[0].electricalOffset">
+								<label for="electricalOffset">电轴偏移</label>
+							</div>
+							<div class="form-group">
+								<input name="preopreativeExamination" ms-duplex="info[0].preopreativeExamination">
+								<label for="preopreativeExamination">其他检查重要阳性描述</label>
+							</div>
+							<div class="form-group">
+								<input name="antiArrhythmiaDrugs" ms-duplex="info[0].antiArrhythmiaDrugs">
+								<label for="antiArrhythmiaDrugs">术前抗心律失常药物</label>
+							</div>
+							<div class="form-group">
+								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
+								<label for="invaliDantiArrhythmiaDrugs">无效的抗心律失常药物</label>
+							</div>
+							<div class="form-group">
+								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
+								<label for="invaliDantiArrhythmiaDrugs">术前合并心率失常</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>经导管消融</legend>
+							<div class="inner-form clearfix">
+								<h3>心腔内造影</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].imagingInsideHeart" disabled name="imagingInsideHeart" >
+									</textarea>
+									<label ms-click-1="save(imagingInsideHeart, 'imagingInsideHeart', 'case1')" ms-click-2="toggleShow('imagingInsideHeart')" class="hidden imagingInsideHeart">确定（不提交）</label>
+									<label ms-click="toggleShow('imagingInsideHeart')">修改</label>
+								</div>
+								<div class="imagingInsideHeart hidden check-group">
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="左室">
+										<label for="imagingInsideHeart">左室</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="右室" >
+										<label for="imagingInsideHeart">右室</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="无">
+										<label for="imagingInsideHeart">无</label>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>诱发方式</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].inducedWay" disabled name="inducedWay"></textarea>
+									<label ms-click-1="save(inducedWay, 'inducedWay', 'case1')" ms-click-2="toggleShow('inducedWay')" class="hidden inducedWay">确定（不提交）</label>
+									<label ms-click="toggleShow('inducedWay')">修改</label>
+								</div>
+								<div class="inducedWay check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="自发" name="inducedWay" ms-duplex="inducedWay" >
+										<label for="inducedWay">自发</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心室分级递增刺激" name="inducedWay" ms-duplex="inducedWay">
+										<label for="inducedWay">心室分级递增刺激</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心室早搏刺激" name="inducedWay" ms-duplex="inducedWay">
+										<label for="inducedWay">心室早搏刺激</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" name="checkMedication" ms-duplex-string="info[0].checkMedication">
+								<label for="checkMedication">检查用药</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].tachycardiaRegulation">
+									<option>是</option>
+									<option>否</option>
+								</select>
+								<label for="tachycardiaRegulation">心动过速发作是否规则</label>
+							</div>
+							<div class="form-group">
+								<input name="ccl" ms-duplex="info[0].ccl">
+								<label for="ccl">周长</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].inspectionMethod">
+									<option>舒张期电位</option>
+									<option>P电位标测</option>
+								</select>
+								<label for="inspectionMethod">标测方法</label>
+							</div>
+							<div class="form-group">
+								<input name="diastolicPotential" ms-duplex="info[0].diastolicPotential">
+								<label for="diastolicPotential">舒张期电位</label>
+							</div>
+							<div class="form-group">
+								<input name="pPotentialExamination" ms-duplex="info[0].pPotentialExamination">
+								<label for="pPotentialExamination">P电位标测</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].ablationProcedure" ms-click="select('case1', 'ablationProcedure')">
+									<option>局灶消融</option>
+									<option>线性消融</option>
+									<option>碎裂电位消融</option>
+									<option>舒张期电位消融</option>
+									<option>P电位消融</option>
+									<option selected="true">其他</option>
+								</select>
+								<label for="ablationProcedure">消融术式</label>
+							</div>
+							<div class="form-group" ms-visible="ablationProcedureSelect">
+								<input name="ablationProcedure" ms-duplex="info[0].ablationProcedure">
+								<label for="ablationProcedure">其他术式</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融径线</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationLines" disabled></textarea>
+									<label ms-click-1="save(ablationLines, 'ablationLines', 'case1')" ms-click-2="toggleShow('ablationLines')" class="hidden ablationLines">确定（不提交）</label>
+									<label ms-click-1="toggleShow('ablationLines')" >修改</label>
+								</div>
+								<div class="ablationLines check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="左房狭部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房狭部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房顶部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房顶部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="右房狭部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">右房狭部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左右肺静脉消融环间" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左右肺静脉消融环间</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房间隔线" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房间隔线</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房底部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房底部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="LAA—二尖瓣" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">LAA—二尖瓣</label>
+									</div>
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="otherablationLines">
+											<label for="ablationLines">其他径线</label>
+											<input type="checkbox" value="other" name="ablationLines" ms-duplex="ablationLines">
+										</div>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>消融结果</legend>
+							<div class="form-group">
+								<input name="targetPosition" ms-duplex="info[0].targetPosition">
+								<label for="targetPosition">靶点部位</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].ablationEnergy" ms-click="select('case1', 'ablationEnergy')">
+									<option>射频消融</option>
+									<option>冷冻</option>
+									<option selected="true">其他</option>
+								</select>
+								<label for="ablationEnergy">消融能源</label>
+							</div>
+							<div class="form-group" ms-visible="ablationEnergySelect">
+								<input name="ablationEnergy" ms-duplex="info[0].ablationEnergy">
+								<label for="ablationEnergy">其他能源</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>判断消融指标</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationJudgement" disabled name="ablationJudgement"></textarea>
+									<label ms-click-1="save(ablationJudgement, 'ablationJudgement', 'case1')" ms-click-2="toggleShow('ablationJudgement')" class="hidden ablationJudgement">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationJudgement')">修改</label>
+								</div>
+								<div class="ablationJudgement check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速终止" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速终止</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速频率加快" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速频率加快</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速频率变慢" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速频率变慢</label>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融终点</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationEndPoint" disabled name="ablationEndPoint"></textarea>
+									<label ms-click-1="save(ablationEndPoint, 'ablationEndPoint', 'case1')" ms-click-2="toggleShow('ablationEndPoint')" class="hidden ablationEndPoint">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationEndPoint')">修改</label>
+								</div>
+								<div class="ablationEndPoint check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="P电位降低或消失">
+										<label for="ablationEndPoint">P电位降低或消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="舒张期电位消失">
+										<label for="ablationEndPoint">舒张期电位消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="碎裂电位完全消失">
+										<label for="ablationEndPoint">碎裂电位完全消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="电刺激室速不能诱发">
+										<label for="ablationEndPoint">电刺激室速不能诱发</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="LSQ电刺激室速不能被诱发">
+										<label for="ablationEndPoint">LSQ电刺激室速不能被诱发</label>
+									</div>
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="otherablationEndPoint">
+											<label for="ablationEndPoint">其他</label>
+											<input type="checkbox" value="other" name="ablationEndPoint" ms-duplex="ablationEndPoint">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>放电时间</h3>
+								<div class="form-group">
+									<input type="text" name="effectiveTargetSite" ms-duplex="info[0].effectiveTargetSite">
+									<label for="effectiveTargetSite">有效靶点</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="dischargeTime" ms-duplex="info[0].dischargeTime">
+									<label for="dischargeTime">总放电时间</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" name="xrayExposureTime" ms-duplex="info[0].xrayExposureTime">
+								<label for="xrayExposureTime">X线曝光时间</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="ablationTimes" ms-duplex="info[0].ablationTimes">
+								<label for="ablationTimes">消融次数</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术中信息</legend>
+							<div class="form-group">
+								<input name="intraoperativeCableRate" ms-duplex="info[0].intraoperativeCableRate">
+								<label for="intraoperativeCableRate">术中电复率</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融前心率</h3>
+								<div class="form-group">
+									<input type="text" name="beforeHeartRate" ms-duplex="info[0].beforeHeartRate">
+									<label for="beforeHeartRate">窦性心律</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeVt" ms-duplex="info[0].beforeVt">
+									<label for="beforeVt">室速</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRont" ms-duplex="info[0].beforeRont">
+									<label for="beforeRont">室早</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRemarks" ms-duplex="info[0].beforeRemarks">
+									<label for="beforeRemarks">其他</label>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>术中心率</h3>
+								<div class="form-group">
+									<input type="text" name="inHeartRate" ms-duplex="info[0].inHeartRate">
+									<label for="inHeartRate">窦性心律</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inVt" ms-duplex="info[0].inVt">
+									<label for="inVt">室速</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRont" ms-duplex="info[0].inRont">
+									<label for="inRont">室早</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRemarks" ms-duplex="info[0].inRemarks">
+									<label for="inRemarks">其他</label>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>并发症</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].complication" disabled name="complication"></textarea>
+									<label ms-click-1="save(complication, 'complication', 'case1')" ms-click-2="toggleShow('complication')" class="hidden complication">确定（不提交）</label>
+									<label ms-click="toggleShow('complication')">修改</label>
+								</div>
+								<div class="complication check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="无">
+										<label for="complication">无</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="心包填塞">
+										<label for="complication">心包填塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="肺静脉狭窄">
+										<label for="complication">肺静脉狭窄</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="血栓栓塞">
+										<label for="complication">血栓栓塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="食道心房瘘">
+										<label for="complication">食道心房瘘</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="膈神经损伤">
+										<label for="complication">膈神经损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="空气栓塞">
+										<label for="complication">空气栓塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="卒中">
+										<label for="complication">卒中</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="食道周围迷走神经损伤">
+										<label for="complication">食道周围迷走神经损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="急性冠脉闭塞">
+										<label for="complication">急性冠脉闭塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="皮下血肿">
+										<label for="complication">皮下血肿</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="假性动脉瘤">
+										<label for="complication">假性动脉瘤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="动静脉瘘">
+										<label for="complication">动静脉瘘</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="腹膜后出血">
+										<label for="complication">腹膜后出血</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="瓣膜损伤">
+										<label for="complication">瓣膜损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="死亡">
+										<label for="complication">死亡</label>
+									</div>	
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="othercomplication">
+											<label for="complication">其他</label>
+											<input type="checkbox" name="complication" ms-duplex="complication" value="other">
+										</div>
+									</div>
+								</div>
+						</fieldset>
+						<fieldset>
+							<legend>随访</legend>
+							<div class="form-group">
+								<input name="followUpTime" ms-duplex="info[0].followUpTime">
+								<label for="followUpTime">随访时间</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].followUpMethod">
+									<option>电话</option>
+									<option>信件</option>
+									<option>复诊</option>
+								</select>
+								<label for="followUpMethod">随访方法</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>房速/房扑发作证据</h3>
+								<div class="form-group">
+									<input name="onsetEvidence" ms-duplex="info[0].onsetEvidence">
+									<label for="onsetEvidence">证据</label>
+								</div>
+								<div class="form-group">
+									<input name="evidenceSource" ms-duplex="info[0].evidenceSource">
+									<label for="evidenceSource">证据来源</label>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术后信息</legend>
+							<div class="form-group">
+								<select ms-duplex="info[0].postoperativeAnticoagulation">
+									
+								</select>
+								<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperativeComplications" ms-duplex="info[0].postoperativeComplications">
+								<label for="postoperativeComplications">术后并发症</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].postoperativeArrhythmias">
+									
+								</select>
+								<label for="postoperativeArrhythmias">术后心率失常</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperatieAdds" ms-duplex="info[0].postoperatieAdds">
+								<label for="postoperatieAdds">术后AADs</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperatieMedication" ms-duplex="info[0].postoperatieMedication">
+								<label for="postoperatieMedication">术后其他用药</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>术后超声</h3>
+								<div class="form-group">
+									<input name="echocardiographicTime" ms-duplex="info[0].echocardiographicTime">
+									<label for="echocardiographicTime">时间</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLa" ms-duplex="info[0].postoperatieLa">
+									<label for="postoperatieLa">LA</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLv" ms-duplex="info[0].postoperatieLv">
+									<label for="postoperatieLv">LV</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLvef" ms-duplex="info[0].postoperatieLvef">
+									<label for="postoperatieLvef">LVEF</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].leftThrombosis">
+									
+								</select>
+								<label for="leftThrombosis">术后左房血栓</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].checkMethod">
+									
+								</select>
+								<label for="checkMethod">检测方法</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<button class="btn" type="botton" ms-click="submit('case1')">提交</button>
+						</fieldset>
+					</form>
+				</div>
+				<div id="case2" ms-if="nav[0].case2">
+					<form ms-controller="case2" class="form">
+						<fieldset>
+							<legend>诊断信息</legend>
+							<div class="form-group">
+								<input type="text" name="operationData" ms-duplex="info[0].operationData">
+								<label for="operationData">手术日期</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="operationNumber"  ms-duplex="info[0].operationNumber">
+								<label for="operationNumber">手术编号</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="operatorName" ms-duplex="info[0].operatorName">
+								<label for="operatorName">术者</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>房速类型</h3>
+								<div class="form-group">
+									<input type="text" name="rrType" ms-duplex="info[0].rrType">
+									<label for="rrType">类型</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="rrFrequency" ms-duplex="info[0].rrFrequency">
+									<label for="rrFrequency">频度</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="rrEveryAttackTime" ms-duplex="info[0].rrEveryAttackTime">
+									<label for="rrEveryAttackTime">每次发作持续时间</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="rrLastAttackTime" ms-duplex="info[0].rrLastAttackTime">
+									<label for="rrLastAttackTime">最近发作持续时间</label>
+								</div>
+								<div class="form-group">
+									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
+									<label for="cardioversionMethod">曾用转复方法</label>
+								</div>
+								<div class="form-group">
+									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
+									<label for="cardioversionMethod">转律用药</label>
+								</div>
+								<div class="form-group">
+									<textarea name="rrDuration" ms-duplex="info[0].rrDuration"></textarea>
+									<label for="rrDuration">持续时间</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input name="rrCourseDisease" ms-duplex="info[0].rrCourseDisease">
+								<label for="rrCourseDisease">房速病程</label>
+							</div>
+							<div class="form-group">
+								<textarea name="arrhythmiaDiagnose" ms-duplex="info[0].arrhythmiaDiagnose"></textarea>
+								<label for="arrhythmiaDiagnose">临床心率失常诊断</label>
+							</div>
+							<div class="form-group">
+								<textarea name="electrophysiologyDiagnose" ms-duplex="info[0].electrophysiologyDiagnose"></textarea>
+								<label for="electrophysiologyDiagnose">电生理检查诊断</label>
+							</div>
+							<div class="form-group">
+								<textarea name="postoperationDiagnose" ms-duplex="info[0].postoperationDiagnose"></textarea>
+								<label for="postoperationDiagnose">术后诊断</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].mechanism">
+									<option>局灶</option>
+									<option>折返</option>
+									<option>器质性</option>
+								</select>
+								<label for="mechanism">机制</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="part" ms-duplex="info[0].part">
+								<label for="part">部位</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术前信息</legend>
+							<div class="inner-form clearfix">
+								<h3>术前UCG</h3>
+								<div class="form-group">
+									<input type="text" name="laBore" ms-duplex="info[0].laBore">
+									<label for="laBore">LA内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="raBore" ms-duplex="info[0].raBore">
+									<label for="raBore">RA内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="lvBore" ms-duplex="info[0].lvBore">
+									<label for="lvBore">LV内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="rvBore" ms-duplex="info[0].rvBore">
+									<label for="rvBore">RV内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="lvefBore" ms-duplex="info[0].lvefBore">
+									<label for="lvefBore">LVEF内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="ucgRemarks" ms-duplex="info[0].ucgRemarks">
+									<label for="ucgRemarks">备注</label>
+								</div>
+							</div>
+							<!-- <div class="form-group">
+								<input type="text" name="ecgType" ms-duplex="info[0].ecgType">
+								<label for="ecgType">ECG束支阻滞类型</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="electricalOffset" ms-duplex="info[0].electricalOffset">
+								<label for="electricalOffset">电轴偏移</label>
+							</div>
+							<div class="form-group">
+								<input name="preopreativeExamination" ms-duplex="info[0].preopreativeExamination">
+								<label for="preopreativeExamination">其他检查重要阳性描述</label>
+							</div> -->
+							<div class="form-group">
+								<select ms-duplex="info[0].rrAblationTreatment">
+									<option>是</option>
+									<option>否</option>
+								</select>
+								<label for="rrAblationTreatment">是否做过房颤消融治疗</label>
+							</div>
+							<div class="form-group">
+								<input name="antiArrhythmiaDrugs" ms-duplex="info[0].antiArrhythmiaDrugs">
+								<label for="antiArrhythmiaDrugs">术前抗心律失常药物</label>
+							</div>
+							<div class="form-group">
+								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
+								<label for="invaliDantiArrhythmiaDrugs">无效的抗心律失常药物</label>
+							</div>
+							<div class="form-group">
+								<input name="beforeAnticoagulant" ms-duplex="info[0].beforeAnticoagulant">
+								<label for="beforeAnticoagulant">术前抗凝药物</label>
+							</div>
+							<div class="form-group">
+								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
+								<label for="invaliDantiArrhythmiaDrugs">术前合并心率失常</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].laThrombusDetection">
+									<option>未检测</option>
+									<option>有血栓</option>
+									<option>无血栓</option>
+								</select>
+								<label for="laThrombusDetection">术前LA血栓检测</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>经导管消融</legend>
+							<div class="inner-form clearfix">
+								<h3>心腔内造影</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].imagingInsideHeart" disabled name="imagingInsideHeart" >
+									</textarea>
+									<label ms-click-1="save(imagingInsideHeart, 'imagingInsideHeart', 'case2')" ms-click-2="toggleShow('imagingInsideHeart')" class="hidden imagingInsideHeart">确定（不提交）</label>
+									<label ms-click="toggleShow('imagingInsideHeart')">修改</label>
+								</div>
+								<div class="imagingInsideHeart hidden check-group">
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="左室">
+										<label for="imagingInsideHeart">左室</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="右室" >
+										<label for="imagingInsideHeart">右室</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="无">
+										<label for="imagingInsideHeart">无</label>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>诱发方式</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].inducedWay" disabled name="inducedWay"></textarea>
+									<label ms-click-1="save(inducedWay, 'inducedWay', 'case2')" ms-click-2="toggleShow('inducedWay')" class="hidden inducedWay">确定（不提交）</label>
+									<label ms-click="toggleShow('inducedWay')">修改</label>
+								</div>
+								<div class="inducedWay check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="自发" name="inducedWay" ms-duplex="inducedWay" >
+										<label for="inducedWay">自发</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心室分级递增刺激" name="inducedWay" ms-duplex="inducedWay">
+										<label for="inducedWay">心室分级递增刺激</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心室早搏刺激" name="inducedWay" ms-duplex="inducedWay">
+										<label for="inducedWay">心室早搏刺激</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" name="checkMedication" ms-duplex-string="info[0].checkMedication">
+								<label for="checkMedication">检查用药</label>
+								<!-- <input type="checkbox" value=""> -->
+							</div>
+							<div class="inner-form clearfix">
+								<h3>标测方式</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].mappingMode" disabled name="mappingMode" >
+									</textarea>
+									<label ms-click-1="save(mappingMode, 'mappingMode', 'case2')" ms-click-2="toggleShow('mappingMode')" class="hidden mappingMode">确定（不提交）</label>
+									<label ms-click="toggleShow('mappingMode')">修改</label>
+								</div>
+								<div class="mappingMode hidden check-group">
+									<div class="form-group-check">
+										<input type="checkbox" name="mappingMode" ms-duplex="mappingMode" value="激动标测">
+										<label for="mappingMode">激动标测</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" name="mappingMode" ms-duplex="mappingMode" value="基质标测" >
+										<label for="mappingMode">基质标测</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].tachycardiaRegulation">
+									<option>是</option>
+									<option>否</option>
+								</select>
+								<label for="tachycardiaRegulation">心动过速发作是否规则</label>
+							</div>
+							<div class="form-group">
+								<input name="ccl" ms-duplex="info[0].ccl">
+								<label for="ccl">周长</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].inspectionMethod">
+									<option>舒张期电位</option>
+									<option>P电位标测</option>
+								</select>
+								<label for="inspectionMethod">标测方法</label>
+							</div>
+							<div class="form-group">
+								<input name="diastolicPotential" ms-duplex="info[0].diastolicPotential">
+								<label for="diastolicPotential">舒张期电位</label>
+							</div>
+							<!-- <div class="form-group">
+								<input name="pPotentialExamination" ms-duplex="info[0].pPotentialExamination">
+								<label for="pPotentialExamination">P电位标测</label>
+							</div> -->
+							<div class="form-group">
+								<select ms-duplex="info[0].ablationProcedure" ms-click="select('case2', 'ablationProcedure')">
+									<option>局灶消融</option>
+									<option>线性消融</option>
+									<option>碎裂电位消融</option>
+									<option>舒张期电位消融</option>
+									<option>P电位消融</option>
+									<option selected="true">其他术式</option>
+								</select>
+								<label for="ablationProcedure">消融术式</label>
+							</div>
+							<div class="form-group" ms-visible="ablationProcedureSelect">
+								<input name="ablationProcedure" ms-duplex="info[0].ablationProcedure">
+								<label for="ablationProcedure">其他术式</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融径线</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationLines" disabled name="ablationLines"></textarea>
+									<label ms-click-1="save(ablationLines, 'ablationLines',  'case2')" ms-click-2="toggleShow('ablationLines')" class="hidden ablationLines">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationLines')">修改</label>
+								</div>
+								<div class="ablationLines check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="左房狭部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房狭部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房顶部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房顶部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="右房狭部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">右房狭部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左右肺静脉消融环间" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左右肺静脉消融环间</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房间隔线" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房间隔线</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房底部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房底部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="LAA—二尖瓣" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">LAA—二尖瓣</label>
+									</div>
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="otherablationLines">
+											<label for="ablationEndPoint">其他径线</label>
+											<input type="checkbox" value="other" name="ablationLines" ms-duplex="ablationLines">
+										</div>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>消融结果</legend>
+							<div class="form-group">
+								<input name="targetPosition" ms-duplex="info[0].targetPosition">
+								<label for="targetPosition">靶点部位</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].ablationEnergy" ms-click="select('case2', 'ablationEnergy')">
+									<option>射频消融</option>
+									<option>冷冻</option>
+									<option selected="true">其他</option>
+								</select>
+								<label for="ablationEnergy">消融能源</label>
+							</div>
+							<div class="form-group" ms-visible="ablationEnergySelect">
+								<input name="ablationEnergy" ms-duplex="info[0].ablationEnergy">
+								<label for="ablationEnergy">其他能源</label>
+							</div>
+							<!-- <div class="inner-form clearfix">
+								<h3>判断消融指标</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].imagingInsideHeart" disabled name="ablationJudgement">{{info[0].ablationJudgement}}</textarea>
+									<label ms-click-1="save(ablationJudgement, 'ablationJudgement')" ms-click-2="toggleShow('ablationJudgement')" class="hidden ablationJudgement">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationJudgement')">修改</label>
+								</div>
+								<div class="ablationJudgement check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速终止" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速终止</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速频率加快" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速频率加快</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速频率变慢" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速频率变慢</label>
+									</div>
+								</div>
+							</div> -->
+							<div class="inner-form clearfix">
+								<h3>消融终点</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationEndPoint" disabled name="ablationEndPoint"></textarea>
+									<label ms-click-1="save(ablationEndPoint, 'ablationEndPoint',  'case2')" ms-click-2="toggleShow('ablationEndPoint')" class="hidden ablationEndPoint">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationEndPoint')">修改</label>
+								</div>
+								<div class="ablationEndPoint check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="P电位降低或消失">
+										<label for="ablationEndPoint">P电位降低或消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="舒张期电位消失">
+										<label for="ablationEndPoint">舒张期电位消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="碎裂电位完全消失">
+										<label for="ablationEndPoint">碎裂电位完全消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="电刺激室速不能诱发">
+										<label for="ablationEndPoint">电刺激室速不能诱发</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="LSQ电刺激室速不能被诱发">
+										<label for="ablationEndPoint">LSQ电刺激室速不能被诱发</label>
+									</div>
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="otherablationEndPoint">
+											<label for="ablationEndPoint">其他</label>
+											<input type="checkbox" value="other" name="ablationEndPoint" ms-duplex="ablationEndPoint">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>放电时间</h3>
+								<div class="form-group">
+									<input type="text" name="effectiveTargetSite" ms-duplex="info[0].effectiveTargetSite">
+									<label for="effectiveTargetSite">有效靶点</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="dischargeTime" ms-duplex="info[0].dischargeTime">
+									<label for="dischargeTime">总放电时间</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" name="xrayExposureTime" ms-duplex="info[0].xrayExposureTime">
+								<label for="xrayExposureTime">X线曝光时间</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="ablationTimes" ms-duplex="info[0].ablationTimes">
+								<label for="ablationTimes">消融次数</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术中信息</legend>
+							<div class="form-group">
+								<input name="intraoperativeCableRate" ms-duplex="info[0].intraoperativeCableRate">
+								<label for="intraoperativeCableRate">术中电复率</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融前心率</h3>
+								<div class="form-group">
+									<input type="text" name="beforeHeartRate" ms-duplex="info[0].beforeHeartRate">
+									<label for="beforeHeartRate">窦性心律</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRt" ms-duplex="info[0].beforeRt">
+									<label for="beforeRt">房速</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRe" ms-duplex="info[0].beforeRe">
+									<label for="beforeRe">房早</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRemarks" ms-duplex="info[0].beforeRemarks">
+									<label for="beforeRemarks">其他</label>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>术中心率</h3>
+								<div class="form-group">
+									<input type="text" name="inHeartRate" ms-duplex="info[0].inHeartRate">
+									<label for="inHeartRate">窦性心律</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRr" ms-duplex="info[0].inRr">
+									<label for="inRr">房速</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRe" ms-duplex="info[0].inRe">
+									<label for="inRe">房早</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRemarks" ms-duplex="info[0].inRemarks">
+									<label for="inRemarks">其他</label>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>并发症</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].complication" disabled name="complication"></textarea>
+									<label ms-click-1="save(complication, 'complication',  'case2')" ms-click-2="toggleShow('complication')" class="hidden complication">确定（不提交）</label>
+									<label ms-click="toggleShow('complication')">修改</label>
+								</div>
+								<div class="complication check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="无">
+										<label for="complication">无</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="心包填塞">
+										<label for="complication">心包填塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="肺静脉狭窄">
+										<label for="complication">肺静脉狭窄</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="血栓栓塞">
+										<label for="complication">血栓栓塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="食道心房瘘">
+										<label for="complication">食道心房瘘</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="膈神经损伤">
+										<label for="complication">膈神经损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="空气栓塞">
+										<label for="complication">空气栓塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="卒中">
+										<label for="complication">卒中</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="食道周围迷走神经损伤">
+										<label for="complication">食道周围迷走神经损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="急性冠脉闭塞">
+										<label for="complication">急性冠脉闭塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="皮下血肿">
+										<label for="complication">皮下血肿</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="假性动脉瘤">
+										<label for="complication">假性动脉瘤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="动静脉瘘">
+										<label for="complication">动静脉瘘</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="腹膜后出血">
+										<label for="complication">腹膜后出血</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="瓣膜损伤">
+										<label for="complication">瓣膜损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="死亡">
+										<label for="complication">死亡</label>
+									</div>	
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="othercomplication">
+											<label for="complication">其他</label>
+											<input type="checkbox" name="complication" ms-duplex="complication" value="other">
+										</div>
+									</div>
+								</div>
+						</fieldset>
+						<fieldset>
+							<legend>随访</legend>
+							<div class="form-group">
+								<input name="followUpTime" ms-duplex="info[0].followUpTime">
+								<label for="followUpTime">随访时间</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].followUpMethod">
+									<option>电话</option>
+									<option>信件</option>
+									<option>复诊</option>
+								</select>
+								<label for="followUpMethod">随访方法</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>房速/房扑发作证据</h3>
+								<div class="form-group">
+									<input name="onsetEvidence" ms-duplex="info[0].onsetEvidence">
+									<label for="onsetEvidence">证据</label>
+								</div>
+								<div class="form-group">
+									<input name="evidenceSource" ms-duplex="info[0].evidenceSource">
+									<label for="evidenceSource">证据来源</label>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术后信息</legend>
+							<div class="form-group">
+								<select ms-duplex="info[0].postoperativeAnticoagulation">
+									
+								</select>
+								<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperativeComplications" ms-duplex="info[0].postoperativeComplications">
+								<label for="postoperativeComplications">术后并发症</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].postoperativeArrhythmias">
+									
+								</select>
+								<label for="postoperativeArrhythmias">术后心率失常</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperatieAdds" ms-duplex="info[0].postoperatieAdds">
+								<label for="postoperatieAdds">术后AADs</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperatieMedication" ms-duplex="info[0].postoperatieMedication">
+								<label for="postoperatieMedication">术后其他用药</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>术后超声</h3>
+								<div class="form-group">
+									<input name="echocardiographicTime" ms-duplex="info[0].echocardiographicTime">
+									<label for="echocardiographicTime">时间</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLa" ms-duplex="info[0].postoperatieLa">
+									<label for="postoperatieLa">LA</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLv" ms-duplex="info[0].postoperatieLv">
+									<label for="postoperatieLv">LV</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLvef" ms-duplex="info[0].postoperatieLvef">
+									<label for="postoperatieLvef">LVEF</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].leftThrombosis">
+									
+								</select>
+								<label for="leftThrombosis">术后左房血栓</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].checkMethod">
+									
+								</select>
+								<label for="checkMethod">检测方法</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<button class="btn" type="botton" ms-click="submit('case2')">提交</button>
+						</fieldset>
+					</form>
+				</div>
+				<div id="case3" ms-if="nav[0].case3">
+					<form ms-controller="case3" class="form">
+						<fieldset>
+							<legend>诊断信息</legend>
+							<div class="form-group">
+								<input type="text" name="operationData" ms-duplex="info[0].operationData">
+								<label for="operationData">手术日期</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="operationNumber"  ms-duplex="info[0].operationNumber">
+								<label for="operationNumber">手术编号</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="operatorName" ms-duplex="info[0].operatorName">
+								<label for="operatorName">术者</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>房颤类型</h3>
+								<div class="form-group">
+									<input type="text" name="afType" ms-duplex="info[0].afType">
+									<label for="afType">类型</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="afFrequency" ms-duplex="info[0].afFrequency">
+									<label for="afFrequency">频度</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="afEveryAttackTime" ms-duplex="info[0].afEveryAttackTime">
+									<label for="afEveryAttackTime">每次发作持续时间</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="afLastAttackTime" ms-duplex="info[0].afLastAttackTime">
+									<label for="afLastAttackTime">最近发作持续时间</label>
+								</div>
+								<div class="form-group">
+									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
+									<label for="cardioversionMethod">曾用转复方法</label>
+								</div>
+								<div class="form-group">
+									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
+									<label for="cardioversionMethod">转律用药</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input name="afCourseDisease" ms-duplex="info[0].afCourseDisease">
+								<label for="afCourseDisease">房颤病程</label>
+							</div>
+							<div class="form-group">
+								<textarea name="arrhythmiaDiagnose" ms-duplex="info[0].arrhythmiaDiagnose"></textarea>
+								<label for="arrhythmiaDiagnose">临床心率失常诊断</label>
+							</div>
+							<div class="form-group">
+								<textarea name="electrophysiologyDiagnose" ms-duplex="info[0].electrophysiologyDiagnose"></textarea>
+								<label for="electrophysiologyDiagnose">电生理检查诊断</label>
+							</div>
+							<div class="form-group">
+								<textarea name="postoperationDiagnose" ms-duplex="info[0].postoperationDiagnose"></textarea>
+								<label for="postoperationDiagnose">术后诊断</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="afDuration" ms-duplex="info[0].afDuration">
+								<label for="afDuration">持续时间</label>
+							</div>
+							<!-- <div class="form-group">
+								<input type="text" name="part" ms-duplex="info[0].part">
+								<label for="part">部位</label>
+							</div> -->
+						</fieldset>
+						<fieldset>
+							<legend>术前信息</legend>
+							<div class="inner-form clearfix">
+								<h3>术前UCG</h3>
+								<div class="form-group">
+									<input type="text" name="laBore" ms-duplex="info[0].laBore">
+									<label for="laBore">LA内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="raBore" ms-duplex="info[0].raBore">
+									<label for="raBore">RA内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="lvBore" ms-duplex="info[0].lvBore">
+									<label for="lvBore">LV内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="rvBore" ms-duplex="info[0].rvBore">
+									<label for="rvBore">RV内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="lvefBore" ms-duplex="info[0].lvefBore">
+									<label for="lvefBore">LVEF内径</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="ucgRemarks" ms-duplex="info[0].ucgRemarks">
+									<label for="ucgRemarks">备注</label>
+								</div>
+							</div>
+							<!-- <div class="form-group">
+								<input type="text" name="ecgType" ms-duplex="info[0].ecgType">
+								<label for="ecgType">ECG束支阻滞类型</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="electricalOffset" ms-duplex="info[0].electricalOffset">
+								<label for="electricalOffset">电轴偏移</label>
+							</div>
+							<div class="form-group">
+								<input name="preopreativeExamination" ms-duplex="info[0].preopreativeExamination">
+								<label for="preopreativeExamination">其他检查重要阳性描述</label>
+							</div> -->
+							<div class="form-group">
+								<select ms-duplex="info[0].laThrombusDetection">
+									<option>未检测</option>
+									<option>有血栓</option>
+									<option>无血栓</option>
+								</select>
+								<label for="laThrombusDetection">术前LA血栓检测</label>
+							</div>
+							<div class="form-group">
+								<input name="beforeAnticoagulant" ms-duplex="info[0].beforeAnticoagulant">
+								<label for="beforeAnticoagulant">术前抗凝药物</label>
+							</div>
+							<div class="form-group">
+								<input name="antiArrhythmiaDrugs" ms-duplex="info[0].antiArrhythmiaDrugs">
+								<label for="antiArrhythmiaDrugs">术前抗心律失常药物</label>
+							</div>
+							<div class="form-group">
+								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
+								<label for="invaliDantiArrhythmiaDrugs">无效的抗心律失常药物</label>
+							</div>
+							<div class="form-group">
+								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
+								<label for="invaliDantiArrhythmiaDrugs">术前合并心率失常</label>
+							</div>
+							<div class="form-group">
+								<input name="testMethod" ms-duplex="info[0].testMethod">
+								<label for="testMethod">检测方法</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>经导管消融</legend>
+							<div class="inner-form clearfix">
+								<h3>心腔内造影</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].imagingInsideHeart" disabled name="imagingInsideHeart" >
+									</textarea>
+									<label ms-click-1="save(imagingInsideHeart, 'imagingInsideHeart', 'case3')" ms-click-2="toggleShow('imagingInsideHeart')" class="hidden imagingInsideHeart">确定（不提交）</label>
+									<label ms-click="toggleShow('imagingInsideHeart')">修改</label>
+								</div>
+								<div class="imagingInsideHeart hidden check-group">
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="左室">
+										<label for="imagingInsideHeart">左室</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="右室" >
+										<label for="imagingInsideHeart">右室</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" name="imagingInsideHeart" ms-duplex="imagingInsideHeart" value="无">
+										<label for="imagingInsideHeart">无</label>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>诱发方式</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].inducedWay" disabled name="inducedWay"></textarea>
+									<label ms-click-1="save(inducedWay, 'inducedWay', 'case3')" ms-click-2="toggleShow('inducedWay')" class="hidden inducedWay">确定（不提交）</label>
+									<label ms-click="toggleShow('inducedWay')">修改</label>
+								</div>
+								<div class="inducedWay check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="自发" name="inducedWay" ms-duplex="inducedWay" >
+										<label for="inducedWay">自发</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心室分级递增刺激" name="inducedWay" ms-duplex="inducedWay">
+										<label for="inducedWay">心室分级递增刺激</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心室早搏刺激" name="inducedWay" ms-duplex="inducedWay">
+										<label for="inducedWay">心室早搏刺激</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+									<input type="text" name="checkMedication" ms-duplex-string="info[0].checkMedication">
+									<label for="checkMedication">检查用药</label>
+									<!-- <input type="checkbox" value=""> -->
+								</div>
+							<div class="inner-form clearfix">
+								<h3>靶肺静脉</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].lungVein" disabled name="lungVein">{{info[0].lungVein}}</textarea>
+									<label ms-click-1="save(lungVein, 'lungVein', 'case3')" ms-click-2="toggleShow('lungVein')" class="hidden lungVein">确定（不提交）</label>
+									<label ms-click="toggleShow('lungVein')">修改</label>
+								</div>
+								<div class="lungVein check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="RSP" name="lungVein" ms-duplex="lungVein" >
+										<label for="lungVein">RSP</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="RIPV" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">RIPV</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="RPVs" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">RPVs</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="LSPV" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">LSPV</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="LIPV" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">LIPV</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="LPVS" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">LPVS</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="SVC" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">SVC</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="IVC" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">IVC</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="PV公干" name="lungVein" ms-duplex="lungVein">
+										<label for="lungVein">PV公干</label>
+									</div>
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="otherlungVein">
+											<label for="lungVein">其他</label>
+											<input type="checkbox" name="lungVein" ms-duplex="lungVein" value="other">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].tachycardiaRegulation">
+									<option>是</option>
+									<option>否</option>
+								</select>
+								<label for="tachycardiaRegulation">心动过速发作是否规则</label>
+							</div>
+							<div class="form-group">
+								<input name="ccl" ms-duplex="info[0].ccl">
+								<label for="ccl">周长</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].inspectionMethod">
+									<option>舒张期电位</option>
+									<option>P电位标测</option>
+								</select>
+								<label for="inspectionMethod">标测方法</label>
+							</div>
+							<!-- <div class="form-group">
+								<input name="diastolicPotential" ms-duplex="info[0].diastolicPotential">
+								<label for="diastolicPotential">舒张期电位</label>
+							</div>
+							<div class="form-group">
+								<input name="pPotentialExamination" ms-duplex="info[0].pPotentialExamination">
+								<label for="pPotentialExamination">P电位标测</label>
+							</div> -->
+							<div class="form-group">
+								<select ms-duplex="info[0].ablationProcedure" ms-click="select('case3', 'ablationProcedure')">
+									<option>局灶消融</option>
+									<option>线性消融</option>
+									<option>碎裂电位消融</option>
+									<option>舒张期电位消融</option>
+									<option>P电位消融</option>
+									<option>其他术式</option>
+								</select>
+								<label for="ablationProcedure">消融术式</label>
+							</div>
+							<div class="form-group" ms-visible="ablationProcedureSelect">
+								<input name="ablationProcedure" ms-duplex="info[0].ablationProcedure">
+								<label for="ablationProcedure">其他术式</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].gpAblation">
+									<option>有</option>
+									<option>无</option>
+									<option>高频刺激寻找</option>
+								</select>
+								<label for="gpAblation">神经节丛消融</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融径线</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationLines" disabled name="ablationLines"></textarea>
+									<label ms-click-1="save(ablationLines, 'ablationLines', 'case3')" ms-click-2="toggleShow('ablationLines')" class="hidden ablationLines">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationLines')">修改</label>
+								</div>
+								<div class="ablationLines check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="左房狭部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房狭部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房顶部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房顶部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="右房狭部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">右房狭部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左右肺静脉消融环间" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左右肺静脉消融环间</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房间隔线" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房间隔线</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="左房底部" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">左房底部</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="LAA—二尖瓣" name="ablationLines" ms-duplex="ablationLines">
+										<label for="ablationLines">LAA—二尖瓣</label>
+									</div>
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="otherablationLines">
+											<label for="ablationEndPoint">其他径线</label>
+											<input type="checkbox" value="other" name="ablationLines" ms-duplex="ablationLines">
+										</div>
+									</div>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>消融结果</legend>
+							<div class="form-group">
+								<input name="targetPosition" ms-duplex="info[0].targetPosition">
+								<label for="targetPosition">靶点部位</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].ablationEnergy" ms-click="select('case3', 'ablationEnergy')">
+									<option>射频消融</option>
+									<option>冷冻</option>
+									<option selected="true">其他</option>
+								</select>
+								<label for="ablationEnergy">消融能源</label>
+							</div>
+							<div class="form-group" ms-visible="ablationEnergySelect">
+								<input name="ablationEnergy" ms-duplex="info[0].ablationEnergy">
+								<label for="ablationEnergy">其他能源</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>判断消融指标</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationJudgement" disabled name="ablationJudgement"></textarea>
+									<label ms-click-1="save(ablationJudgement, 'ablationJudgement', 'case3')" ms-click-2="toggleShow('ablationJudgement')" class="hidden ablationJudgement">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationJudgement')">修改</label>
+								</div>
+								<div class="ablationJudgement check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速终止" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速终止</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速频率加快" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速频率加快</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox" value="心动过速频率变慢" name="ablationJudgement" ms-duplex="ablationJudgement">
+										<label for="ablationJudgement">心动过速频率变慢</label>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融终点</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].ablationEndPoint" disabled name="ablationEndPoint"></textarea>
+									<label ms-click-1="save(ablationEndPoint, 'ablationEndPoint', 'case3')" ms-click-2="toggleShow('ablationEndPoint')" class="hidden ablationEndPoint">确定（不提交）</label>
+									<label ms-click="toggleShow('ablationEndPoint')">修改</label>
+								</div>
+								<div class="ablationEndPoint check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="P电位降低或消失">
+										<label for="ablationEndPoint">P电位降低或消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="舒张期电位消失">
+										<label for="ablationEndPoint">舒张期电位消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="碎裂电位完全消失">
+										<label for="ablationEndPoint">碎裂电位完全消失</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="电刺激室速不能诱发">
+										<label for="ablationEndPoint">电刺激室速不能诱发</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="ablationEndPoint" ms-duplex="ablationEndPoint" value="LSQ电刺激室速不能被诱发">
+										<label for="ablationEndPoint">LSQ电刺激室速不能被诱发</label>
+									</div>
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="otherablationEndPoint">
+											<label for="ablationEndPoint">其他</label>
+											<input type="checkbox" value="other" name="ablationEndPoint" ms-duplex="ablationEndPoint">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>放电时间</h3>
+								<!-- <div class="form-group">
+									<input type="text" name="effectiveTargetSite" ms-duplex="info[0].effectiveTargetSite">
+									<label for="effectiveTargetSite">有效靶点</label>
+								</div> -->
+								<div class="form-group">
+									<input type="text" name="dischargeTime" ms-duplex="info[0].dischargeTime">
+									<label for="dischargeTime">总放电时间</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<input type="text" name="xrayExposureTime" ms-duplex="info[0].xrayExposureTime">
+								<label for="xrayExposureTime">X线曝光时间</label>
+							</div>
+							<div class="form-group">
+								<input type="text" name="ablationTimes" ms-duplex="info[0].ablationTimes">
+								<label for="ablationTimes">消融次数</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术中信息</legend>
+							<div class="form-group">
+								<select ms-duplex="info[0].vagalReflex">
+									<option>有</option>
+									<option>无</option>
+								</select>
+								<label for="vagalReflex">迷走反射</label>
+							</div>
+							<div class="form-group">
+								<input name="intraoperativeVagusReflexAreas" ms-duplex="info[0].intraoperativeVagusReflexAreas">
+								<label for="intraoperativeVagusReflexAreas">术中出现迷走反射区域</label>
+							</div>
+							<div class="form-group">
+								<input name="intraoperativeCableRate" ms-duplex="info[0].intraoperativeCableRate">
+								<label for="intraoperativeCableRate">术中电复率</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>消融前心率</h3>
+								<div class="form-group">
+									<input type="text" name="beforeHeartRate" ms-duplex="info[0].beforeHeartRate">
+									<label for="beforeHeartRate">窦性心律</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRr" ms-duplex="info[0].beforeRr">
+									<label for="beforeRr">房速</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeAf" ms-duplex="info[0].beforeAf">
+									<label for="beforeAf">房颤</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRe" ms-duplex="info[0].beforeRe">
+									<label for="beforeRe">房早</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="beforeRemarks" ms-duplex="info[0].beforeRemarks">
+									<label for="beforeRemarks">其他</label>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>术中心率</h3>
+								<div class="form-group">
+									<input type="text" name="inHeartRate" ms-duplex="info[0].inHeartRate">
+									<label for="inHeartRate">窦性心律</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRr" ms-duplex="info[0].inRr">
+									<label for="inRr">房速</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inAf" ms-duplex="info[0].inAf">
+									<label for="inAf">房颤</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRe" ms-duplex="info[0].inRe">
+									<label for="inRe">房早</label>
+								</div>
+								<div class="form-group">
+									<input type="text" name="inRemarks" ms-duplex="info[0].inRemarks">
+									<label for="inRemarks">其他</label>
+								</div>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>并发症</h3>
+								<div class="form-group">
+									<textarea class="check-show" ms-duplex="info[0].complication" disabled name="complication"></textarea>
+									<label ms-click-1="save(complication, 'complication', 'case3')" ms-click-2="toggleShow('complication')" class="hidden complication">确定（不提交）</label>
+									<label ms-click="toggleShow('complication')">修改</label>
+								</div>
+								<div class="complication check-group hidden">
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="无">
+										<label for="complication">无</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="心包填塞">
+										<label for="complication">心包填塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="肺静脉狭窄">
+										<label for="complication">肺静脉狭窄</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="血栓栓塞">
+										<label for="complication">血栓栓塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="食道心房瘘">
+										<label for="complication">食道心房瘘</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="膈神经损伤">
+										<label for="complication">膈神经损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="空气栓塞">
+										<label for="complication">空气栓塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="卒中">
+										<label for="complication">卒中</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="食道周围迷走神经损伤">
+										<label for="complication">食道周围迷走神经损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="急性冠脉闭塞">
+										<label for="complication">急性冠脉闭塞</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="皮下血肿">
+										<label for="complication">皮下血肿</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="假性动脉瘤">
+										<label for="complication">假性动脉瘤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="动静脉瘘">
+										<label for="complication">动静脉瘘</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="腹膜后出血">
+										<label for="complication">腹膜后出血</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="瓣膜损伤">
+										<label for="complication">瓣膜损伤</label>
+									</div>
+									<div class="form-group-check">
+										<input type="checkbox"  name="complication" ms-duplex="complication" value="死亡">
+										<label for="complication">死亡</label>
+									</div>	
+									<div class="form-group-check">
+										<div class="group">
+											<input type="text" ms-duplex="othercomplication">
+											<label for="complication">其他</label>
+											<input type="checkbox" name="complication" ms-duplex="complication" value="other">
+										</div>
+									</div>
+								</div>
+						</fieldset>
+						<fieldset>
+							<legend>随访</legend>
+							<div class="form-group">
+								<input name="followUpTime" ms-duplex="info[0].followUpTime">
+								<label for="followUpTime">随访时间</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].followUpMethod">
+									<option>电话</option>
+									<option>信件</option>
+									<option>复诊</option>
+								</select>
+								<label for="followUpMethod">随访方法</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>房速/房扑发作证据</h3>
+								<div class="form-group">
+									<input name="onsetEvidence" ms-duplex="info[0].onsetEvidence">
+									<label for="onsetEvidence">证据</label>
+								</div>
+								<div class="form-group">
+									<input name="evidenceSource" ms-duplex="info[0].evidenceSource">
+									<label for="evidenceSource">证据来源</label>
+								</div>
+							</div>
+						</fieldset>
+						<fieldset>
+							<legend>术后信息</legend>
+							<div class="form-group">
+								<select ms-duplex="info[0].postoperativeAnticoagulation">
+									
+								</select>
+								<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperativeComplications" ms-duplex="info[0].postoperativeComplications">
+								<label for="postoperativeComplications">术后并发症</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].postoperativeArrhythmias">
+									
+								</select>
+								<label for="postoperativeArrhythmias">术后心率失常</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperatieAdds" ms-duplex="info[0].postoperatieAdds">
+								<label for="postoperatieAdds">术后AADs</label>
+							</div>
+							<div class="form-group">
+								<input name="postoperatieMedication" ms-duplex="info[0].postoperatieMedication">
+								<label for="postoperatieMedication">术后其他用药</label>
+							</div>
+							<div class="inner-form clearfix">
+								<h3>术后超声</h3>
+								<div class="form-group">
+									<input name="echocardiographicTime" ms-duplex="info[0].echocardiographicTime">
+									<label for="echocardiographicTime">时间</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLa" ms-duplex="info[0].postoperatieLa">
+									<label for="postoperatieLa">LA</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLv" ms-duplex="info[0].postoperatieLv">
+									<label for="postoperatieLv">LV</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieLvef" ms-duplex="info[0].postoperatieLvef">
+									<label for="postoperatieLvef">LVEF</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].leftThrombosis">
+									
+								</select>
+								<label for="leftThrombosis">术后左房血栓</label>
+							</div>
+							<div class="form-group">
+								<select ms-duplex="info[0].checkMethod">
+									
+								</select>
+								<label for="checkMethod">检测方法</label>
+							</div>
+						</fieldset>
+						<fieldset>
+							<button class="btn" type="botton" ms-click="submit('case3')">提交</button>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

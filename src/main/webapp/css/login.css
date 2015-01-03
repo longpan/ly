@@ -1,0 +1,99 @@
+html, body, #wrapper {
+	width: 100%;
+	height: 100%;
+}
+
+html, body, #wrapper, h1, h2, form,fieldset, input, button, p {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+#wrapper {
+	/*background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F0F0F0), color-stop(1, #5E5E5E));*/
+	background-color: #64B6DD;
+}
+
+.inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -215px 0 0 -180px;
+	width: 360px;
+	height: 430px;
+	overflow: hidden;
+}
+
+.title {
+	font-family: Arial;
+	font-size: 20px;
+	color: #4A2626;
+	text-align: center;
+}
+
+.login {
+	margin-top: 10px;
+	width: 341px;
+	height: 350px;
+	background: url(../images/login_bg_1.png);
+	border-radius: 7px;
+	-webkit-webkit-box-shadow: 7px 7px 10px #403F3F;
+	-moz-webkit-box-shadow: 7px 7px 10px #403F3F;
+	-ms-webkit-box-shadow: 7px 7px 10px #403F3F;
+	-o-webkit-box-shadow: 7px 7px 10px #403F3F;
+	webkit-box-shadow: 7px 7px 10px #403F3F;
+	box-shadow: 7px 7px 10px #403F3F;
+	overflow: hidden;
+}
+
+.login h2 {
+	margin: 55px auto;
+	font-family: "微软雅黑";
+	color: #C0C0C0;
+	text-align: center;
+}
+
+.login fieldset { 
+	text-align: center;
+}
+
+.login input {
+	width: 240px;
+	height: 35px;
+	font-size: 16px;
+	text-indent: 7px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.login input + input {
+	margin-top: 20px;
+}
+
+.login p {
+	margin: 10px auto 10px;
+	width: 240px;
+	height: 20px;
+	text-align: right;
+}
+
+.login p a {
+	font-family: Arial;
+	font-size: 12px;
+	color: #C0C0C0;
+	text-decoration: none;
+}
+
+.login button {
+	margin: 0 auto;
+	width: 150px;
+	height: 39px;
+	font-family: Arial;
+	font-size: 18px;
+	color: #C0C0C0;
+	text-align: center;
+	background-color: #141C25;
+	border: 1px solid #3E3E3E;
+	border-radius: 5px;
+	cursor: pointer;
+}
