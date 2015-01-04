@@ -1,5 +1,7 @@
 package org.xhome.ly.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class FollowUp {
@@ -44,6 +46,9 @@ public class FollowUp {
     private String keyword3;
 
     private String postoperativeArrhythmiasTime;
+
+
+    private String followUpTimeStr;
 
     public Integer getId() {
         return id;
@@ -212,4 +217,16 @@ public class FollowUp {
     public void setPostoperativeArrhythmiasTime(String postoperativeArrhythmiasTime) {
         this.postoperativeArrhythmiasTime = postoperativeArrhythmiasTime == null ? null : postoperativeArrhythmiasTime.trim();
     }
+
+
+//    public void setFollowUpTimeStr(String followUpTimeStr) {
+//        this.followUpTimeStr = followUpTimeStr;
+//    }
+//
+//    public String getFollowUpTimeStr() {
+//        if (followUpTime == null)
+//            return "";
+//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
+//        return format.format(followUpTime);
+//    }
 }

@@ -1,5 +1,7 @@
 package org.xhome.ly.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -132,6 +134,7 @@ public class Case2 {
 
     private Patient patient;
 
+    private String operationDataStr;
 
     private Doctor doctor;
 
@@ -170,7 +173,7 @@ public class Case2 {
     }
 
     public String getName() {
-        return name;
+        return "房速";
     }
 
     public void setName(String name) {
@@ -663,5 +666,17 @@ public class Case2 {
 
     public void setRrDuration(String rrDuration) {
         this.rrDuration = rrDuration == null ? null : rrDuration.trim();
+    }
+
+    public String getOperationDataStr() {
+        if (operationData == null)
+            return "";
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
+        return format.format(operationData);
+    }
+
+
+    public void setOperationDataStr(String operationDataStr) {
+        this.operationDataStr = operationDataStr;
     }
 }

@@ -93,6 +93,8 @@ avalon.ready(function(){
 	global.case1 = avalon.define({
 		$id: "case1",
 		info: {},
+		followUps: [],
+		num: 0,
 		imagingInsideHeart: [],
 		inducedWay: [],
 		ablationLines: [],
@@ -113,6 +115,8 @@ avalon.ready(function(){
 	global.case2 = avalon.define({
 		$id: "case2",
 		info: {},
+		followUps: [],
+		num: 0,
 		imagingInsideHeart: [],
 		inducedWay: [],
 		ablationLines: [],
@@ -133,6 +137,8 @@ avalon.ready(function(){
 	global.case3 = avalon.define({
 		$id: "case3",
 		info: {},
+		followUps: [],
+		num: 0,
 		imagingInsideHeart: [],
 		inducedWay: [],
 		ablationLines: [],
@@ -185,7 +191,7 @@ function query(choice, val){
 			break;
 		case "病例号":
 			urlVal = "caseNumber";
-			which = "theCase";
+			query = "cases";
 			break;
 		case "医生 ID":
 			urlVal = "doctorId";
@@ -211,20 +217,19 @@ function query(choice, val){
 			break;
 	}
 
-	global[which].info = {};
 
-	if(query == "case2s"){
-		nav[0].case2 = true;
-		nav[0].case1 = nav[0].case3 = false;
-	}else if(query == "case3s"){
-		nav[0].case3 = true;
-		nav[0].case1 = nav[0].case2 = false;
-	}else{
-		nav[0].case1 = true;
-		nav[0].case2 = nav[0].case3 = false;
-	}
 
-	console.log(nav[0].$model);
+	//if(query == "case2s"){
+	//	nav[0].case2 = true;
+	//	nav[0].case1 = nav[0].case3 = false;
+	//}else if(query == "case3s"){
+	//	nav[0].case3 = true;
+	//	nav[0].case1 = nav[0].case2 = false;
+	//}else{
+	//	nav[0].case1 = true;
+	//	nav[0].case2 = nav[0].case3 = false;
+	//}
+
 
 	for( var i = 0; i < nav.length; i++){
 		nav[i].self = false;
@@ -237,9 +242,42 @@ function query(choice, val){
 		type: "GET",
 		headers: {Authentication: global.user.username + "%" + global.user.password},
 		success: function(data){
+			if(query == "cases"){
+				switch (data.body[0].name){
+					case "室速":
+						which = "case1";
+						query = "case1s";
+						break;
+					case "房速":
+						which = "case2";
+						query = "case2s";
+						break;
+					case "房颤":
+						which = "case3";
+						query = "case3s";
+						break;
+					default :
+						which = "case1";
+						query = "case1s";
+						break;
+				}
+			}
+			if(query == "case2s"){
+				nav[0].case2 = true;
+				nav[0].case1 = nav[0].case3 = false;
+			}else if(query == "case3s"){
+				nav[0].case3 = true;
+				nav[0].case1 = nav[0].case2 = false;
+			}else{
+				nav[0].case1 = true;
+				nav[0].case2 = nav[0].case3 = false;
+			}
 			global[which].info = data.body;
-			select(which, 'ablationProcedure');
-			select(which, 'ablationEnergy');
+			global[which].followUps = data.body[0].followUps;
+			if(which != "doctor" && which != "patient"){
+				select(which, 'ablationProcedure');
+				select(which, 'ablationEnergy');
+			}
 			avalon.scan();
 		}
 	});
@@ -316,6 +354,27 @@ function submit(which){
 			}
 		}
 	});
+
+
+}
+
+function submit2(which, index){
+	event.preventDefault();
+	var followUps = global[which].followUps.$model[index];
+
+	$.ajax({
+		url: "/yl/api/followup",
+		type: "PATCH",
+		contentType: "application/json",
+		data: JSON.stringify(followUps),
+		success: function(data){
+			if(data.status == 0){
+				alert("随访修改成功！");
+			}else{
+				alert("随访修改失败！");
+			}
+		}
+	});
 }
 
 function select(which, val){
@@ -327,6 +386,10 @@ function select(which, val){
 		}
 	}
 	global[which][select] = true;
+}
+
+function numshow(which, index){
+	global[which].num = index;
 }
 
 

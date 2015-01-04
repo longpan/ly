@@ -42,7 +42,7 @@ public class DoctorAction {
         status = doctorService.login(doctor);
         return new Response(status, doctor.getId());
     }
-    @AdminLoginAuthorized
+    //@AdminLoginAuthorized
     //@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/doctor/{id}", method = RequestMethod.GET)

@@ -12,6 +12,7 @@ import org.xhome.ly.service.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -156,6 +157,67 @@ public class Case1ServiceImpl implements Case1Service{
 
         queryBase.setResults(case1List);
         queryBase.setTotalRow(case1Mapper.countCase1s(queryBase));
+    }
+
+    public int getCasesByCaseNumber(QueryBase queryBase){
+        List<Object> cases = new ArrayList<>();
+        List<Case1> case1List = case1Mapper.queryCase1s(queryBase);
+        List<Case2> case2List = case2Mapper.queryCase2s(queryBase);
+        List<Case3> case3List = case3Mapper.queryCase3s(queryBase);
+        InterrogationRecord interrogationRecord;
+        Patient patient;
+        Doctor doctor;
+        List<FollowUp> followUps;
+
+        if(case1List != null) {
+            for (Case1 case1 : case1List) {
+
+                interrogationRecord = interrogationRecordService.get(case1.getInterrogationRecordId());
+                patient = patientService.get(interrogationRecord.getPatientId());
+                doctor =  doctorService.get(interrogationRecord.getDoctorId());
+                followUps = followUpService.getByInterrogationRecordId(interrogationRecord.getId());
+
+                case1.setPatient(patient);
+                case1.setDoctor(doctor);
+                case1.setFollowUps(followUps);
+
+                cases.add(case1);
+            }
+        }
+        if(case2List != null) {
+            for (Case2 case2 : case2List) {
+                interrogationRecord = interrogationRecordService.get(case2.getInterrogationRecordId());
+                patient = patientService.get(interrogationRecord.getPatientId());
+                doctor =  doctorService.get(interrogationRecord.getDoctorId());
+                followUps = followUpService.getByInterrogationRecordId(interrogationRecord.getId());
+
+                case2.setPatient(patient);
+                case2.setDoctor(doctor);
+                case2.setFollowUps(followUps);
+                cases.add(case2);
+            }
+        }
+        if(case3List != null) {
+            for (Case3 case3 : case3List) {
+                interrogationRecord = interrogationRecordService.get(case3.getInterrogationRecordId());
+                patient = patientService.get(interrogationRecord.getPatientId());
+                doctor =  doctorService.get(interrogationRecord.getDoctorId());
+                followUps = followUpService.getByInterrogationRecordId(interrogationRecord.getId());
+
+                case3.setPatient(patient);
+                case3.setDoctor(doctor);
+                case3.setFollowUps(followUps);
+                cases.add(case3);
+            }
+        }
+        Object object = null ;
+        int status = Status.NOT_EXISTS;
+        if(cases.size()>0){
+            status = Status.SUCCESS;
+        }
+        queryBase.setResults(cases);
+
+        return status;
     }
 
     /**

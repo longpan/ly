@@ -1,5 +1,7 @@
 package org.xhome.ly.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Patient {
@@ -28,6 +30,9 @@ public class Patient {
     private Integer age;
 
     private String sex;
+
+    private String birthdayStr;
+
 
     public Integer getId() {
         return id;
@@ -132,4 +137,15 @@ public class Patient {
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
     }
+
+    public String getBirthdayStr() {
+        if (birthday == null)
+            return "";
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
+        return format.format(birthday);
+    }
+    public void setBirthdayStr(String birthdayStr) {
+        this.birthdayStr = birthdayStr;
+    }
+
 }

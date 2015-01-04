@@ -4,9 +4,7 @@
 	<meta charset="UTF-8">
 	<title>query</title>
 	<link rel="stylesheet" type="text/css" href="../css/base.css">
-	<script type="text/javascript" src="../script/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="../script/avalon.min.js"></script>
-  	<script type="text/javascript" src="../script/query.js"></script>
+
 </head>
 <body>
 	<div id="wrapper" ms-controller="navigation" class="ms-controller">
@@ -41,31 +39,31 @@
 					<fieldset>
 						<legend>医生基本信息</legend>
 						<div class="form-group">
-							<input type="text" name="id"  ms-duplex="info[0].id">
+							<input type="text" name="id"  ms-duplex="info[0].doctor.id">
 							<label for="id">医生ID：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="certificationNumber"  ms-duplex="info[0].certificationNumber">
+							<input type="text" name="certificationNumber"  ms-duplex="info[0].doctor.certificationNumber">
 							<label for="certificationNumber">行医资格证书：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="name" ms-duplex="info[0].name">
+							<input type="text" name="name" ms-duplex="info[0].doctor.name">
 							<label for="name">医生姓名：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="major" ms-duplex="info[0].major">
+							<input type="text" name="major" ms-duplex="info[0].doctor.major">
 							<label for="major">主治：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="jobTitle" ms-duplex="info[0].jobTitle">
+							<input type="text" name="jobTitle" ms-duplex="info[0].doctor.jobTitle">
 							<label for="jobTitle">职称：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="belongHospital" ms-duplex="info[0].belongHospital">
+							<input type="text" name="belongHospital" ms-duplex="info[0].doctor.belongHospital">
 							<label for="belongHospital">所属医院</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="contactNumber" ms-duplex="info[0].contactNumber">
+							<input type="text" name="contactNumber" ms-duplex="info[0].doctor.contactNumber">
 							<label for="contactNumber">联系方式</label>
 						</div>
 					</fieldset>
@@ -84,7 +82,7 @@
 										<td>{{item.id}}</td>
 										<td>{{item.patient.id}}</td>
 										<td>{{item.patient.name}}</td>
-										<td>{{item.operationData}}</td>
+										<td>{{item.operationDataStr}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -112,8 +110,8 @@
 							<label for="idCard">身份证</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="birthday" ms-duplex="info[0].patient.birthday">
-							<label for="birthday">出生年月</label>
+							<input type="text" name="birthdayStr" ms-duplex="info[0].patient.birthdayStr">
+							<label for="birthdayStr">出生年月</label>
 						</div>
 						<div class="form-group">
 							<input type="text" name="phoneNumber" ms-duplex="info[0].patient.phoneNumber">
@@ -147,7 +145,7 @@
 										<td>{{item.id}}</td>
 										<td>{{item.name}}</td>
 										<td>{{item.operatorName}}</td>
-										<td>{{item.operationData}}</td>
+										<td>{{item.operationDataStr}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -164,8 +162,8 @@
 						<fieldset>
 							<legend>诊断信息</legend>
 							<div class="form-group">
-								<input type="text" name="operationData" ms-duplex="info[0].operationData">
-								<label for="operationData">手术日期</label>
+								<input type="text" name="operationDataStr" ms-duplex="info[0].operationDataStr">
+								<label for="operationDataStr">手术日期</label>
 							</div>
 							<div class="form-group">
 								<input type="text" name="operationNumber"  ms-duplex="info[0].operationNumber">
@@ -642,91 +640,115 @@
 								</div>
 						</fieldset>
 						<fieldset>
-							<legend>随访</legend>
-							<div class="form-group">
-								<input name="followUpTime" ms-duplex="info[0].followUpTime">
-								<label for="followUpTime">随访时间</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].followUpMethod">
-									<option>电话</option>
-									<option>信件</option>
-									<option>复诊</option>
-								</select>
-								<label for="followUpMethod">随访方法</label>
-							</div>
-							<div class="inner-form clearfix">
-								<h3>房速/房扑发作证据</h3>
-								<div class="form-group">
-									<input name="onsetEvidence" ms-duplex="info[0].onsetEvidence">
-									<label for="onsetEvidence">证据</label>
-								</div>
-								<div class="form-group">
-									<input name="evidenceSource" ms-duplex="info[0].evidenceSource">
-									<label for="evidenceSource">证据来源</label>
-								</div>
+							<legend>随访列表</legend>
+							<div style="margin-bottom:20px;">
+								<table>
+									<thead>
+									<tr>
+										<th>随访ID</th>
+										<th>随访时间</th>
+										<th>随访方法</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ms-repeat-item="followUps" ms-click="numshow('case3', $index)" ms-class="color: $index%2!=0">
+										<td>{{item.id}}</td>
+										<td>{{item.followUpTime}}</td>
+										<td>{{item.followUpMethod}}</td>
+									</tr>
+									</tbody>
+								</table>
 							</div>
 						</fieldset>
-						<fieldset>
-							<legend>术后信息</legend>
-							<div class="form-group">
-								<select ms-duplex="info[0].postoperativeAnticoagulation">
-									
-								</select>
-								<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperativeComplications" ms-duplex="info[0].postoperativeComplications">
-								<label for="postoperativeComplications">术后并发症</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].postoperativeArrhythmias">
-									
-								</select>
-								<label for="postoperativeArrhythmias">术后心率失常</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperatieAdds" ms-duplex="info[0].postoperatieAdds">
-								<label for="postoperatieAdds">术后AADs</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperatieMedication" ms-duplex="info[0].postoperatieMedication">
-								<label for="postoperatieMedication">术后其他用药</label>
-							</div>
-							<div class="inner-form clearfix">
-								<h3>术后超声</h3>
+						<div ms-repeat-item="followUps" ms-visible="num == $index">
+							<fieldset>
 								<div class="form-group">
-									<input name="echocardiographicTime" ms-duplex="info[0].echocardiographicTime">
-									<label for="echocardiographicTime">时间</label>
+									<input name="followUpTime" ms-duplex="item.followUpTime">
+									<label for="followUpTime">随访时间</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLa" ms-duplex="info[0].postoperatieLa">
-									<label for="postoperatieLa">LA</label>
+									<select ms-duplex="item.followUpMethod">
+										<option>电话</option>
+										<option>信件</option>
+										<option>复诊</option>
+									</select>
+									<label for="followUpMethod">随访方法</label>
+								</div>
+								<div class="inner-form clearfix">
+									<h3>房速/房扑发作证据</h3>
+									<div class="form-group">
+										<input name="onsetEvidence" ms-duplex="item.onsetEvidence">
+										<label for="onsetEvidence">证据</label>
+									</div>
+									<div class="form-group">
+										<input name="evidenceSource" ms-duplex="item.evidenceSource">
+										<label for="evidenceSource">证据来源</label>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend>术后信息</legend>
+								<div class="form-group">
+									<select ms-duplex="item.postoperativeAnticoagulation">
+
+									</select>
+									<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLv" ms-duplex="info[0].postoperatieLv">
-									<label for="postoperatieLv">LV</label>
+									<input name="postoperativeComplications" ms-duplex="item.postoperativeComplications">
+									<label for="postoperativeComplications">术后并发症</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLvef" ms-duplex="info[0].postoperatieLvef">
-									<label for="postoperatieLvef">LVEF</label>
+									<select ms-duplex="item.postoperativeArrhythmias">
+
+									</select>
+									<label for="postoperativeArrhythmias">术后心率失常</label>
 								</div>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].leftThrombosis">
-									
-								</select>
-								<label for="leftThrombosis">术后左房血栓</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].checkMethod">
-									
-								</select>
-								<label for="checkMethod">检测方法</label>
-							</div>
-						</fieldset>
+								<div class="form-group">
+									<input name="postoperatieAdds" ms-duplex="item.postoperatieAdds">
+									<label for="postoperatieAdds">术后AADs</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieMedication" ms-duplex="item.postoperatieMedication">
+									<label for="postoperatieMedication">术后其他用药</label>
+								</div>
+								<div class="inner-form clearfix">
+									<h3>术后超声</h3>
+									<div class="form-group">
+										<input name="echocardiographicTime" ms-duplex="item.echocardiographicTime">
+										<label for="echocardiographicTime">时间</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLa" ms-duplex="item.postoperatieLa">
+										<label for="postoperatieLa">LA</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLv" ms-duplex="item.postoperatieLv">
+										<label for="postoperatieLv">LV</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLvef" ms-duplex="item.postoperatieLvef">
+										<label for="postoperatieLvef">LVEF</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<select ms-duplex="item.leftThrombosis">
+
+									</select>
+									<label for="leftThrombosis">术后左房血栓</label>
+								</div>
+								<div class="form-group">
+									<select ms-duplex="item.checkMethod">
+
+									</select>
+									<label for="checkMethod">检测方法</label>
+								</div>
+							</fieldset>
+							<button class="btn" type="botton" ms-click="submit2('case1', $index)">随访提交</button>
+						</div>
 						<fieldset>
 							<button class="btn" type="botton" ms-click="submit('case1')">提交</button>
+
 						</fieldset>
 					</form>
 				</div>
@@ -735,8 +757,8 @@
 						<fieldset>
 							<legend>诊断信息</legend>
 							<div class="form-group">
-								<input type="text" name="operationData" ms-duplex="info[0].operationData">
-								<label for="operationData">手术日期</label>
+								<input type="text" name="operationDataStr" ms-duplex="info[0].operationDataStr">
+								<label for="operationDataStr">手术日期</label>
 							</div>
 							<div class="form-group">
 								<input type="text" name="operationNumber"  ms-duplex="info[0].operationNumber">
@@ -1260,91 +1282,115 @@
 								</div>
 						</fieldset>
 						<fieldset>
-							<legend>随访</legend>
-							<div class="form-group">
-								<input name="followUpTime" ms-duplex="info[0].followUpTime">
-								<label for="followUpTime">随访时间</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].followUpMethod">
-									<option>电话</option>
-									<option>信件</option>
-									<option>复诊</option>
-								</select>
-								<label for="followUpMethod">随访方法</label>
-							</div>
-							<div class="inner-form clearfix">
-								<h3>房速/房扑发作证据</h3>
-								<div class="form-group">
-									<input name="onsetEvidence" ms-duplex="info[0].onsetEvidence">
-									<label for="onsetEvidence">证据</label>
-								</div>
-								<div class="form-group">
-									<input name="evidenceSource" ms-duplex="info[0].evidenceSource">
-									<label for="evidenceSource">证据来源</label>
-								</div>
+							<legend>随访列表</legend>
+							<div style="margin-bottom:20px;">
+								<table>
+									<thead>
+									<tr>
+										<th>随访ID</th>
+										<th>随访时间</th>
+										<th>随访方法</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ms-repeat-item="followUps" ms-click="numshow('case3', $index)" ms-class="color: $index%2!=0">
+										<td>{{item.id}}</td>
+										<td>{{item.followUpTime}}</td>
+										<td>{{item.followUpMethod}}</td>
+									</tr>
+									</tbody>
+								</table>
 							</div>
 						</fieldset>
-						<fieldset>
-							<legend>术后信息</legend>
-							<div class="form-group">
-								<select ms-duplex="info[0].postoperativeAnticoagulation">
-									
-								</select>
-								<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperativeComplications" ms-duplex="info[0].postoperativeComplications">
-								<label for="postoperativeComplications">术后并发症</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].postoperativeArrhythmias">
-									
-								</select>
-								<label for="postoperativeArrhythmias">术后心率失常</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperatieAdds" ms-duplex="info[0].postoperatieAdds">
-								<label for="postoperatieAdds">术后AADs</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperatieMedication" ms-duplex="info[0].postoperatieMedication">
-								<label for="postoperatieMedication">术后其他用药</label>
-							</div>
-							<div class="inner-form clearfix">
-								<h3>术后超声</h3>
+						<div ms-repeat-item="followUps" ms-visible="num == $index" style="padding-bottom: 20px;">
+							<fieldset>
 								<div class="form-group">
-									<input name="echocardiographicTime" ms-duplex="info[0].echocardiographicTime">
-									<label for="echocardiographicTime">时间</label>
+									<input name="followUpTime" ms-duplex="item.followUpTime">
+									<label for="followUpTime">随访时间</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLa" ms-duplex="info[0].postoperatieLa">
-									<label for="postoperatieLa">LA</label>
+									<select ms-duplex="item.followUpMethod">
+										<option>电话</option>
+										<option>信件</option>
+										<option>复诊</option>
+									</select>
+									<label for="followUpMethod">随访方法</label>
+								</div>
+								<div class="inner-form clearfix">
+									<h3>房速/房扑发作证据</h3>
+									<div class="form-group">
+										<input name="onsetEvidence" ms-duplex="item.onsetEvidence">
+										<label for="onsetEvidence">证据</label>
+									</div>
+									<div class="form-group">
+										<input name="evidenceSource" ms-duplex="item.evidenceSource">
+										<label for="evidenceSource">证据来源</label>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend>术后信息</legend>
+								<div class="form-group">
+									<select ms-duplex="item.postoperativeAnticoagulation">
+
+									</select>
+									<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLv" ms-duplex="info[0].postoperatieLv">
-									<label for="postoperatieLv">LV</label>
+									<input name="postoperativeComplications" ms-duplex="item.postoperativeComplications">
+									<label for="postoperativeComplications">术后并发症</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLvef" ms-duplex="info[0].postoperatieLvef">
-									<label for="postoperatieLvef">LVEF</label>
+									<select ms-duplex="item.postoperativeArrhythmias">
+
+									</select>
+									<label for="postoperativeArrhythmias">术后心率失常</label>
 								</div>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].leftThrombosis">
-									
-								</select>
-								<label for="leftThrombosis">术后左房血栓</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].checkMethod">
-									
-								</select>
-								<label for="checkMethod">检测方法</label>
-							</div>
-						</fieldset>
+								<div class="form-group">
+									<input name="postoperatieAdds" ms-duplex="item.postoperatieAdds">
+									<label for="postoperatieAdds">术后AADs</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieMedication" ms-duplex="item.postoperatieMedication">
+									<label for="postoperatieMedication">术后其他用药</label>
+								</div>
+								<div class="inner-form clearfix">
+									<h3>术后超声</h3>
+									<div class="form-group">
+										<input name="echocardiographicTime" ms-duplex="item.echocardiographicTime">
+										<label for="echocardiographicTime">时间</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLa" ms-duplex="item.postoperatieLa">
+										<label for="postoperatieLa">LA</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLv" ms-duplex="item.postoperatieLv">
+										<label for="postoperatieLv">LV</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLvef" ms-duplex="item.postoperatieLvef">
+										<label for="postoperatieLvef">LVEF</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<select ms-duplex="item.leftThrombosis">
+
+									</select>
+									<label for="leftThrombosis">术后左房血栓</label>
+								</div>
+								<div class="form-group">
+									<select ms-duplex="item.checkMethod">
+
+									</select>
+									<label for="checkMethod">检测方法</label>
+								</div>
+							</fieldset>
+							<button class="btn" type="botton" ms-click="submit2('case2', $index)">随访提交</button>
+						</div>
 						<fieldset>
 							<button class="btn" type="botton" ms-click="submit('case2')">提交</button>
+
 						</fieldset>
 					</form>
 				</div>
@@ -1353,8 +1399,8 @@
 						<fieldset>
 							<legend>诊断信息</legend>
 							<div class="form-group">
-								<input type="text" name="operationData" ms-duplex="info[0].operationData">
-								<label for="operationData">手术日期</label>
+								<input type="text" name="operationDataStr" ms-duplex="info[0].operationDataStr">
+								<label for="operationDataStr">手术日期</label>
 							</div>
 							<div class="form-group">
 								<input type="text" name="operationNumber"  ms-duplex="info[0].operationNumber">
@@ -1928,91 +1974,115 @@
 								</div>
 						</fieldset>
 						<fieldset>
-							<legend>随访</legend>
-							<div class="form-group">
-								<input name="followUpTime" ms-duplex="info[0].followUpTime">
-								<label for="followUpTime">随访时间</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].followUpMethod">
-									<option>电话</option>
-									<option>信件</option>
-									<option>复诊</option>
-								</select>
-								<label for="followUpMethod">随访方法</label>
-							</div>
-							<div class="inner-form clearfix">
-								<h3>房速/房扑发作证据</h3>
-								<div class="form-group">
-									<input name="onsetEvidence" ms-duplex="info[0].onsetEvidence">
-									<label for="onsetEvidence">证据</label>
-								</div>
-								<div class="form-group">
-									<input name="evidenceSource" ms-duplex="info[0].evidenceSource">
-									<label for="evidenceSource">证据来源</label>
-								</div>
+							<legend>随访列表</legend>
+							<div style="margin-bottom:20px;">
+								<table>
+									<thead>
+									<tr>
+										<th>随访ID</th>
+										<th>随访时间</th>
+										<th>随访方法</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr ms-repeat-item="followUps" ms-click="numshow('case3', $index)" ms-class="color: $index%2!=0">
+										<td>{{item.id}}</td>
+										<td>{{item.followUpTime}}</td>
+										<td>{{item.followUpMethod}}</td>
+									</tr>
+									</tbody>
+								</table>
 							</div>
 						</fieldset>
-						<fieldset>
-							<legend>术后信息</legend>
-							<div class="form-group">
-								<select ms-duplex="info[0].postoperativeAnticoagulation">
-									
-								</select>
-								<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperativeComplications" ms-duplex="info[0].postoperativeComplications">
-								<label for="postoperativeComplications">术后并发症</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].postoperativeArrhythmias">
-									
-								</select>
-								<label for="postoperativeArrhythmias">术后心率失常</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperatieAdds" ms-duplex="info[0].postoperatieAdds">
-								<label for="postoperatieAdds">术后AADs</label>
-							</div>
-							<div class="form-group">
-								<input name="postoperatieMedication" ms-duplex="info[0].postoperatieMedication">
-								<label for="postoperatieMedication">术后其他用药</label>
-							</div>
-							<div class="inner-form clearfix">
-								<h3>术后超声</h3>
+						<div ms-repeat-item="followUps" ms-visible="num == $index">
+							<fieldset>
 								<div class="form-group">
-									<input name="echocardiographicTime" ms-duplex="info[0].echocardiographicTime">
-									<label for="echocardiographicTime">时间</label>
+									<input name="followUpTime" ms-duplex="item.followUpTime">
+									<label for="followUpTime">随访时间</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLa" ms-duplex="info[0].postoperatieLa">
-									<label for="postoperatieLa">LA</label>
+									<select ms-duplex="item.followUpMethod">
+										<option>电话</option>
+										<option>信件</option>
+										<option>复诊</option>
+									</select>
+									<label for="followUpMethod">随访方法</label>
+								</div>
+								<div class="inner-form clearfix">
+									<h3>房速/房扑发作证据</h3>
+									<div class="form-group">
+										<input name="onsetEvidence" ms-duplex="item.onsetEvidence">
+										<label for="onsetEvidence">证据</label>
+									</div>
+									<div class="form-group">
+										<input name="evidenceSource" ms-duplex="item.evidenceSource">
+										<label for="evidenceSource">证据来源</label>
+									</div>
+								</div>
+							</fieldset>
+							<fieldset>
+								<legend>术后信息</legend>
+								<div class="form-group">
+									<select ms-duplex="item.postoperativeAnticoagulation">
+
+									</select>
+									<label for="postoperativeAnticoagulation">术后抗凝治疗</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLv" ms-duplex="info[0].postoperatieLv">
-									<label for="postoperatieLv">LV</label>
+									<input name="postoperativeComplications" ms-duplex="item.postoperativeComplications">
+									<label for="postoperativeComplications">术后并发症</label>
 								</div>
 								<div class="form-group">
-									<input name="postoperatieLvef" ms-duplex="info[0].postoperatieLvef">
-									<label for="postoperatieLvef">LVEF</label>
+									<select ms-duplex="item.postoperativeArrhythmias">
+
+									</select>
+									<label for="postoperativeArrhythmias">术后心率失常</label>
 								</div>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].leftThrombosis">
-									
-								</select>
-								<label for="leftThrombosis">术后左房血栓</label>
-							</div>
-							<div class="form-group">
-								<select ms-duplex="info[0].checkMethod">
-									
-								</select>
-								<label for="checkMethod">检测方法</label>
-							</div>
-						</fieldset>
+								<div class="form-group">
+									<input name="postoperatieAdds" ms-duplex="item.postoperatieAdds">
+									<label for="postoperatieAdds">术后AADs</label>
+								</div>
+								<div class="form-group">
+									<input name="postoperatieMedication" ms-duplex="item.postoperatieMedication">
+									<label for="postoperatieMedication">术后其他用药</label>
+								</div>
+								<div class="inner-form clearfix">
+									<h3>术后超声</h3>
+									<div class="form-group">
+										<input name="echocardiographicTime" ms-duplex="item.echocardiographicTime">
+										<label for="echocardiographicTime">时间</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLa" ms-duplex="item.postoperatieLa">
+										<label for="postoperatieLa">LA</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLv" ms-duplex="item.postoperatieLv">
+										<label for="postoperatieLv">LV</label>
+									</div>
+									<div class="form-group">
+										<input name="postoperatieLvef" ms-duplex="item.postoperatieLvef">
+										<label for="postoperatieLvef">LVEF</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<select ms-duplex="item.leftThrombosis">
+
+									</select>
+									<label for="leftThrombosis">术后左房血栓</label>
+								</div>
+								<div class="form-group">
+									<select ms-duplex="item.checkMethod">
+
+									</select>
+									<label for="checkMethod">检测方法</label>
+								</div>
+							</fieldset>
+							<button class="btn" type="botton" ms-click="submit2('case3', $index)">随访提交</button>
+						</div>
 						<fieldset>
 							<button class="btn" type="botton" ms-click="submit('case3')">提交</button>
+
 						</fieldset>
 					</form>
 				</div>
@@ -2020,5 +2090,8 @@
 		</div>
 	</div>
 
+	<script type="text/javascript" src="../script/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../script/avalon.min.js"></script>
+	<script type="text/javascript" src="../script/query.js"></script>
 </body>
 </html>

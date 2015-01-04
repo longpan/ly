@@ -840,7 +840,7 @@
       </if>
       <if test="parameters.id != null and parameters.id != '' ">AND case2.id = #{parameters.id}
       </if>
-      <if test="parameters.caseNumber != null and parameters.caseNumber != '' ">AND case2. = #{parameters.caseNumber}
+      <if test="parameters.caseNumber != null and parameters.caseNumber != '' ">AND case2.case_number = #{parameters.caseNumber}
       </if>
     </trim>
   </sql>

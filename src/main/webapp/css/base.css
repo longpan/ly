@@ -314,6 +314,10 @@ thead {
 	background-color: #408080;
 }
 
+th{
+	color: #fff;
+}
+
 td {
 	text-align: center;
 }
@@ -326,4 +330,8 @@ td {
 #case2 form,
 #case3 form {
 	margin-top: 40px;
+}
+
+button {
+	border: 0;
 }

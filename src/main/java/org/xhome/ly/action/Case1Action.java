@@ -149,6 +149,23 @@ public class Case1Action {
         case1Service.queryAdmin(queryBase);
         return new Response(Status.SUCCESS, queryBase.getResults());
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/api/admin/cases", method = RequestMethod.GET)
+    public Object getCaseByCaseNumber(HttpServletRequest request, @RequestParam(value = "caseNumber", required = false)String caseNumber) {
+        QueryBase queryBase = new QueryBase();
+        Object object;
+        int status;
+        queryBase.addParameter("caseNumber", caseNumber);
+
+        status = case1Service.getCasesByCaseNumber(queryBase);
+        if (status == Status.SUCCESS) {
+
+            return new Response(status,queryBase.getResults());
+        }
+        return new Response(status);
+    }
+
     ////@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value = "/api/case1/counts", method = RequestMethod.GET)
@@ -159,6 +176,8 @@ public class Case1Action {
         case1Service.countCasels(queryBase);
         return new Response(Status.SUCCESS, queryBase.getTotalRow());
     }
+
+
 
     @ResponseBody
     @RequestMapping(value = "/api/cases/counts", method = RequestMethod.GET)
