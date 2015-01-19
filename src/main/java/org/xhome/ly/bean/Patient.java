@@ -3,6 +3,7 @@ package org.xhome.ly.bean;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Patient {
     private Integer id;
@@ -32,6 +33,10 @@ public class Patient {
     private String sex;
 
     private String birthdayStr;
+
+
+
+    private List<MedicalHistory> medicalHistories;
 
 
     public Integer getId() {
@@ -146,6 +151,14 @@ public class Patient {
     }
     public void setBirthdayStr(String birthdayStr) {
         this.birthdayStr = birthdayStr;
+    }
+
+    public List<MedicalHistory> getMedicalHistories() {
+        return medicalHistories;
+    }
+
+    public void setMedicalHistories(List<MedicalHistory> medicalHistories) {
+        this.medicalHistories = medicalHistories;
     }
 
 }

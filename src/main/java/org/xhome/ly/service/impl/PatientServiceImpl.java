@@ -4,11 +4,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xhome.ly.bean.MedicalHistory;
 import org.xhome.ly.bean.Patient;
 import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Status;
+import org.xhome.ly.mapper.MedicalHistoryMapper;
 import org.xhome.ly.mapper.PatientMapper;
+import org.xhome.ly.service.MedicalHistoryService;
 import org.xhome.ly.service.PatientService;
+
+import java.util.List;
 
 /**
  * Created by fenjuly
@@ -22,6 +27,12 @@ public class PatientServiceImpl implements PatientService {
 
     @Autowired
     private PatientMapper patientMapper;
+
+    @Autowired
+    private MedicalHistoryService medicalHistoryService;
+
+    @Autowired
+    private MedicalHistoryMapper medicalHistoryMapper;
 
     /**
      *
@@ -82,10 +93,18 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient get(int id) {
         Patient patient = patientMapper.selectByPrimaryKey(id);
+        QueryBase queryBase = new QueryBase();
+        List<MedicalHistory> medicalHistories;
         if (patient == null) {
             logger.warn("病人 ID: " + id + " 不存在");
         } else {
             logger.debug("病人 ID: " + id + " 成功");
+
+            queryBase.addParameter("patientId",id);
+            medicalHistories = medicalHistoryMapper.queryMedicalHistorys(queryBase);
+            if(medicalHistories!=null){
+                patient.setMedicalHistories(medicalHistories);
+            }
         }
         return patient;
     }

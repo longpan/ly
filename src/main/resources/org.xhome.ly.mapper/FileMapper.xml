@@ -127,11 +127,29 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+
+
+  <sql id="joinTable">
+    INNER JOIN interrogation_record ON interrogation_record.id=file.interrogation_record_id
+  </sql>
+
+
   <select id="queryFiles" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
+    SELECT * FROM file
+    <include refid= "joinTable"/>
+    <if test="parameters.interrogationRecordId != null and parameters.interrogationRecordId !=''">
+      AND interrogation_record.id=#{parameters.interrogationRecordId}
+    </if>
+    <include refid="where_with_condition" />
+
+
+  </select>
+
+ <!-- <select id="queryFiles" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT * FROM file
     <include refid="where_with_condition" />
     LIMIT #{firstRow}, #{maxRow}
-  </select>
+  </select>-->
 
   <select id="countFiles" parameterType="org.xhome.ly.common.QueryBase" resultType="long">
     SELECT COUNT(id) FROM file

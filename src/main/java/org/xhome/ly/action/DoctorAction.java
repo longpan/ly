@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.annotation.AdminLoginAuthorized;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
 import org.xhome.ly.bean.Doctor;
+import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.service.DoctorService;
@@ -58,8 +59,24 @@ public class DoctorAction {
             return new Response(status,doctor);
         }
 
+
+
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/api/doctors", method = RequestMethod.GET)
+    public Object queryDoctor(HttpServletRequest request, @RequestParam(value = "doctorId", required = false)String doctorId,
+                              @RequestParam(value = "doctorPhoneNumber", required = false)String doctorPhoneNumber){
+
+        QueryBase queryBase = new QueryBase();
+        queryBase.addParameter("doctorId", doctorId);
+        queryBase.addParameter("phoneNumber", doctorPhoneNumber);
+
+        doctorService.query(queryBase);
+
+        return new Response(Status.SUCCESS, queryBase.getResults());
+
+    }
     @ResponseBody
     @RequestMapping(value = "/api/doctor/{id}", method = RequestMethod.DELETE)
     public Object delete(HttpServletRequest request, @PathVariable int id){

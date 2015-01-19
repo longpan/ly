@@ -219,14 +219,14 @@ public class FollowUp {
     }
 
 
-//    public void setFollowUpTimeStr(String followUpTimeStr) {
-//        this.followUpTimeStr = followUpTimeStr;
-//    }
-//
-//    public String getFollowUpTimeStr() {
-//        if (followUpTime == null)
-//            return "";
-//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
-//        return format.format(followUpTime);
-//    }
+    public void setFollowUpTimeStr(String followUpTimeStr) {
+        this.followUpTimeStr = followUpTimeStr;
+    }
+
+    public String getFollowUpTimeStr() {
+        if (followUpTime == null)
+            return "";
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
+        return format.format(followUpTime);
+    }
 }

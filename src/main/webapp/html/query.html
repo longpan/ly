@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>query</title>
 	<link rel="stylesheet" type="text/css" href="../css/base.css">
-
 </head>
 <body>
 	<div id="wrapper" ms-controller="navigation" class="ms-controller">
@@ -16,11 +15,12 @@
 					</li>
 				</ul>
 				<div id="search"> 
-					<form>
+					<form id="query">
+						<input type="text" class="hidden">
 						<input type="text" name="search" ms-duplex="searchContent" placeholder="请输入搜索内容">
 						<div class="dropdown">
-							<p class="toggle" ms-click="toggle()" id="choice">{{theChoice}}</p>
-							<ul class="dropdownContent" ms-visible="search">
+							<p class="toggle" id="choice">{{theChoice}}</p>
+							<ul class="dropdownContent">
 								<li ms-repeat-el="choiceOption" ms-click="choice()">{{el}}</li>
 							</ul>
 						</div>
@@ -39,31 +39,31 @@
 					<fieldset>
 						<legend>医生基本信息</legend>
 						<div class="form-group">
-							<input type="text" name="id"  ms-duplex="info[0].doctor.id">
+							<input type="text" name="id"  ms-duplex="info[0].id">
 							<label for="id">医生ID：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="certificationNumber"  ms-duplex="info[0].doctor.certificationNumber">
+							<input type="text" name="certificationNumber"  ms-duplex="info[0].certificationNumber">
 							<label for="certificationNumber">行医资格证书：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="name" ms-duplex="info[0].doctor.name">
+							<input type="text" name="name" ms-duplex="info[0].name">
 							<label for="name">医生姓名：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="major" ms-duplex="info[0].doctor.major">
+							<input type="text" name="major" ms-duplex="info[0].major">
 							<label for="major">主治：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="jobTitle" ms-duplex="info[0].doctor.jobTitle">
+							<input type="text" name="jobTitle" ms-duplex="info[0].jobTitle">
 							<label for="jobTitle">职称：</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="belongHospital" ms-duplex="info[0].doctor.belongHospital">
+							<input type="text" name="belongHospital" ms-duplex="info[0].belongHospital">
 							<label for="belongHospital">所属医院</label>
 						</div>
 						<div class="form-group">
-							<input type="text" name="contactNumber" ms-duplex="info[0].doctor.contactNumber">
+							<input type="text" name="contactNumber" ms-duplex="info[0].contactNumber">
 							<label for="contactNumber">联系方式</label>
 						</div>
 					</fieldset>
@@ -78,7 +78,7 @@
 									<th>手术日期</th>
 								</thead>
 								<tbody>
-									<tr ms-repeat-item="info" ms-class="color: $index%2!=0">
+									<tr ms-repeat-item="caseInfo" ms-class="color: $index%2!=0">
 										<td>{{item.id}}</td>
 										<td>{{item.patient.id}}</td>
 										<td>{{item.patient.name}}</td>
@@ -142,11 +142,30 @@
 								</thead>
 								<tbody>
 									<tr ms-repeat-item="info" ms-class="color: $index%2!=0">
-										<td>{{item.id}}</td>
+										<td>{{item.id}}</td>d
 										<td>{{item.name}}</td>
 										<td>{{item.operatorName}}</td>
 										<td>{{item.operationDataStr}}</td>
 									</tr>
+								</tbody>
+							</table>
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend>病人病史</legend>
+						<div>
+							<table>
+								<thead>
+								<th>类型</th>
+								<th>手术详情</th>
+								<th>手术日期</td>
+								</thead>
+								<tbody>
+								<tr ms-repeat-item="medicalHistories" ms-class="color: $index%2!=0">
+									<td>{{item.typeName}}</td>
+									<td>{{item.detail}}</td>
+									<td>{{item.oprateTimeStr}}</td>
+								</tr>
 								</tbody>
 							</table>
 						</div>
@@ -196,8 +215,8 @@
 									<label for="cardioversionMethod">曾用转复方法</label>
 								</div>
 								<div class="form-group">
-									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
-									<label for="cardioversionMethod">转律用药</label>
+									<textarea name="cardioversionMedication" ms-duplex="info[0].cardioversionMedication"></textarea>
+									<label for="cardioversionMedication">转律用药</label>
 								</div>
 							</div>
 							<div class="form-group">
@@ -275,8 +294,8 @@
 								<label for="invaliDantiArrhythmiaDrugs">无效的抗心律失常药物</label>
 							</div>
 							<div class="form-group">
-								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
-								<label for="invaliDantiArrhythmiaDrugs">术前合并心率失常</label>
+								<input name="mergerArrhythmia" ms-duplex="info[0].mergerArrhythmia">
+								<label for="mergerArrhythmia">术前合并心率失常</label>
 							</div>
 						</fieldset>
 						<fieldset>
@@ -653,7 +672,7 @@
 									<tbody>
 									<tr ms-repeat-item="followUps" ms-click="numshow('case3', $index)" ms-class="color: $index%2!=0">
 										<td>{{item.id}}</td>
-										<td>{{item.followUpTime}}</td>
+										<td>{{item.followUpTimeStr}}</td>
 										<td>{{item.followUpMethod}}</td>
 									</tr>
 									</tbody>
@@ -663,8 +682,8 @@
 						<div ms-repeat-item="followUps" ms-visible="num == $index">
 							<fieldset>
 								<div class="form-group">
-									<input name="followUpTime" ms-duplex="item.followUpTime">
-									<label for="followUpTime">随访时间</label>
+									<input name="followUpTimeStr" ms-duplex="item.followUpTimeStr">
+									<label for="followUpTimeStr">随访时间</label>
 								</div>
 								<div class="form-group">
 									<select ms-duplex="item.followUpMethod">
@@ -791,8 +810,8 @@
 									<label for="cardioversionMethod">曾用转复方法</label>
 								</div>
 								<div class="form-group">
-									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
-									<label for="cardioversionMethod">转律用药</label>
+									<textarea name="cardioversionMedication" ms-duplex="info[0].cardioversionMedication"></textarea>
+									<label for="cardioversionMedication">转律用药</label>
 								</div>
 								<div class="form-group">
 									<textarea name="rrDuration" ms-duplex="info[0].rrDuration"></textarea>
@@ -889,8 +908,8 @@
 								<label for="beforeAnticoagulant">术前抗凝药物</label>
 							</div>
 							<div class="form-group">
-								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
-								<label for="invaliDantiArrhythmiaDrugs">术前合并心率失常</label>
+								<input name="mergerArrhythmia" ms-duplex="info[0].mergerArrhythmia">
+								<label for="mergerArrhythmia">术前合并心率失常</label>
 							</div>
 							<div class="form-group">
 								<select ms-duplex="info[0].laThrombusDetection">
@@ -1295,7 +1314,7 @@
 									<tbody>
 									<tr ms-repeat-item="followUps" ms-click="numshow('case3', $index)" ms-class="color: $index%2!=0">
 										<td>{{item.id}}</td>
-										<td>{{item.followUpTime}}</td>
+										<td>{{item.followUpTimeStr}}</td>
 										<td>{{item.followUpMethod}}</td>
 									</tr>
 									</tbody>
@@ -1305,8 +1324,8 @@
 						<div ms-repeat-item="followUps" ms-visible="num == $index" style="padding-bottom: 20px;">
 							<fieldset>
 								<div class="form-group">
-									<input name="followUpTime" ms-duplex="item.followUpTime">
-									<label for="followUpTime">随访时间</label>
+									<input name="followUpTimeStr" ms-duplex="item.followUpTimeStr">
+									<label for="followUpTimeStr">随访时间</label>
 								</div>
 								<div class="form-group">
 									<select ms-duplex="item.followUpMethod">
@@ -1433,8 +1452,8 @@
 									<label for="cardioversionMethod">曾用转复方法</label>
 								</div>
 								<div class="form-group">
-									<textarea name="cardioversionMethod" ms-duplex="info[0].cardioversionMethod"></textarea>
-									<label for="cardioversionMethod">转律用药</label>
+									<textarea name="cardioversionMedication" ms-duplex="info[0].cardioversionMedication"></textarea>
+									<label for="cardioversionMedication">转律用药</label>
 								</div>
 							</div>
 							<div class="form-group">
@@ -1524,8 +1543,8 @@
 								<label for="invaliDantiArrhythmiaDrugs">无效的抗心律失常药物</label>
 							</div>
 							<div class="form-group">
-								<input name="invaliDantiArrhythmiaDrugs" ms-duplex="info[0].invaliDantiArrhythmiaDrugs">
-								<label for="invaliDantiArrhythmiaDrugs">术前合并心率失常</label>
+								<input name="mergerArrhythmia" ms-duplex="info[0].mergerArrhythmia">
+								<label for="mergerArrhythmia">术前合并心率失常</label>
 							</div>
 							<div class="form-group">
 								<input name="testMethod" ms-duplex="info[0].testMethod">
@@ -1987,7 +2006,7 @@
 									<tbody>
 									<tr ms-repeat-item="followUps" ms-click="numshow('case3', $index)" ms-class="color: $index%2!=0">
 										<td>{{item.id}}</td>
-										<td>{{item.followUpTime}}</td>
+										<td>{{item.followUpTimeStr}}</td>
 										<td>{{item.followUpMethod}}</td>
 									</tr>
 									</tbody>
@@ -1997,8 +2016,8 @@
 						<div ms-repeat-item="followUps" ms-visible="num == $index">
 							<fieldset>
 								<div class="form-group">
-									<input name="followUpTime" ms-duplex="item.followUpTime">
-									<label for="followUpTime">随访时间</label>
+									<input name="followUpTimeStr" ms-duplex="item.followUpTimeStr">
+									<label for="followUpTimeStr">随访时间</label>
 								</div>
 								<div class="form-group">
 									<select ms-duplex="item.followUpMethod">

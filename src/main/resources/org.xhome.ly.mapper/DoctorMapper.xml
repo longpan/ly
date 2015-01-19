@@ -209,6 +209,10 @@
 
   <sql id="where_with_condition">
     <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="parameters.doctorId != null and parameters.doctorId != '' ">AND doctor.id = #{parameters.doctorId}
+      </if>
+      <if test="parameters.phoneNumber != null and parameters.phoneNumber != '' ">AND doctor.contact_number = #{parameters.phoneNumber}
+      </if>
     </trim>
   </sql>
 </mapper>

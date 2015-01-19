@@ -82,12 +82,14 @@ global.navigation = avalon.define({
 avalon.ready(function(){
 	global.doctor = avalon.define({
 		$id: "doctor",
-		info: {}
+		info: {},
+		caseInfo: {}
 	});
 
 	global.patient = avalon.define({
 		$id: "patient",
-		info: {}
+		info: {},
+		medicalHistories: {}
 	});
 
 	global.case1 = avalon.define({
@@ -237,6 +239,17 @@ function query(choice, val){
 	nav[index].self = true;
 	nav[index].check = true;
 
+	if(which == "doctor"){
+		$.ajax({
+			url: "/yl/api/doctors?" + urlVal + "=" + val,
+			type: "GET",
+			success: function(data){
+				global.doctor.info = data.body;
+				avalon.scan();
+			}
+		});
+	}
+
 	$.ajax({
 		url: "/yl/api/admin/" + query + "?" + urlVal + "=" + val,
 		type: "GET",
@@ -272,11 +285,19 @@ function query(choice, val){
 				nav[0].case1 = true;
 				nav[0].case2 = nav[0].case3 = false;
 			}
-			global[which].info = data.body;
-			global[which].followUps = data.body[0].followUps;
+
+			if(which == "doctor") {
+				global[which].caseInfo = data.body;
+			}else{
+				global[which].info = data.body;
+			}
 			if(which != "doctor" && which != "patient"){
+				global[which].followUps = data.body[0].followUps;
 				select(which, 'ablationProcedure');
 				select(which, 'ablationEnergy');
+			}
+			if(which == "patient"){
+				global[which].medicalHistories = data.body[0].patient.medicalHistories;
 			}
 			avalon.scan();
 		}
@@ -393,4 +414,13 @@ function numshow(which, index){
 }
 
 
-
+$(function(){	
+	$("#choice").click(function(){
+		$(".dropdownContent").toggle();
+	});
+	$("body").click(function(e){
+		if(e.target.id.indexOf("choice") == -1){
+			$(".dropdownContent").hide();
+		}
+	});
+});

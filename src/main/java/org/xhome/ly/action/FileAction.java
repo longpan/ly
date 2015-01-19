@@ -2,12 +2,10 @@ package org.xhome.ly.action;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
+import org.xhome.ly.common.QueryBase;
 import org.xhome.ly.common.Response;
 import org.xhome.ly.common.Status;
 import org.xhome.ly.service.FileService;
@@ -42,8 +40,9 @@ public class FileAction {
                 status = fileService.add(file);
                 String rename =  interrogationRecordId + "_" + file.getId() + "_" + "attachment" ;
                 // 文件保存路径
-                String filePath = request.getSession().getServletContext().getRealPath("/") + "/upload/"
+                String filePath = request.getSession().getServletContext().getRealPath("/") + "upload/"
                         + rename;
+                String savePath = "upload/" + rename ;
 
                 // 转存文件
                 File file_temp = new File(filePath);
@@ -52,7 +51,7 @@ public class FileAction {
                 }
                 multipartFile.transferTo(file_temp);
 
-                file.setUrl(filePath);
+                file.setUrl(savePath);
                 file.setName(rename);
                 fileService.update(file);
 //                System.out.println("FileName:==" + multipartFile.getOriginalFilename());
@@ -66,4 +65,13 @@ public class FileAction {
         return new Response(status);
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/api/interrogationrecord/{id}/file", method = RequestMethod.GET)
+    public Object getByInterrogationRecord(HttpServletRequest request, @PathVariable int id){
+        QueryBase queryBase = new QueryBase();
+        queryBase.addParameter("interrogationRecordId",id);
+        fileService.query(queryBase);
+        return new Response(Status.SUCCESS, queryBase.getResults());
+    }
 }
