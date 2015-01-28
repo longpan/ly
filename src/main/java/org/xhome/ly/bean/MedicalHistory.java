@@ -23,6 +23,8 @@ public class MedicalHistory {
 
     private String oprateTimeStr;
 
+    private String diseaseName;
+
     public Integer getId() {
         return id;
     }
@@ -98,5 +100,13 @@ public class MedicalHistory {
             return "";
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd ");
         return format.format(oprateTime);
+    }
+
+    public String getDiseaseName() {
+        return diseaseName;
+    }
+
+    public void setDiseaseName(String diseaseName) {
+        this.diseaseName = diseaseName == null ? null : diseaseName.trim();
     }
 }

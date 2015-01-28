@@ -11,6 +11,9 @@ import org.xhome.ly.common.Status;
 import org.xhome.ly.service.PatientService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by fenjuly
@@ -32,8 +35,24 @@ public class PatientAction {
     ////@DoctorLoginAuthorized
     @ResponseBody
     @RequestMapping(value="/api/patient",method= RequestMethod.POST)
-    public Object add(HttpServletRequest request, @RequestBody Patient patient) {
+    public Object add(HttpServletRequest request, @RequestBody Patient patient ,@RequestParam(value = "birthday", required = false)String birthday) {
         int status;
+        if(birthday != null){
+
+            //System.out.println("TEST:::==="+birthday);
+            Date date2 = new Date(Long.parseLong(birthday));
+            patient.setBirthday(date2);
+
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            try {
+//
+//                //Date date = sdf.parse(birthday);
+//                patient.setBirthday(date2);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+
+        }
         status = patientService.add(patient);
         if (status == Status.SUCCESS) {
             return new Response(status, patient.getId());

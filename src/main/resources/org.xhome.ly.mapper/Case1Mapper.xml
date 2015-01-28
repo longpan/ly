@@ -67,6 +67,10 @@
     <result column="cardioversion_medication" property="cardioversionMedication" jdbcType="VARCHAR" />
     <result column="complication" property="complication" jdbcType="VARCHAR" />
     <result column="vt_duration" property="vtDuration" jdbcType="VARCHAR" />
+
+    <result column="lvs_bore" property="lvsBore" jdbcType="VARCHAR" />
+    <result column="lvpw_bore" property="lvpwBore" jdbcType="VARCHAR" />
+    <result column="premature_beat_load" property="prematureBeatLoad" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, interrogation_record_id, operation_data, operator_name, operator_detail, 
@@ -80,7 +84,7 @@
     before_heart_rate, before_vt, before_ront, before_remarks, in_heart_rate, in_vt, 
     in_ront, in_remarks, global_remarks, keyword1, keyword2, keyword3, operation_number, 
     case_number, vt_frequency, vt_every_attack_time, vt_last_attack_time, cardioversion_method, 
-    cardioversion_medication, complication, vt_duration
+    cardioversion_medication, complication, vt_duration ,lvs_bore, lvpw_bore, premature_beat_load
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -118,7 +122,7 @@
       case_number, vt_frequency, vt_every_attack_time, 
       vt_last_attack_time, cardioversion_method, 
       cardioversion_medication, complication, 
-      vt_duration)
+      vt_duration, lvs_bore, lvpw_bore, premature_beat_load)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{interrogationRecordId,jdbcType=INTEGER}, 
       #{operationData,jdbcType=TIMESTAMP}, #{operatorName,jdbcType=VARCHAR}, #{operatorDetail,jdbcType=VARCHAR}, 
       #{vtType,jdbcType=VARCHAR}, #{vtCourseDisease,jdbcType=VARCHAR}, #{arrhythmiaDiagnose,jdbcType=VARCHAR}, 
@@ -143,7 +147,7 @@
       #{caseNumber,jdbcType=VARCHAR}, #{vtFrequency,jdbcType=VARCHAR}, #{vtEveryAttackTime,jdbcType=VARCHAR}, 
       #{vtLastAttackTime,jdbcType=VARCHAR}, #{cardioversionMethod,jdbcType=VARCHAR}, 
       #{cardioversionMedication,jdbcType=VARCHAR}, #{complication,jdbcType=VARCHAR}, 
-      #{vtDuration,jdbcType=VARCHAR})
+      #{vtDuration,jdbcType=VARCHAR}, #{lvsBore,jdbcType=VARCHAR}, #{lvpwBore,jdbcType=VARCHAR} ,#{prematureBeatLoad,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.xhome.ly.bean.Case1" >
     insert into case1
@@ -343,6 +347,15 @@
       <if test="vtDuration != null" >
         vt_duration,
       </if>
+      <if test="lvsBore != null" >
+        lvs_bore,
+      </if>
+      <if test="lvpwBore != null" >
+        lvpw_bore,
+      </if>
+      <if test="prematureBeatLoad != null" >
+        premature_beat_load,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -540,6 +553,17 @@
       <if test="vtDuration != null" >
         #{vtDuration,jdbcType=VARCHAR},
       </if>
+
+      <if test="lvsBore != null" >
+        #{lvsBore,jdbcType=VARCHAR},
+      </if>
+      <if test="lvpwBore != null" >
+        #{lvpwBore,jdbcType=VARCHAR},
+      </if>
+      <if test="prematureBeatLoad != null" >
+        #{prematureBeatLoad,jdbcType=VARCHAR},
+      </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="org.xhome.ly.bean.Case1" >
@@ -737,6 +761,16 @@
       <if test="vtDuration != null" >
         vt_duration = #{vtDuration,jdbcType=VARCHAR},
       </if>
+
+      <if test="lvsBore != null" >
+        lvs_bore = #{lvsBore,jdbcType=VARCHAR},
+      </if>
+      <if test="lvpwBore != null" >
+        lvpw_bore = #{lvpwBore,jdbcType=VARCHAR},
+      </if>
+      <if test="prematureBeatLoad != null" >
+        premature_beat_load = #{prematureBeatLoad,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -806,6 +840,9 @@
       cardioversion_medication = #{cardioversionMedication,jdbcType=VARCHAR},
       complication = #{complication,jdbcType=VARCHAR},
       vt_duration = #{vtDuration,jdbcType=VARCHAR}
+      lvs_bore = #{lvsBore,jdbcType=VARCHAR},
+      lvpw_bore = #{lvpwBore,jdbcType=VARCHAR},
+      premature_beat_load = #{prematureBeatLoad,jdbcType=VARCHAR},
     where id = #{id,jdbcType=INTEGER}
   </update>
   <sql id="Column_List" >
@@ -820,7 +857,7 @@
     case1.before_heart_rate, case1.before_vt, case1.before_ront, case1.before_remarks, case1.in_heart_rate, case1.in_vt,
     case1.in_ront, case1.in_remarks,case1.global_remarks, case1.keyword1, case1.keyword2, case1.keyword3,case1.operation_number, case1.case_number,
     case1.vt_frequency,case1.vt_every_attack_time, case1.vt_last_attack_time, case1.cardioversion_method,
-    case1.cardioversion_medication, case1.complication
+    case1.cardioversion_medication, case1.complication ,lvs_bore, lvpw_bore, premature_beat_load
   </sql>
 
   <sql id="Join_InterrogationRecord">

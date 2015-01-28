@@ -136,6 +136,14 @@ public class Case1 {
 
     private String vtDuration;
 
+    private String lvsBore;
+
+    private String lvpwBore;
+
+    private String prematureBeatLoad;
+
+
+
     private Patient patient;
 
     private String operationDataStr;
@@ -699,5 +707,29 @@ public class Case1 {
 
     public void setOperationDataStr(String operationDataStr) {
         this.operationDataStr = operationDataStr;
+    }
+
+    public String getLvsBore() {
+        return lvsBore;
+    }
+
+    public void setLvsBore(String lvsBore) {
+        this.lvsBore = lvsBore == null ? null : lvsBore.trim();
+    }
+
+    public String getLvpwBore() {
+        return lvpwBore;
+    }
+
+    public void setLvpwBore(String lvpwBore) {
+        this.lvpwBore = lvpwBore == null ? null : lvpwBore.trim();
+    }
+
+    public String getPrematureBeatLoad() {
+        return prematureBeatLoad;
+    }
+
+    public void setPrematureBeatLoad(String prematureBeatLoad) {
+        this.prematureBeatLoad = prematureBeatLoad == null ? null : prematureBeatLoad.trim();
     }
 }

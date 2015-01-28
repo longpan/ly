@@ -10,18 +10,13 @@
     <result column="keyword1" property="keyword1" jdbcType="VARCHAR" />
     <result column="keyword2" property="keyword2" jdbcType="VARCHAR" />
     <result column="keyword3" property="keyword3" jdbcType="VARCHAR" />
+    <result column="disease_name" property="diseaseName" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Column_List" >
-    medical_history.id, medical_history.patient_id, medical_history.type_name, medical_history.oprate_time, medical_history.detail,
-     medical_history.keyword1, medical_history.keyword2, medical_history.keyword3
-  </sql>
-
   <sql id="Base_Column_List" >
-    id, patient_id, type_name, oprate_time, detail, keyword1, keyword2, keyword3
+    id, patient_id, type_name, oprate_time, detail, keyword1, keyword2, keyword3, disease_name
   </sql>
-
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from medical_history
     where id = #{id,jdbcType=INTEGER}
@@ -30,14 +25,15 @@
     delete from medical_history
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.xhome.ly.bean.MedicalHistory"
-          useGeneratedKeys="true" keyProperty="id">
-    insert into medical_history (id, patient_id, type_name, 
-      oprate_time, detail, keyword1, 
-      keyword2, keyword3)
-    values (#{id,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, 
-      #{oprateTime,jdbcType=TIMESTAMP}, #{detail,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR}, 
-      #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="org.xhome.ly.bean.MedicalHistory" >
+    insert into medical_history (id, patient_id, type_name,
+    oprate_time, detail, keyword1,
+    keyword2, keyword3, disease_name
+    )
+    values (#{id,jdbcType=INTEGER}, #{patientId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR},
+    #{oprateTime,jdbcType=TIMESTAMP}, #{detail,jdbcType=VARCHAR}, #{keyword1,jdbcType=VARCHAR},
+    #{keyword2,jdbcType=VARCHAR}, #{keyword3,jdbcType=VARCHAR}, #{diseaseName,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="org.xhome.ly.bean.MedicalHistory" >
     insert into medical_history
@@ -66,6 +62,9 @@
       <if test="keyword3 != null" >
         keyword3,
       </if>
+      <if test="diseaseName != null" >
+        disease_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -91,6 +90,9 @@
       </if>
       <if test="keyword3 != null" >
         #{keyword3,jdbcType=VARCHAR},
+      </if>
+      <if test="diseaseName != null" >
+        #{diseaseName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -118,6 +120,9 @@
       <if test="keyword3 != null" >
         keyword3 = #{keyword3,jdbcType=VARCHAR},
       </if>
+      <if test="diseaseName != null" >
+        disease_name = #{diseaseName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -129,10 +134,15 @@
       detail = #{detail,jdbcType=VARCHAR},
       keyword1 = #{keyword1,jdbcType=VARCHAR},
       keyword2 = #{keyword2,jdbcType=VARCHAR},
-      keyword3 = #{keyword3,jdbcType=VARCHAR}
+      keyword3 = #{keyword3,jdbcType=VARCHAR},
+      disease_name = #{diseaseName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+  <sql id="Column_List" >
+    medical_history.id, medical_history.patient_id, medical_history.type_name, medical_history.oprate_time, medical_history.detail,
+    medical_history.keyword1, medical_history.keyword2, medical_history.keyword3 ,medical_history.disease_name
+  </sql>
 
   <select id="queryMedicalHistorys" parameterType="org.xhome.ly.common.QueryBase" resultMap="BaseResultMap">
     SELECT

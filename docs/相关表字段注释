@@ -68,6 +68,10 @@ Integer id;	   		'id'  主键
  String complication;		 '并发症'
 + String vtDuration		 '持续时间'
 
++String PrematureBeatLoad	'早搏负荷'
++String lvsBore;	        'LVS内径'
++String lvpwBore;       	'LVPW内径'
+
 -------------------------------------------------- 删除以下字段
 String complicationHeartRate;	 '并发症窦性心率'
  String complicationVt;		 '并发症室速'
@@ -284,6 +288,8 @@ MedicalHistory(病史)
  String keyword1;		'保留关键字'
  String keyword2;		'保留关键字'
  String keyword3;		'保留关键字'
+
++String DiseaseName		'疾病名称'
 
 
 FollowUp(随访)
