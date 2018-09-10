@@ -1,6 +1,9 @@
 package org.xhome.ly.action;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.xhome.ly.annotation.DoctorLoginAuthorized;
@@ -21,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
  * Time: 上午9:48
  */
 @Controller
+//@Api(tags="账户信息控制类")
+@Api(value = "用户信息", description = "用户信息")
 public class Case1Action {
+
 
     @Autowired
     private Case1Service case1Service;
@@ -38,9 +44,10 @@ public class Case1Action {
      * @return
      */
    // ////@DoctorLoginAuthorized
+    @ApiOperation(value = "获取盈豆数量", notes = "获取盈豆数量", httpMethod = "POST")
     @ResponseBody
     @RequestMapping(value="/api/case1",method= RequestMethod.POST)
-    public Object add(HttpServletRequest request, @RequestBody Case1 case1, @RequestParam("doctorId")int doctorId
+    public Object add(HttpServletRequest request,  Case1 case1, @RequestParam("doctorId")int doctorId
             , @RequestParam("patientId")int patientId) {
         int status;
         InterrogationRecord interrogationRecord = new InterrogationRecord();

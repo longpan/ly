@@ -26,8 +26,20 @@ http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 <!-- 	rick begin -->
 <!-- 启动对@AspectJ注解的支持 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-    
-    <bean class="org.xhome.ly.aspect.ActionIntercepters" name="actionIntercepters">
+
+	<!-- swagger -->
+	<bean class="org.xhome.ly.utils.SwaggerConfig"></bean>
+	<!-- don't handle the static resource -->
+
+
+	<!-- if you use annotation you must configure following setting -->
+	<mvc:annotation-driven />
+	<mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
+	<mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
+
+
+
+	<bean class="org.xhome.ly.aspect.ActionIntercepters" name="actionIntercepters">
 	</bean>
 	<bean class="org.xhome.ly.common.Response" name="invalidOperationResponse" scope="singleton">
 		<property name="status">

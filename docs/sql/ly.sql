@@ -12,6 +12,9 @@ File Encoding         : 65001
 
 Date: 2015-01-28 18:50:15
 */
+DROP DATABASE IF EXISTS `ly`;
+create DATABASE ly;
+USE ly;
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -23,7 +26,7 @@ CREATE TABLE `case1` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '????',
   `name` varchar(100) DEFAULT NULL COMMENT '????????',
   `interrogation_record_id` int(11) NOT NULL COMMENT '???????id',
-  `operation_data` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `operation_data` timestamp DEFAULT NULL,
   `operator_name` varchar(100) DEFAULT NULL COMMENT '??????????',
   `operator_detail` text COMMENT '????????',
   `vt_type` varchar(100) DEFAULT NULL COMMENT '????????',
@@ -109,7 +112,7 @@ CREATE TABLE `case2` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '????',
   `name` varchar(100) DEFAULT NULL COMMENT '????????',
   `interrogation_record_id` int(11) NOT NULL COMMENT '???????id',
-  `operation_data` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `operation_data` timestamp DEFAULT NULL,
   `operator_name` varchar(100) DEFAULT NULL COMMENT '??????????',
   `operator_detail` text COMMENT '????????',
   `arrhythmia_diagnose` text COMMENT '??????????????',
@@ -188,7 +191,7 @@ CREATE TABLE `case3` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '????',
   `name` varchar(100) DEFAULT NULL COMMENT '????????',
   `interrogation_record_id` int(11) NOT NULL COMMENT '???????id',
-  `operation_data` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `operation_data` timestamp DEFAULT NULL,
   `operator_name` varchar(100) DEFAULT NULL COMMENT '??????????',
   `operator_detail` varchar(500) DEFAULT NULL COMMENT '????????',
   `af_type` varchar(100) DEFAULT NULL COMMENT '????????',

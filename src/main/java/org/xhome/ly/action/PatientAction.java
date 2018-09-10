@@ -1,5 +1,8 @@
 package org.xhome.ly.action;
 
+import com.dianping.cat.Cat;
+import com.dianping.cat.message.Event;
+import com.dianping.cat.message.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -105,8 +108,17 @@ public class PatientAction {
     @RequestMapping(value = "/api/patient/{id}", method = RequestMethod.GET)
     public Object get(HttpServletRequest request, @PathVariable int id){
         int status;
-        Patient patient ;
-        patient = patientService.get(id);
+        Patient patient = null ;
+
+        Transaction transaction = Cat.newTransaction("URL", "lmjTest");
+        Cat.logEvent("URL.Server", "127.0.0.1", Event.SUCCESS, "ip = 22222");
+        Cat.logMetricForCount("lmjCount");
+        Cat.logMetricForSum("lmjAmount", 10d);
+
+        transaction.setStatus(Transaction.SUCCESS);
+
+
+//        patient = patientService.get(id);
         if(patient == null){
             status = Status.NOT_EXISTS;
             return new Response(status);
