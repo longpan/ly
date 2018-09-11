@@ -15,6 +15,9 @@ import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+//import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
@@ -74,6 +77,20 @@ public class SwaggerConfig {
                 .securityContexts(securityContexts());
     }
 
+    @Bean
+    SecurityConfiguration security() {
+//        return new SecurityConfiguration("clientId", "clientSecret", "realm", "appName", "apiKey11111",)
+        return SecurityConfigurationBuilder.builder()
+                .clientId("test-app-client-id")
+                .clientSecret("test-app-client-secret")
+                .realm("test-app-realm")
+                .appName("test-app")
+                .scopeSeparator(",")
+                .additionalQueryStringParams(null)
+                .useBasicAuthenticationWithAccessCodeGrant(false)
+                .build();
+    }
+
     private ApiKey apiKey() {
         return new ApiKey("abcdef12345", "api_key", "header");
     }
@@ -84,8 +101,8 @@ public class SwaggerConfig {
     }*/
 
     List<SecurityReference> defaultAuth() {
-       /* AuthorizationScope authorizationScope = new AuthorizationScope(
-                "global", "accessEverything");*/
+        AuthorizationScope authorizationScope = new AuthorizationScope(
+                "global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[0];
 //        authorizationScopes[0] = authorizationScope;
         return newArrayList(new SecurityReference("abcdef12345", authorizationScopes));
@@ -98,7 +115,7 @@ public class SwaggerConfig {
     }
 
     private List<? extends SecurityScheme> securitySchemes() {
-        List<ApiKey> authorizationTypes = Arrays.asList(new ApiKey("api_key", "abcdef12345", "header"));
+        List<ApiKey> authorizationTypes = Arrays.asList(new ApiKey("abcdef12345", "api_key", "header"));
         return authorizationTypes;
     }
 
